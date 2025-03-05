@@ -1,0 +1,26 @@
+# Ignore log files
+Logs/
+*.log
+error_log.txt
+
+# Ignore Git LFS-tracked files if you don’t want them in Git
+*.lfs
+
+# Ignore all files larger than 100MB (GitHub’s limit)
+*.[1-9][0-9][0-9]MB
+
+# Ignore temporary or system files
+.DS_Store
+Thumbs.db
+
+# Ignore compiled files (if applicable)
+*.exe
+*.dll
+*.o
+*.pyc
+
+# Ignore all large CSV files
+*.csv
+
+# Ignore all Assignment Guidelines files
+*.docx

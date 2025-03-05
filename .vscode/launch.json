@@ -1,0 +1,53 @@
+{
+    "configurations": [
+        // ! C++20 Debug: Launch DSTR Assignment 
+        {
+            "name": "C++20 Debug: Launch DSTR Assignment",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/Main",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+            ],
+            "preLaunchTask": "C++20 Debug: Build DSTR Assignment Task",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        // ! C++20 Release: Launch DSTR Assignment
+        {
+            "name": "C++20 Release: Launch DSTR Assignment",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/Main",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "C++20 Release: Build DSTR Assignment Task",
+            "miDebuggerPath": "/usr/bin/gdb"
+        }
+    ],
+    "version": "2.0.0"
+}
