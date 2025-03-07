@@ -2,12 +2,12 @@
 
 #include <iostream>
 
-#include "ILinkedListNode.hpp"
+#include "LinkedListNode.hpp"
 
 namespace TCMS
 {
     template <typename T>
-    class ILinkedList {
+    class LinkedList {
     public:
         LinkedList() : m_Head(nullptr) {
 

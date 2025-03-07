@@ -1,12 +1,12 @@
 #pragma once
 
-#include "ILinkedListNode.hpp"
+#include "LinkedListNode.hpp"
 
 // Tennis Championship Management System
 namespace TCMS
 {
     template <typename T>
-    class SinglyLinkedListNode : public ILinkedListNode<T> {
+    class SinglyLinkedListNode : public LinkedListNode<T> {
     public:
         SinglyLinkedListNode(T data, SinglyLinkedListNode<T>* next = nullptr)
             : m_Data(data), m_Next(next) {
@@ -17,7 +17,7 @@ namespace TCMS
             return m_Data;
         }; 
 
-        void setData(T data) const override {
+        void setData(T data) override {
             m_Data = data;
         };
 
@@ -25,8 +25,8 @@ namespace TCMS
             return m_Next;
         };
 
-        void setNext(LinkedListNode<T>* next) const override {
-            m_Next = next;
+        void setNext(LinkedListNode<T>* next) override {
+            m_Next = static_cast<SinglyLinkedListNode<T>*>(next);
         }; 
     private:
         T m_Data;

@@ -4,7 +4,7 @@
 namespace TCMS
 {
     template <typename T>
-    class ILinkedListNode {
+    class LinkedListNode {
     public:
         // Pure virtual functions
         virtual T getData() const = 0; 
