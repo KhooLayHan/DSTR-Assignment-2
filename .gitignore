@@ -24,3 +24,6 @@ Thumbs.db
 
 # Ignore all Assignment Guidelines files
 *.docx
+
+# Ignore assignment 1 inside release folder
+release/
