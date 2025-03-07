@@ -8,10 +8,10 @@
 namespace TCMS
 {
     template <typename T>
-    class DoublyLinkedList : public LinkedList<T> {
+    class DoublyLinkedList : public LinkedList<T, DoublyLinkedList<T>> {
     public:
         void insert(T data) override {
-            LinkedListNode<T>* newNode = new DoublyLinkedListNode<T>(data, m_Head, nullptr);
+            DoublyLinkedListNode<T>* newNode = new DoublyLinkedListNode<T>(data, m_Head, nullptr);
 
             if (m_Head != nullptr) {
                 static_cast<DoublyLinkedListNode<T>*>(m_Head)->setPrevious(newNode);

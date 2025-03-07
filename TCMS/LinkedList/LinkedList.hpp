@@ -16,6 +16,7 @@ namespace TCMS
         virtual ~LinkedList() {
             while (m_Head != nullptr) {
                 LinkedListNode<T>* temp = m_Head;
+                // auto temp = m_Head;
                 m_Head = m_Head->getNext();
 
                 delete temp;

@@ -10,12 +10,12 @@ namespace TCMS
     template <typename T>
     class SinglyCircularLinkedList : public LinkedList<T> {
     public:
-        SinglyCircularLinkedList() : LinkedList<T>(), m_Tail(nullptr) {
+        SinglyCircularLinkedList() : LinkedList<T, SinglyCircularLinkedList<T>>(), m_Tail(nullptr) {
 
         }
 
         void insert(T data) override {
-            LinkedListNode<T>* newNode = new SinglyLinkedListNode<T>(data);
+            SinglyLinkedListNode<T>* newNode = new SinglyLinkedListNode<T>(data);
 
             if (m_Head == nullptr) {
                 m_Head = newNode;
@@ -32,8 +32,9 @@ namespace TCMS
             if (m_Head == nullptr)
                 return;
 
-            LinkedListNode<T>* current = m_Head;
-            LinkedListNode<T>* previous = nullptr;
+            SinglyLinkedListNode<T>* current = m_Head;
+            // SinglyLinkedListNode<T>* current = static_cast<SinglyLinkedListNode<T>*>(m_Head);
+            SinglyLinkedListNode<T>* previous = nullptr;
 
             do {
                 if (current->getData() == data) {
@@ -64,7 +65,8 @@ namespace TCMS
             if (m_Head == nullptr) 
                 return;
 
-            LinkedListNode<T>* current = m_Head;
+            SinglyLinkedListNode<T>* current = m_Head;
+            // SinglyLinkedListNode<T>* current = static_cast<SinglyLinkedListNode<T>*>(m_Head);
 
             do {
                 std::cout << current->getData() << "\n";
@@ -79,6 +81,6 @@ namespace TCMS
             std::cout << "\n";
         };
     private:
-        LinkedListNode<T>* m_Tail;
+        SinglyLinkedListNode<T>* m_Tail;
     };
 } // namespace TCMS

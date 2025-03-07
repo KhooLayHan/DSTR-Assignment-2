@@ -6,7 +6,7 @@
 namespace TCMS
 {
     template <typename T>
-    class SinglyLinkedListNode : public LinkedListNode<T, SinglyLinkedListNode<T>> {
+    class SinglyLinkedListNode : public LinkedListNode<T> {
     public:
         SinglyLinkedListNode(T data, SinglyLinkedListNode<T>* next = nullptr)
             : m_Data(data), m_Next(next) {
@@ -21,15 +21,16 @@ namespace TCMS
             m_Data = data;
         };
 
-        LinkedListNode<T>* getNext() const override {
+        SinglyLinkedListNode<T>* getNext() const override {
             return m_Next;
         };
 
-        void setNext(LinkedListNode<T>* next) override {
-            m_Next = static_cast<SinglyLinkedListNode<T>*>(next);
+        void setNext(SinglyLinkedListNode<T>* next) override {
+            // m_Next = static_cast<SinglyLinkedListNode<T>*>(next);
+            m_Next = next;
         }; 
     private:
         T m_Data;
-        LinkedListNode<T>* m_Next; 
+        SinglyLinkedListNode<T>* m_Next; 
     };
 } // namespace TCMS

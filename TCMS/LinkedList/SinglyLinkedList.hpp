@@ -11,7 +11,7 @@ namespace TCMS
     class SinglyLinkedList : public LinkedList<T> {
     public:
         void insert(T data) override {
-            LinkedListNode<T>* newNode = new SinglyLinkedListNode<T>(data, m_Head);
+            SinglyLinkedListNode<T>* newNode = new SinglyLinkedListNode<T>(data, m_Head);
             m_Head = newNode;
         };
 
@@ -20,7 +20,7 @@ namespace TCMS
                 return;
 
             if (m_Head->getData() == data) {
-                LinkedListNode<T> temp = m_Head;
+                SinglyLinkedListNode<T>* temp = m_Head;
                 m_Head = m_Head->getNext();
 
                 delete temp;
@@ -29,11 +29,11 @@ namespace TCMS
                 return;
             }
 
-            LinkedListNode<T>* current = m_Head;
+            SinglyLinkedListNode<T>* current = m_Head;
 
             while (current->getNext() != nullptr) {
                 if (current->getNext()->getData() == data) {
-                    LinkedListNode<T>* temp = current->getNext();
+                    SinglyLinkedListNode<T>* temp = current->getNext();
                     current->setNext(current->getNext()->getNext());
 
                     delete temp;
@@ -47,7 +47,7 @@ namespace TCMS
         };
         
         void print() const override {
-            LinkedListNode<T>* current = m_Head;
+            SinglyLinkedListNode<T>* current = m_Head;
 
             while (current != nullptr) {
                 std::cout << current->getData() << "\n";
