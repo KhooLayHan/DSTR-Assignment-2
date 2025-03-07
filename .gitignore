@@ -27,3 +27,6 @@ Thumbs.db
 
 # Ignore assignment 1 inside release folder
 release/
+
+# Ignore Main.o file
+Main
