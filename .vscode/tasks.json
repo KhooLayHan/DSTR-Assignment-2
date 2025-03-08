@@ -11,7 +11,13 @@
                 "--std=c++20",
                 "-O0",
                 "-g",
+                // "TCMS/Main.cpp",
                 "./Main.cpp",
+                
+                // "./LinkedLists/SinglyLinkedListNode.cpp",
+                // "./LinkedLists/SinglyLinkedList.cpp",
+                // "./TCMS/DataStructures/${fileBasenameNoExtension}.cpp",
+                // "./TCMS/Models/${fileBasenameNoExtension}.cpp",
 
                 // "./Algorithm.cpp",
                 // "./Benchmark.cpp",

@@ -12,7 +12,7 @@ namespace TCMS
     public:
         using Base = LinkedList<T, SinglyLinkedListNode<T>>;
         using Base::m_Head;
-        using Base::downcast;
+        using Base::downcastFunc;
 
         SinglyCircularLinkedList() : LinkedList<T,SinglyLinkedListNode<T>>(), m_Tail(nullptr) {
 
@@ -23,7 +23,7 @@ namespace TCMS
                 return; 
             }
     
-            SinglyLinkedListNode<T>* current = downcast(m_Head);
+            SinglyLinkedListNode<T>* current = downcastFunc(m_Head);
             SinglyLinkedListNode<T>* temp = nullptr;
     
             // Traverse the circular list and delete nodes
@@ -45,11 +45,11 @@ namespace TCMS
             if (m_Head == nullptr) {
                 m_Head = newNode;
                 m_Tail = newNode;
-                m_Tail->setNext(downcast(m_Head));
+                m_Tail->setNext(downcastFunc(m_Head));
             } else {
                 m_Tail->setNext(newNode);
                 m_Tail = newNode;
-                m_Tail->setNext(downcast(m_Head));
+                m_Tail->setNext(downcastFunc(m_Head));
             }
         };
 
@@ -57,7 +57,7 @@ namespace TCMS
             if (m_Head == nullptr)
                 return;
 
-            SinglyLinkedListNode<T>* current = downcast(m_Head);
+            SinglyLinkedListNode<T>* current = downcastFunc(m_Head);
             // SinglyLinkedListNode<T>* current = static_cast<SinglyLinkedListNode<T>*>(this->m_Head);
             SinglyLinkedListNode<T>* previous = nullptr;
 
@@ -71,7 +71,7 @@ namespace TCMS
                             m_Tail = nullptr;
                         } else {
                             m_Head = m_Head->getNext();
-                            m_Tail->setNext(downcast(m_Head));
+                            m_Tail->setNext(downcastFunc(m_Head));
                         }
                     }
 
@@ -90,7 +90,7 @@ namespace TCMS
             if (m_Head == nullptr) 
                 return;
 
-            SinglyLinkedListNode<T>* current = downcast(m_Head);
+            SinglyLinkedListNode<T>* current = downcastFunc(m_Head);
             // SinglyLinkedListNode<T>* current = static_cast<SinglyLinkedListNode<T>*>(this->m_Head);
 
             do {
@@ -105,6 +105,10 @@ namespace TCMS
 
             std::cout << "\n";
         };
+
+        // LinkedList<T, SinglyCircularLinkedListNode<T>> getHead() const override {
+        //     return m_Head;
+        // }
     private:
         SinglyLinkedListNode<T>* m_Tail;
     };
