@@ -9,18 +9,27 @@ namespace TCMS
     template <typename T, typename DerivedNode>
     class LinkedList {
     public:
-        LinkedList() : m_Head(nullptr) {
+        LinkedList() : m_Head(nullptr), m_Tail(nullptr) {
 
         }
 
         virtual ~LinkedList() = default;
 
-        virtual void insert(T data) = 0;
+        virtual void insertBegin(T data) = 0;
+        virtual void insertEnd(T data) = 0;
+        
         virtual void remove(T data) = 0;
+        virtual void removeBegin() = 0;
+        // virtual void removeEnd() = 0;
+        
         virtual void print() const = 0;
 
         LinkedList<T, DerivedNode> getHead() const {
             return m_Head;
+        };
+
+        LinkedList<T, DerivedNode> getTail() const {
+            return m_Tail;
         };
 
         T getFirst() const {
@@ -31,11 +40,20 @@ namespace TCMS
             return getHead()->getData();
         }
 
+        T getLast() const {
+            if (getTail() == nullptr) {
+                throw std::runtime_error("List is empty");
+            }
+
+            return getTail()->getData();
+        }
+
         bool isEmpty() const {
             return getHead() == nullptr;
         }
     protected:
         LinkedListNode<T, DerivedNode>* m_Head;
+        LinkedListNode<T, DerivedNode>* m_Tail;
 
         // Upcast: Convert DerivedNode* to LinkedListNode<T, DerivedNode>*
         LinkedListNode<T, DerivedNode>* upcastFunc(DerivedNode* node) {
