@@ -12,12 +12,12 @@ namespace TCMS
     public:
         using Base = LinkedList<T, SinglyLinkedListNode<T>>;
         using Base::m_Head;
+        using Base::m_Tail;
         using Base::downcastFunc;
         
         ~SinglyLinkedList() override {
             while (m_Head != nullptr) {
                 SinglyLinkedListNode<T>* temp = downcastFunc(m_Head);
-                // auto temp = m_Head;
                 m_Head = m_Head->getNext();
 
                 delete temp;
@@ -27,99 +27,115 @@ namespace TCMS
             std::cout << "SinglyLinkedList destroyed.\n";
         }
 
-        void insert(T data) override {
+        void insertBegin(T data) override {
             SinglyLinkedListNode<T>* newNode = new SinglyLinkedListNode<T>(data, downcastFunc(m_Head));
             
-            newNode->setNext(m_Head);
+            if (m_Head == nullptr)
+                m_Tail = newNode;
+
             m_Head = newNode;
         };
 
-        void insertEnd(T data) {
+        void insertEnd(T data) {    
             SinglyLinkedListNode<T>* newNode = new SinglyLinkedListNode<T>(data, nullptr);
 
-            if (m_Head == nullptr) {
+            if (m_Tail == nullptr)
                 m_Head = newNode;
-                
-                return;
-            }
+            else    
+                m_Tail->setNext(newNode);
 
-            SinglyLinkedListNode<T>* current = downcastFunc(m_Head);
+            m_Tail = newNode;            
 
-            while (current->getNext() != nullptr)
-                current = current->getNext();
+            // SinglyLinkedListNode<T>* newNode = new SinglyLinkedListNode<T>(data, nullptr);
+
+            // if (m_Head == nullptr) {
+            //     m_Head = newNode;
                 
-            current->setNext(newNode);
+            //     return;
+            // }
+
+            // SinglyLinkedListNode<T>* current = downcastFunc(m_Head);
+
+            // while (current->getNext() != nullptr)
+            //     current = current->getNext();
+                
+            // current->setNext(newNode);
         };
 
-        void remove(T data) override {
+        void removeBegin(T data) override {
             if (m_Head == nullptr)
                 return;
 
-            if (m_Head->getData() == data) {
-                SinglyLinkedListNode<T>* temp = downcastFunc(m_Head);
-                m_Head = m_Head->getNext();
+            SinglyLinkedListNode<T>* temp = downcastFunc(m_Head);
+            m_Head = m_Head->getNext();
 
-                delete temp;
-                temp = nullptr;
+            if (m_Head == nullptr)
+                m_Tail = nullptr;
+                // return;
 
-                return;
-            }
+            delete temp;
 
-            SinglyLinkedListNode<T>* current = downcastFunc(m_Head);
+            // if (m_Head->getData() == data) {
+            //     SinglyLinkedListNode<T>* temp = downcastFunc(m_Head);
+            //     m_Head = m_Head->getNext();
 
-            while (current->getNext() != nullptr) {
-                if (current->getNext()->getData() == data) {
-                    SinglyLinkedListNode<T>* temp = current->getNext();
-                    current->setNext(current->getNext()->getNext());
+            //     delete temp;
+            //     temp = nullptr;
 
-                    delete temp;
-                    temp = nullptr;
+            //     return;
+            // }
 
-                    return;
-                }
+            // SinglyLinkedListNode<T>* current = downcastFunc(m_Head);
 
-                current = current->getNext();
-            }
+            // while (current->getNext() != nullptr) {
+            //     if (current->getNext()->getData() == data) {
+            //         SinglyLinkedListNode<T>* temp = current->getNext();
+            //         current->setNext(current->getNext()->getNext());
+
+            //         delete temp;
+            //         temp = nullptr;
+
+            //         return;
+            //     }
+
+            //     current = current->getNext();
+            // }
         };
         
         void print() const override {
             SinglyLinkedListNode<T>* current = downcastFunc(m_Head);
 
             while (current != nullptr) {
-                std::cout << current->getData() << "\n";
+                std::cout << current->getData() << " -> ";
                 current = current->getNext();
             }
 
-            std::cout << "\n";
+            std::cout << " nullptr\n";
         };
 
-        T getFirst() const {
-            if (m_Head == nullptr) {
-                throw std::runtime_error("List is empty");
-            }
+        // T getFirst() const {
+        //     if (m_Head == nullptr) {
+        //         throw std::runtime_error("List is empty");
+        //     }
 
-            return m_Head->getData();
-        }
+        //     return m_Head->getData();
+        // }
 
-        T getLast() const {
-            if (m_Head == nullptr) {
-                throw std::runtime_error("List is empty");
-            }
+        // T getLast() const {
+        //     if (m_Head == nullptr) {
+        //         throw std::runtime_error("List is empty");
+        //     }
 
-            SinglyLinkedListNode<T>* current = downcastFunc(m_Head);
+        //     SinglyLinkedListNode<T>* current = downcastFunc(m_Head);
             
-            while (current->getNext() != nullptr) 
-                current = current->getNext();
+        //     while (current->getNext() != nullptr) 
+        //         current = current->getNext();
             
-            return current->getData();
-        }
+        //     return current->getData();
+        // }
 
-        bool isEmpty() const {
-            return m_Head == nullptr;
-        }
-
-        // LinkedList<T, SinglyLinkedListNode<T>> getHead() const override {
-        //     return m_Head;
+        // bool isEmpty() const {
+        //     return m_Head == nullptr;
         // }
     };
 } // namespace TCMS
