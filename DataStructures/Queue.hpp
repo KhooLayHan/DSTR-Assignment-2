@@ -8,7 +8,7 @@ namespace TCMS
     class Queue {
     public:
         void enqueue(T data) {
-            list.insert(data);
+            m_List.insertEnd(data);
             
             // SinglyLinkedListNode<T>* newNode = new SinglyLinkedListNode<T>(data);
 
@@ -25,34 +25,35 @@ namespace TCMS
             if (isEmpty()) 
                 throw std::runtime_error("Queue is empty");
 
-            T data = list.getLast();
-            list.remove(data);
+            T frontData = m_List.getFirst();
+            m_List.removeBegin();
 
-            return data;
+            return frontData;
         }
 
-        T front() const {
+        T peekFront() const {
             if (isEmpty())
                 throw std::runtime_error("Queue is empty");
             
-            return list.getLast();
+            return m_List.getFirst();
         }
 
-        T rear() const {
+        T peekBack() const {
             if (isEmpty())
                 throw std::runtime_error("Queue is empty");
             
-            return list.getFirst();
+            return m_List.getLast();
         }
 
         bool isEmpty() const {
-            return list.isEmpty();
+            return m_List.isEmpty();
         }
 
         void print() const {
-            list.print();
+            std::cout << "Queue (front -> back): ";
+            m_List.print();
         }
     private:
-        SinglyLinkedList<T> list;
+        SinglyLinkedList<T> m_List;
     };
 } // namepspace TCMS

@@ -8,34 +8,35 @@ namespace TCMS
     class Stack {
     public:
         void push(T data) {
-            list.insert(data);
+            m_List.insertBegin(data);
         }
 
         T pop() {
             if (isEmpty()) 
                 throw std::runtime_error("Stack is empty");
 
-            T data = list.getFirst();
-            list.remove(data);
+            T topData = m_List.getFirst();
+            m_List.removeBegin();
 
-            return data;
+            return topData;
         }
 
         T peek() const {
             if (isEmpty())
                 throw std::runtime_error("Stack is empty");
 
-            return list.getFirst();
+            return m_List.getFirst();
         }
 
         bool isEmpty() const {
-            return list.isEmpty(); 
+            return m_List.isEmpty(); 
         }
 
         void print() const {
-            list.print();
+            std::cout << "Stack (top -> bottom): ";
+            m_List.print();
         }
     private:
-        SinglyLinkedList<T> list;
+        SinglyLinkedList<T> m_List;
     };
 } // namespace TCMS
