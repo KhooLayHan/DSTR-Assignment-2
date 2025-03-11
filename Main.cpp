@@ -14,9 +14,7 @@ int main() {
     using namespace TCMS;
 
     TCMS::SinglyLinkedList<int> sll_1, sll_2, sll_3;
-    TCMS::DoublyLinkedList<int> dll_1, dll_2, dll_3;
-    TCMS::SinglyCircularLinkedList<int> scll_1, scll_2, scll_3;
-
+  
     // sll_1.insertBegin(10);
     // sll_1.insertBegin(20);
     // sll_1.insertBegin(30);
@@ -45,6 +43,8 @@ int main() {
     // sll.insertPosition(10, 0);
     // sll.insertPosition(30, 2);
     // sll.print();
+
+    TCMS::DoublyLinkedList<int> dll_1, dll_2, dll_3;
 
     // dll_1.insertBegin(10);
     // dll_1.insertBegin(20);
@@ -75,6 +75,8 @@ int main() {
     // dll_3.remove(20);
     // dll_3.remove(30);
     // dll_3.print();
+
+    TCMS::SinglyCircularLinkedList<int> scll_1, scll_2, scll_3;
 
     // scll_1.insertBegin(10);
     // scll_1.insertBegin(20);
