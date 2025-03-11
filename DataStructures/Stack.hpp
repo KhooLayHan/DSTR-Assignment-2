@@ -66,7 +66,6 @@ namespace TCMS  // Defines a namespace to avoid name conflicts
             std::cout << "Stack (top -> bottom): ";
             m_List.print();  // Print elements in LIFO order
         }
-        
     private:
         SinglyLinkedList<T> m_List;  // Internal linked list to store stack elements
     };

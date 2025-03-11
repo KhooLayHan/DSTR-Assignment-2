@@ -1,12 +1,15 @@
 #pragma once
 
 #include <iostream>
-
 #include "LinkedList.hpp"
 #include "DoublyLinkedListNode.hpp"
 
 namespace TCMS
 {
+    /**
+     * @brief DoublyLinkedList class inheriting from LinkedList<T, DoublyLinkedListNode<T>>.
+     *        It allows bidirectional traversal and efficient insertions/removals at both ends.
+     */
     template <typename T>
     class DoublyLinkedList : public LinkedList<T, DoublyLinkedListNode<T>> {
     public:
@@ -15,32 +18,27 @@ namespace TCMS
         using Base::m_Tail;
         using Base::downcastFunc;
 
-        DoublyLinkedList() : Base() {
+        /**
+         * @brief Default constructor initializes an empty doubly linked list.
+         */
+        DoublyLinkedList() : Base() {}
 
-        }
-
+        /**
+         * @brief Destructor ensures proper deletion of all nodes.
+         */
         ~DoublyLinkedList() override {
             while (m_Head != nullptr)
                 removeBegin();
-            
-            // DoublyLinkedListNode<T>* current = downcastFunc(m_Head);
-            // DoublyLinkedListNode<T>* temp = nullptr;
-
-            // while (current != nullptr) {
-            //     temp = current;
-            //     current = current->getNext();
-
-            //     delete temp;
-            //     temp = nullptr;
-            // }
 
             std::cout << "DoublyLinkedList destroyed.\n";
         }
 
+        /**
+         * @brief Inserts a new node at the beginning of the list.
+         * @param data The data to insert.
+         */
         void insertBegin(T data) override {
             DoublyLinkedListNode<T>* newNode = new DoublyLinkedListNode<T>(data);
-            // DoublyLinkedListNode<T>* newNode = new DoublyLinkedListNode<T>(data);
-
             newNode->setNext(downcastFunc(m_Head));
 
             if (m_Head)
@@ -48,19 +46,17 @@ namespace TCMS
 
             m_Head = newNode;
 
+            // If the list was empty, update tail as well.
             if (!m_Tail)    
                 m_Tail = newNode;
+        }
 
-            // if (m_Head != nullptr) {
-            //     downcastFunc(m_Head)->setPrevious(newNode);
-            // } else {
-            //     m_Tail = newNode;
-            // }
-            
-            // m_Head = newNode;
-            // newNode->setNext(downcastFunc(m_Head));
-        };
-
+        /**
+         * @brief Inserts a node at a specific position.
+         * @param data The data to insert.
+         * @param position The position (0-based index).
+         * @throws std::out_of_range If the position is out of range.
+         */
         void insertPosition(T data, size_t position) override {
             if (position == 0) {
                 insertBegin(data);
@@ -69,6 +65,7 @@ namespace TCMS
 
             DoublyLinkedListNode<T>* current = downcastFunc(m_Head);
 
+            // Traverse to the position before insertion.
             for (size_t i = 0; i < position - 1 && current != nullptr; i++)                 
                 current = current->getNext();
 
@@ -77,6 +74,7 @@ namespace TCMS
         
             DoublyLinkedListNode<T>* newNode = new DoublyLinkedListNode<T>(data);
 
+            // Link new node into the list.
             newNode->setNext(current->getNext());
             if (current->getNext())
                 current->getNext()->setPrevious(newNode);
@@ -84,29 +82,15 @@ namespace TCMS
             current->setNext(newNode);
             newNode->setPrevious(current);
 
+            // If inserted at the last position, update tail.
             if (!newNode->getNext())
                 m_Tail = newNode;
-
-            // DoublyLinkedListNode<T>* current = downcastFunc(m_Head);
-
-            // for (size_t i = 0; i < position - 1 && current != nullptr; i++) {
-            //     if (current == nullptr)
-            //         throw std::out_of_range("Position is out of range");
-                
-            //     current = current->getNext();
-            // }
-
-            // DoublyLinkedListNode<T>* newNode = new DoublyLinkedListNode<T>(data, current, current->getNext());
-
-            // if (current->getNext() != nullptr)
-            //     current->getNext()->setPrevious(newNode);
-
-            // current->setNext(newNode);
-
-            // if (newNode->getNext() == nullptr)
-            //     m_Tail = newNode;
         }
 
+        /**
+         * @brief Inserts a node at the end of the list.
+         * @param data The data to insert.
+         */
         void insertEnd(T data) override {
             DoublyLinkedListNode<T>* newNode = new DoublyLinkedListNode<T>(data);
 
@@ -114,33 +98,17 @@ namespace TCMS
                 downcastFunc(m_Tail)->setNext(newNode);
                 newNode->setPrevious(downcastFunc(m_Tail));
             } else {
+                // If list was empty, update head as well.
                 m_Head = newNode;
             }
-
-            // if (m_Tail == nullptr) {
-            //     m_Head = newNode;
-            // } else {
-            //     downcastFunc(m_Tail)->setPrevious(newNode);
-            // }
-
-            // if (m_Tail != nullptr) {
-            //     m_Tail->setNext(newNode);
-            //     // m_Head = newNode;
-            // } else {
-                // DoublyLinkedListNode<T>* current = downcastFunc(m_Head);
-                
-                // while (current->getNext() != nullptr)
-                //     current = current->getNext();
-                
-                // current->setNext(newNode);
-                // newNode->setPrevious(current);
-
-            //     m_Head = newNode;
-            // }
 
             m_Tail = newNode;
         }
 
+        /**
+         * @brief Removes a node with the specified data.
+         * @param data The data to remove.
+         */
         void remove(T data) override {
             if (m_Head == nullptr)
                 return;
@@ -154,24 +122,22 @@ namespace TCMS
                 if (m_Head)
                     downcastFunc(m_Head)->setPrevious(nullptr);
                 else    
-                    m_Tail = nullptr;
+                    m_Tail = nullptr; // List is now empty.
 
                 delete current;
-                // current = nullptr;
-
                 return;
             }
 
+            // Traverse to find the node to remove.
             while (current != nullptr) {
                 if (current->getData() == data) {
                     if (current->getNext())
                         current->getNext()->setPrevious(current->getPrevious());
                     else    
-                        m_Tail = current->getPrevious();
+                        m_Tail = current->getPrevious(); // Update tail if last node is removed.
 
                     if (current->getPrevious())
                         current->getPrevious()->setNext(current->getNext());
-
 
                     delete current;
                     return;
@@ -179,31 +145,11 @@ namespace TCMS
 
                 current = current->getNext();
             }
-
-            // while (current != nullptr) {
-            //     if (current->getData() == data) {
-            //         if (current->getPrevious() != nullptr) {
-            //             current->getPrevious()->setNext(current->getNext());
-            //         } else {
-            //             m_Head = current->getNext();
-            //         }
-
-            //         if (current->getNext() != nullptr) {
-            //             downcastFunc(current->getNext())->setPrevious(current->getPrevious());
-            //         } else {
-            //             m_Tail = current->getPrevious();
-            //         }
-
-            //         delete current;
-            //         // current = nullptr;
-
-            //         return;
-            //     }
-
-            //     current = current->getNext();
-            // }
         }
 
+        /**
+         * @brief Removes the first node in the list.
+         */
         void removeBegin() override {
             if (m_Head) {
                 DoublyLinkedListNode<T>* temp = downcastFunc(m_Head);
@@ -212,25 +158,15 @@ namespace TCMS
                 if (m_Head)
                     downcastFunc(m_Head)->setPrevious(nullptr);
                 else    
-                    m_Tail = nullptr;
+                    m_Tail = nullptr; // List is now empty.
 
                 delete temp;
             }
-
-            // if (m_Head == nullptr)
-            //     return;
-
-            // DoublyLinkedListNode<T>* temp = downcastFunc(m_Head);
-            // m_Head = m_Head->getNext();
-
-            // if (m_Head != nullptr)
-            //     downcastFunc(m_Head)->setPrevious(nullptr);
-            // else 
-            //     m_Tail = nullptr;
-
-            // delete temp;
         }
-        
+
+        /**
+         * @brief Removes the last node in the list.
+         */
         void removeEnd() override {
             if (m_Tail == nullptr)
                 return;
@@ -241,23 +177,14 @@ namespace TCMS
             if (m_Tail)
                 m_Tail->setNext(nullptr);
             else    
-                m_Head = nullptr;
+                m_Head = nullptr; // List is now empty.
 
             delete temp;
-            // if (m_Tail == nullptr)
-            //     return;
-
-            // DoublyLinkedListNode<T>* temp = downcastFunc(m_Tail);
-            // m_Tail = temp->getPrevious();
-
-            // if (m_Tail != nullptr)
-            //     m_Tail->setNext(nullptr);
-            // else 
-            //     m_Head = nullptr;
-
-            // delete temp;
         }
 
+        /**
+         * @brief Prints the list elements in forward order.
+         */
         void print() const override {
             DoublyLinkedListNode<T>* current = downcastFunc(m_Head);
 
@@ -268,39 +195,5 @@ namespace TCMS
 
             std::cout << "nullptr\n";
         }
-
-        // T getFirst() const {
-        //     if (m_Head == nullptr)
-        //         throw std::runtime_error("List is empty!");
-
-        //     return downcastFunc(m_Head)->getData();
-        // }
-
-        // static DoublyLinkedListNode<T>* downcast(LinkedListNode<T, DoublyLinkedListNode<T>>* node) {
-        //     return static_cast<DoublyLinkedListNode<T>*>(node);
-        // }
     };
 } // namespace TCMS
-
-        
-            // while (current != nullptr) {
-            //     if (current->getData() == data) {
-            //         if (current->getPrevious() != nullptr) {
-            //             current->getPrevious()->setNext(current->getNext());
-            //             // static_cast<DoublyLinkedListNode<T>*>(current->getPrevious())->setNext(current->getNext());
-            //         } else {
-            //             m_Head = current->getNext();
-            //         }
-
-            //         if (current->getNext() != nullptr) {
-            //             current->getNext()->setPrevious(current->getPrevious());
-            //             // static_cast<DoublyLinkedListNode<T>*>(current->getNext())->setPrevious(current->getPrevious());
-            //         }
-
-            //         delete current;
-            //         current = nullptr;
-
-            //         return;
-            //     }
-
-            //     current = current->getNext();
