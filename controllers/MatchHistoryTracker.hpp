@@ -6,6 +6,7 @@
 
 namespace TCMS
 {
+    // Just a temporary template
     class MatchHistoryTracker {
     public:
         void addMatchHistory() {

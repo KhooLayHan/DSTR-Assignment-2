@@ -23,6 +23,6 @@ namespace TCMS
         std::string m_Winner;
         std::string m_Score;
 
-        std::string m_MatchDate; // Will need to replace with own Date class
+        std::string m_MatchDate; // Will need to replace with own custom Date class
     };    
 } // namespace TCMS

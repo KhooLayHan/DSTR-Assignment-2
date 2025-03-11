@@ -2,8 +2,11 @@
 
 #include <string>
 
+#include "../DataStructures/Stack.hpp"
+
 namespace TCMS
 {
+    // Just a temporary template
     class WithdrawalManager {
     public:
         void processWithdrawals() {
@@ -18,6 +21,6 @@ namespace TCMS
 
         }
     private:
-        std::string withdrawals_list; // Need to replace with std::vector or std::array
+        std::string m_WithdrawalsList; // Need to replace with std::vector or std::array or Stack ???
     };
 } // namespace TCMS

@@ -4,6 +4,7 @@
 
 namespace TCMS
 {
+    // Just a temporary template 
     class Spectator {
     public:
         void buyTicket() {
