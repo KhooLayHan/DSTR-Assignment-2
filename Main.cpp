@@ -14,8 +14,6 @@ int main() {
     using namespace TCMS;
 
     TCMS::SinglyLinkedList<int> sll_1, sll_2, sll_3;
-    TCMS::DoublyLinkedList<int> dll_1, dll_2, dll_3;
-    TCMS::SinglyCircularLinkedList<int> scll_1, scll_2, scll_3;
 
     // sll_1.insertBegin(10);
     // sll_1.insertBegin(20);
@@ -46,6 +44,8 @@ int main() {
     // sll.insertPosition(30, 2);
     // sll.print();
 
+    TCMS::DoublyLinkedList<int> dll_1, dll_2, dll_3;
+
     // dll_1.insertBegin(10);
     // dll_1.insertBegin(20);
     // dll_1.insertBegin(30);
@@ -75,6 +75,8 @@ int main() {
     // dll_3.remove(20);
     // dll_3.remove(30);
     // dll_3.print();
+
+    TCMS::SinglyCircularLinkedList<int> scll_1, scll_2, scll_3;
 
     // scll_1.insertBegin(10);
     // scll_1.insertBegin(20);
@@ -161,26 +163,25 @@ int main() {
     // pq_1.dequeue();
     // pq_1.print();
     
-    
     CircularQueue<std::string> cq_1;
 
-    cq_1.enqueue("20");
-    cq_1.enqueue("10");
-    cq_1.enqueue("30");
-    cq_1.enqueue("100");
-    cq_1.print();
+    // cq_1.enqueue("20");
+    // cq_1.enqueue("10");
+    // cq_1.enqueue("30");
+    // cq_1.enqueue("100");
+    // cq_1.print();
     
-    std::cout << cq_1.peekFront() << "\n";
-    cq_1.print();
-    std::cout << cq_1.peekBack() << "\n";
-    cq_1.print();
+    // std::cout << cq_1.peekFront() << "\n";
+    // cq_1.print();
+    // std::cout << cq_1.peekBack() << "\n";
+    // cq_1.print();
     
-    std::cout << cq_1.dequeue() << "\n";
-    cq_1.print();
+    // std::cout << cq_1.dequeue() << "\n";
+    // cq_1.print();
     
-    std::cout << cq_1.dequeue() << "\n";
-    std::cout << cq_1.dequeue() << "\n";
-    cq_1.print();
+    // std::cout << cq_1.dequeue() << "\n";
+    // std::cout << cq_1.dequeue() << "\n";
+    // cq_1.print();
 
     std::cout << "\n\n\n";
 }
