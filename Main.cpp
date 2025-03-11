@@ -163,26 +163,25 @@ int main() {
     // pq_1.dequeue();
     // pq_1.print();
     
-    
     CircularQueue<std::string> cq_1;
 
-    cq_1.enqueue("20");
-    cq_1.enqueue("10");
-    cq_1.enqueue("30");
-    cq_1.enqueue("100");
-    cq_1.print();
+    // cq_1.enqueue("20");
+    // cq_1.enqueue("10");
+    // cq_1.enqueue("30");
+    // cq_1.enqueue("100");
+    // cq_1.print();
     
-    std::cout << cq_1.peekFront() << "\n";
-    cq_1.print();
-    std::cout << cq_1.peekBack() << "\n";
-    cq_1.print();
+    // std::cout << cq_1.peekFront() << "\n";
+    // cq_1.print();
+    // std::cout << cq_1.peekBack() << "\n";
+    // cq_1.print();
     
-    std::cout << cq_1.dequeue() << "\n";
-    cq_1.print();
+    // std::cout << cq_1.dequeue() << "\n";
+    // cq_1.print();
     
-    std::cout << cq_1.dequeue() << "\n";
-    std::cout << cq_1.dequeue() << "\n";
-    cq_1.print();
+    // std::cout << cq_1.dequeue() << "\n";
+    // std::cout << cq_1.dequeue() << "\n";
+    // cq_1.print();
 
     std::cout << "\n\n\n";
 }
