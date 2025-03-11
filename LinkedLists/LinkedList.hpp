@@ -16,40 +16,45 @@ namespace TCMS
         virtual ~LinkedList() = default;
 
         virtual void insertBegin(T data) = 0;
+        virtual void insertPosition(T data, size_t position) = 0;
         virtual void insertEnd(T data) = 0;
         
         virtual void remove(T data) = 0;
         virtual void removeBegin() = 0;
-        // virtual void removeEnd() = 0;
+        virtual void removeEnd() = 0;
         
         virtual void print() const = 0;
 
-        LinkedList<T, DerivedNode> getHead() const {
+        LinkedListNode<T, DerivedNode>* getHeadBase() const {
             return m_Head;
         };
 
-        LinkedList<T, DerivedNode> getTail() const {
+        LinkedListNode<T, DerivedNode>* getTailBase() const {
             return m_Tail;
         };
 
         T getFirst() const {
-            if (getHead() == nullptr) {
+            if (getHeadBase() == nullptr) {
                 throw std::runtime_error("List is empty");
             }
 
-            return getHead()->getData();
+            return getHeadBase()->getData();
         }
 
         T getLast() const {
-            if (getTail() == nullptr) {
+            if (getTailBase() == nullptr) {
                 throw std::runtime_error("List is empty");
             }
 
-            return getTail()->getData();
+            return getTailBase()->getData();
         }
 
         bool isEmpty() const {
-            return getHead() == nullptr;
+            return m_Head == nullptr;
+        }
+        
+        bool isEmpty() {
+            return getHeadBase() == nullptr;
         }
     protected:
         LinkedListNode<T, DerivedNode>* m_Head;
