@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../LinkedLists/SinglyCircularLinkedList.hpp"
+#include "../linked_lists/SinglyCircularLinkedList.hpp"
 
 namespace TCMS
 {

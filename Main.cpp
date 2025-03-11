@@ -1,14 +1,14 @@
 #include <iostream>
 #include <string>
 
-#include "LinkedLists/SinglyLinkedList.hpp"
-#include "LinkedLists/DoublyLinkedList.hpp"
-#include "LinkedLists/SinglyCircularLinkedList.hpp"
+#include "linked_lists/SinglyLinkedList.hpp"
+#include "linked_lists/DoublyLinkedList.hpp"
+#include "linked_lists/SinglyCircularLinkedList.hpp"
 
-#include "DataStructures/Stack.hpp"
-#include "DataStructures/Queue.hpp"
-#include "DataStructures/PriorityQueue.hpp"
-#include "DataStructures/CircularQueue.hpp"
+#include "data_structures/Stack.hpp"
+#include "data_structures/Queue.hpp"
+#include "data_structures/PriorityQueue.hpp"
+#include "data_structures/CircularQueue.hpp"
 
 int main() {
     using namespace TCMS;
