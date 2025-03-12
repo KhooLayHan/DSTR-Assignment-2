@@ -35,3 +35,6 @@ Main.o
 
 # Ignore lib olders
 dev/lib/
+
+# Ignore build folders
+build 
