@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "../DataStructures/Stack.hpp"
+#include "../data_structures/Stack.hpp"
 
 namespace TCMS
 {

@@ -1,7 +1,7 @@
 #pragma once 
 
 #include <iostream>
-#include "../linked_lists/DoublyLinkedList.hpp"
+#include "./linked_lists/DoublyLinkedList.hpp"
 
 namespace TCMS 
 {

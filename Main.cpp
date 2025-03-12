@@ -1,19 +1,24 @@
 #include <iostream>
 #include <string>
 
-#include "linked_lists/SinglyLinkedList.hpp"
-#include "linked_lists/DoublyLinkedList.hpp"
-#include "linked_lists/SinglyCircularLinkedList.hpp"
+#include "dev/include/data_structures/linked_lists/SinglyLinkedList.hpp"
+#include "dev/include/data_structures/linked_lists/DoublyLinkedList.hpp"
+#include "dev/include/data_structures/linked_lists/SinglyCircularLinkedList.hpp"
 
-#include "data_structures/Stack.hpp"
-#include "data_structures/Queue.hpp"
-#include "data_structures/PriorityQueue.hpp"
-#include "data_structures/CircularQueue.hpp"
+#include "dev/include/data_structures/Stack.hpp"
+#include "dev/include/data_structures/Queue.hpp"
+#include "dev/include/data_structures/PriorityQueue.hpp"
+#include "dev/include/data_structures/CircularQueue.hpp"
+
+#include "dev/include/core/UUID.hpp"
 
 int main() {
     using namespace TCMS;
 
-    TCMS::SinglyLinkedList<int> sll_1, sll_2, sll_3;
+    UUID uuid;
+    std::cout << uuid.toString() << "\n";
+
+    // TCMS::SinglyLinkedList<int> sll_1, sll_2, sll_3;
   
     // sll_1.insertBegin(10);
     // sll_1.insertBegin(20);
@@ -25,14 +30,14 @@ int main() {
     // sll_2.insertEnd(30);
     // sll_2.print();
     
-    // sll.remove(20);
-    // sll.remove(30);
-    // sll.remove(10);
+    // sll_1.remove(20);
+    // sll_1.remove(30);
+    // sll_1.remove(10);
 
-    // sll.removeBegin();
-    // sll.removeEnd();
+    // sll_1.removeBegin();
+    // sll_1.removeEnd();
 
-    // sll.print();
+    // sll_2.print();
     
     // sll_3.insertPosition(10, 0);
     // sll_3.insertPosition(20, 0);
@@ -44,7 +49,7 @@ int main() {
     // sll.insertPosition(30, 2);
     // sll.print();
 
-    TCMS::DoublyLinkedList<int> dll_1, dll_2, dll_3;
+    // TCMS::DoublyLinkedList<int> dll_1, dll_2, dll_3;
 
     // dll_1.insertBegin(10);
     // dll_1.insertBegin(20);
@@ -76,7 +81,7 @@ int main() {
     // dll_3.remove(30);
     // dll_3.print();
 
-    TCMS::SinglyCircularLinkedList<int> scll_1, scll_2, scll_3;
+    // TCMS::SinglyCircularLinkedList<int> scll_1, scll_2, scll_3;
 
     // scll_1.insertBegin(10);
     // scll_1.insertBegin(20);
@@ -110,7 +115,7 @@ int main() {
 
     // std::cout << "\n\n\n";
 
-    Stack<int> s1;
+    // Stack<int> s1;
 
     // s1.push(10);
     // s1.push(20);
@@ -124,7 +129,7 @@ int main() {
     // std::cout << s1.pop() << "\n";
     // s1.print();
 
-    Queue<std::string> q1;
+    // Queue<std::string> q1;
 
     // q1.enqueue("10");
     // q1.enqueue("20");
@@ -144,7 +149,7 @@ int main() {
     // std::cout << q1.dequeue() << "\n";
     // q1.print();
 
-    PriorityQueue<std::string> pq_1;
+    // PriorityQueue<std::string> pq_1;
 
     // pq_1.enqueue("World", 1);
     // pq_1.enqueue("C++", 2);
@@ -163,7 +168,7 @@ int main() {
     // pq_1.dequeue();
     // pq_1.print();
     
-    CircularQueue<std::string> cq_1;
+    // CircularQueue<std::string> cq_1;
 
     // cq_1.enqueue("20");
     // cq_1.enqueue("10");
@@ -183,5 +188,5 @@ int main() {
     // std::cout << cq_1.dequeue() << "\n";
     // cq_1.print();
 
-    std::cout << "\n\n\n";
+    // std::cout << "\n\n\n";
 }

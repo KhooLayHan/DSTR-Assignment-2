@@ -30,3 +30,6 @@ release/
 
 # Ignore Main.o file
 Main
+
+# Ignore src file FOR NOW
+src/

@@ -1,6 +1,6 @@
 #pragma once  // Ensures the header file is included only once in a compilation unit
 
-#include "../linked_lists/SinglyLinkedList.hpp"  // Includes the SinglyLinkedList class
+#include "./linked_lists/SinglyLinkedList.hpp"  // Includes the SinglyLinkedList class
 
 namespace TCMS  // Defines a namespace to prevent naming conflicts
 {

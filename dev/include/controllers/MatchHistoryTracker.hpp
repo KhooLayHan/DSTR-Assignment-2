@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "../DataStructures/Queue.hpp" // Not sure what to use
+#include "../data_structures/Queue.hpp" // Not sure what to use
 
 namespace TCMS
 {

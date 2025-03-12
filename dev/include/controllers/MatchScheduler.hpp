@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "../DataStructures/CircularQueue.hpp" // Not sure what to use
+#include "../data_structures/CircularQueue.hpp" // Not sure what to use
 
 namespace TCMS
 {

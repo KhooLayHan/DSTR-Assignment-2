@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "../DataStructures/PriorityQueue.hpp" // Probably to use this ???
+#include "../data_structures/PriorityQueue.hpp" // Probably to use this ???
 
 namespace TCMS
 {
