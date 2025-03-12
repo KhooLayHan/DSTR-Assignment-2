@@ -32,3 +32,6 @@ release/
 Main.o
 
 # Ignore src file FOR NOW
+
+# Ignore lib olders
+dev/lib/
