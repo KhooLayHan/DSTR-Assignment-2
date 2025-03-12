@@ -29,7 +29,6 @@ Thumbs.db
 release/
 
 # Ignore Main.o file
-Main
+Main.o
 
 # Ignore src file FOR NOW
-src/

@@ -1,4 +1,13 @@
 {
+    // "C_Cpp.codeAnalysis.clangTidy.config": "",                                                                                                                                                                                          
+    // "C_Cpp.codeAnalysis.clangTidy.enabled": true,
+    // "C_Cpp.codeAnalysis.clangTidy.path": "/usr/bin/clang-tidy",
+    // "C_Cpp.codeAnalysis.clangTidy.args": [
+    //     "--checks=modernize-*,performance-*,readability-*",
+    //     "--warnings-as-errors=*"
+    // ],
+    "cmake.configureOnOpen": true,
+
     "files.associations": {
         "chrono": "cpp",
         "array": "cpp",

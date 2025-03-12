@@ -1,0 +1,8 @@
+{
+    "name": "tcms",
+    "version": "1.0.0",
+    "dependencies": [
+        "gtest"
+    ],
+    "builtin-baseline": "latest"
+}
