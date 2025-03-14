@@ -1,6 +1,7 @@
 // controllers/TicketingSystem.cpp
 #include "../controllers/TicketingSystem.hpp"
 #include <iostream>
+#include "../LinkedLists/DoublyLinkedList.hpp"
 
 namespace TCMS {
 
