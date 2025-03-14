@@ -1,7 +1,6 @@
 // controllers/TicketingSystem.cpp
 #include "../controllers/TicketingSystem.hpp"
 #include <iostream>
-#include "../LinkedLists/DoublyLinkedList.hpp"
 
 namespace TCMS {
 
@@ -20,30 +19,30 @@ TicketingSystem::~TicketingSystem() {
     // 2. Delete Spectator objects in the queues (and those created during buying).
 
      // Clear available tickets, deleting Ticket objects
-     while (!available_tickets.isEmpty()) {
-         Ticket* ticket = available_tickets.getFirst();
-         available_tickets.removeBegin();
-         delete ticket;
-     }
+    while (!available_tickets.isEmpty()) {
+        Ticket* ticket = available_tickets.getFirst();
+        available_tickets.removeBegin();
+        delete ticket;
+    }
 
-     // Clear sold tickets, deleting Ticket objects
-     while (!sold_tickets.isEmpty()) {
-         Ticket* ticket = sold_tickets.getFirst();
-         sold_tickets.removeBegin();
-         delete ticket;
-     }
+    // Clear sold tickets, deleting Ticket objects
+    while (!sold_tickets.isEmpty()) {
+        Ticket* ticket = sold_tickets.getFirst();
+        sold_tickets.removeBegin();
+        delete ticket;
+    }
 
-     // Clear priority queue, deleting Spectator objects
-     while (!ticket_priority_queue.isEmpty()) {
-         Spectator* spectator = ticket_priority_queue.dequeue();
-         delete spectator;  // Assuming you dynamically allocate Spectators
-     }
+    // Clear priority queue, deleting Spectator objects
+    while (!ticket_priority_queue.isEmpty()) {
+        Spectator* spectator = ticket_priority_queue.dequeue();
+        delete spectator;  // Assuming you dynamically allocate Spectators
+    }
 
-     //Clear entry_queue , deleting Spectator objects
-     while(!entry_queue.isEmpty()){
-         Spectator* spectator = entry_queue.dequeue();
-         delete spectator;
-     }
+    //Clear entry_queue , deleting Spectator objects
+    while(!entry_queue.isEmpty()){
+        Spectator* spectator = entry_queue.dequeue();
+        delete spectator;
+    }
     std::cout << "TicketingSystem destroyed.\n";
 }
 
@@ -73,7 +72,7 @@ void TicketingSystem::addBuyerToQueue(Spectator* spectator, TicketType type) {
 
 // 5. findAvailableTicket(TicketType type)
 Ticket* TicketingSystem::findAvailableTicket(TicketType type) {
-    DoublyLinkedListNode<Ticket*>* current = available_tickets.getHead();
+    DoublyLinkedListNode<Ticket*>* current = static_cast<DoublyLinkedListNode<Ticket*>*>(available_tickets.getHeadBase());
     while (current != nullptr) {
         Ticket* ticket = current->getData();
         if (ticket->getTicketType() == type && ticket->getStatus() == TicketStatus::AVAILABLE) {
@@ -86,53 +85,53 @@ Ticket* TicketingSystem::findAvailableTicket(TicketType type) {
 
 // 6. sellTickets()
  void TicketingSystem::sellTickets() {
-     while (!ticket_priority_queue.isEmpty()) {
-         Spectator* buyer = ticket_priority_queue.dequeue();
-         TicketType desiredType;
+    while (!ticket_priority_queue.isEmpty()) {
+        Spectator* buyer = ticket_priority_queue.dequeue();
+        TicketType desiredType;
 
-         // For demonstration, get ticket type from a new method in Spectator.
-         if(buyer->getAge() >= 60){
-             desiredType = TicketType::VIP;
-         } else if (buyer->getAge() >= 40 && buyer->getAge() < 60){
-             desiredType = TicketType::EARLY_BIRD;
-         } else {
-             desiredType = TicketType::GENERAL;
-         }
+        // For demonstration, get ticket type from a new method in Spectator.
+        if(buyer->getAge() >= 60){
+            desiredType = TicketType::VIP;
+        } else if (buyer->getAge() >= 40 && buyer->getAge() < 60){
+            desiredType = TicketType::EARLY_BIRD;
+        } else {
+            desiredType = TicketType::GENERAL;
+        }
 
-         Ticket* ticket = findAvailableTicket(desiredType);
+        Ticket* ticket = findAvailableTicket(desiredType);
 
-         if (ticket) {
-             // Sell the ticket
-             ticket->markAsSold();
-             ticket->setBuyerId(buyer->getSpectatorId());
-             buyer->setTicket(ticket);  // Associate the ticket with the spectator.
+        if (ticket) {
+            // Sell the ticket
+            ticket->markAsSold();
+            ticket->setBuyerId(buyer->getSpectatorId());
+            buyer->setTicket(ticket);  // Associate the ticket with the spectator.
 
-             // Move the ticket from available_tickets to sold_tickets
-             available_tickets.remove(ticket);
-             sold_tickets.insertEnd(ticket);
+            // Move the ticket from available_tickets to sold_tickets
+            available_tickets.remove(ticket);
+            sold_tickets.insertEnd(ticket);
 
-             // Add the buyer to the entry queue.
-             entry_queue.enqueue(buyer);
-             std::cout << "Ticket sold to " << buyer->getName() << " for seat " << ticket->getSeatNumber() << std::endl;
+            // Add the buyer to the entry queue.
+            entry_queue.enqueue(buyer);
+            std::cout << "Ticket sold to " << buyer->getName() << " for seat " << ticket->getSeatNumber() << std::endl;
 
-         } else {
-             std::cout << "No available " << (desiredType == TicketType::VIP ? "VIP" :
+        } else {
+            std::cout << "No available " << (desiredType == TicketType::VIP ? "VIP" :
                                                (desiredType == TicketType::EARLY_BIRD ? "Early Bird" : "General"))
-                       << " tickets for " << buyer->getName() << std::endl;
-             delete buyer; // Important: Delete the spectator if no ticket is sold.
-         }
-     }
- }
+                      << " tickets for " << buyer->getName() << std::endl;
+            delete buyer; // Important: Delete the spectator if no ticket is sold.
+        }
+    }
+}
 
 // 7. cancelTicket(const std::string& ticket_id)
 void TicketingSystem::cancelTicket(const std::string& ticket_id) {
     // Search in sold_tickets first
-    DoublyLinkedListNode<Ticket*>* current = sold_tickets.getHead();
+    DoublyLinkedListNode<Ticket*>* current = static_cast<DoublyLinkedListNode<Ticket*>*>(sold_tickets.getHeadBase());
     while (current != nullptr) {
         if (current->getData()->getTicketId() == ticket_id) {
             Ticket* ticket = current->getData();
 
-            // Check if the spectator has checked in. Prevent the cancel
+             // Check if the spectator has checked in. Prevent the cancel
             if (ticket->getStatus() == TicketStatus::CHECKED_IN){
                 std::cout << "Cannot cancel the ticket, Because the spectator had checked in." << std::endl;
                 return;
@@ -166,13 +165,13 @@ void TicketingSystem::cancelTicket(const std::string& ticket_id) {
             while(!tempQueue.isEmpty()){
                 entry_queue.enqueue(tempQueue.dequeue());
             }
-           
+            
             std::cout << "Ticket " << ticket_id << " cancelled.\n";
             return;
         }
         current = current->getNext();
     }
-     std::cout << "Ticket " << ticket_id << " not found or cannot be cancelled.\n";
+    std::cout << "Ticket " << ticket_id << " not found or cannot be cancelled.\n";
 }
 
 // 8. checkInSpectator(Spectator* spectator)
@@ -192,13 +191,13 @@ void TicketingSystem::checkInSpectator(Spectator* spectator) {
 
 // 9. processEntryQueue()
  void TicketingSystem::processEntryQueue() {
-     while (!entry_queue.isEmpty()) {
-         Spectator* spectator = entry_queue.dequeue();
-         checkInSpectator(spectator);
-         //  delete spectator; // Don't delete here
-         // We still need the spectator object for exit.
-     }
- }
+    while (!entry_queue.isEmpty()) {
+        Spectator* spectator = entry_queue.dequeue();
+        checkInSpectator(spectator);
+        //  delete spectator; // Don't delete here
+        // We still need the spectator object for exit.
+    }
+}
 
 // 10. spectatorExit(Spectator* spectator)
 void TicketingSystem::spectatorExit(Spectator* spectator){
@@ -206,16 +205,16 @@ void TicketingSystem::spectatorExit(Spectator* spectator){
         spectator->exitVenue();
          std::cout << "Spectator " << spectator->getName() << " has left the venue.\n";
         // Find the ticket in sold_tickets and reset status
-        DoublyLinkedListNode<Ticket*>* currentTicket = sold_tickets.getHead();
+        DoublyLinkedListNode<Ticket*>* currentTicket =  static_cast<DoublyLinkedListNode<Ticket*>*>(sold_tickets.getHeadBase());
         while(currentTicket != nullptr){
             if(currentTicket->getData()->getBuyerId() == spectator->getSpectatorId()){
                 currentTicket->getData()->setStatus(TicketStatus::AVAILABLE);
                 currentTicket->getData()->setBuyerId("");
                 break;
             }
-             currentTicket = currentTicket->getNext();
+                currentTicket = currentTicket->getNext();
         }
-         delete spectator; //Now we delete the spectator, after they have exit.
+        delete spectator; //Now we delete the spectator, after they have exit.
     } else {
          std::cout << "Spectator " << spectator->getName() << " is not in the venue.\n";
     }
@@ -224,7 +223,7 @@ void TicketingSystem::spectatorExit(Spectator* spectator){
 // 11. getAvailableTicketsCount(TicketType type)
 int TicketingSystem::getAvailableTicketsCount(TicketType type) {
     int count = 0;
-    DoublyLinkedListNode<Ticket*>* current = available_tickets.getHead();
+    DoublyLinkedListNode<Ticket*>* current = static_cast<DoublyLinkedListNode<Ticket*>*>(available_tickets.getHeadBase());
     while (current != nullptr) {
         if (current->getData()->getTicketType() == type && current->getData()->getStatus() == TicketStatus::AVAILABLE) {
             count++;
@@ -237,7 +236,7 @@ int TicketingSystem::getAvailableTicketsCount(TicketType type) {
 // 12. getTotalRevenue()
 double TicketingSystem::getTotalRevenue() {
     double revenue = 0;
-    DoublyLinkedListNode<Ticket*>* current = sold_tickets.getHead();
+    DoublyLinkedListNode<Ticket*>* current = static_cast<DoublyLinkedListNode<Ticket*>*>(sold_tickets.getHeadBase());
     while (current != nullptr) {
         revenue += current->getData()->getPrice();
         current = current->getNext();
@@ -248,7 +247,7 @@ double TicketingSystem::getTotalRevenue() {
 // 13. displayAvailableTickets()
 void TicketingSystem::displayAvailableTickets() {
  std::cout << "Available Tickets:\n";
- DoublyLinkedListNode<Ticket*>* current = available_tickets.getHead();
+ DoublyLinkedListNode<Ticket*>* current = static_cast<DoublyLinkedListNode<Ticket*>*>(available_tickets.getHeadBase());
  if (current == nullptr) {
      std::cout << "No tickets currently available.\n";
      return;
@@ -257,10 +256,10 @@ void TicketingSystem::displayAvailableTickets() {
      Ticket* ticket = current->getData();
      if(ticket->getStatus() == TicketStatus::AVAILABLE){
          std::cout << "Ticket ID: " << ticket->getTicketId()
-               << ", Type: " << (ticket->getTicketType() == TicketType::VIP ? "VIP" :
-                                  (ticket->getTicketType() == TicketType::EARLY_BIRD ? "Early Bird" : "General"))
-               << ", Price: " << ticket->getPrice()
-               << ", Seat: " << ticket->getSeatNumber() << "\n";
+                   << ", Type: " << (ticket->getTicketType() == TicketType::VIP ? "VIP" :
+                                      (ticket->getTicketType() == TicketType::EARLY_BIRD ? "Early Bird" : "General"))
+                   << ", Price: " << ticket->getPrice()
+                   << ", Seat: " << ticket->getSeatNumber() << "\n";
      }
      current = current->getNext();
  }
@@ -269,7 +268,7 @@ void TicketingSystem::displayAvailableTickets() {
 // 14. displaySoldTickets()
 void TicketingSystem::displaySoldTickets() {
  std::cout << "Sold Tickets:\n";
- DoublyLinkedListNode<Ticket*>* current = sold_tickets.getHead();
+ DoublyLinkedListNode<Ticket*>* current = static_cast<DoublyLinkedListNode<Ticket*>*>(sold_tickets.getHeadBase());
  if(current == nullptr){
      std::cout << "No tickets have been sold yet.\n";
      return;
@@ -278,7 +277,7 @@ void TicketingSystem::displaySoldTickets() {
      Ticket* ticket = current->getData();
      std::cout << "Ticket ID: " << ticket->getTicketId()
                << ", Type: " << (ticket->getTicketType() == TicketType::VIP ? "VIP" :
-                                     (ticket->getTicketType() == TicketType::EARLY_BIRD ? "Early Bird" : "General"))
+                                  (ticket->getTicketType() == TicketType::EARLY_BIRD ? "Early Bird" : "General"))
                << ", Price: " << ticket->getPrice()
                << ", Seat: " << ticket->getSeatNumber()
                << ", Buyer ID: " << ticket->getBuyerId() << "\n";
