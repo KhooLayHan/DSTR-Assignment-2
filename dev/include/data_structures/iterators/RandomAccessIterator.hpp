@@ -51,23 +51,25 @@ namespace TCMS
         } 
 
         DifferenceType operator-(const RandomAccessIterator& other) const {
+            Assert::runtimeAssert(Base::m_Begin == other.m_Begin && Base::m_End == other.m_End, 
+                "Cannot subtract iterators from different ranges!");
             return Base::m_Pointer - other.m_Pointer;
         }
         
         RandomAccessIterator& operator+=(DifferenceType offset) {
-            Assert::runtimeAssert(m_Pointer + offset <= m_End && "Iterator addition assignment out of bounds!");
-            m_Pointer += offset;
+            Assert::runtimeAssert(Base::m_Pointer + offset <= Base::m_End && "Iterator addition assignment out of bounds!");
+            Base::m_Pointer += offset;
             return *this;
         }
 
         RandomAccessIterator& operator-=(DifferenceType offset) {
-            Assert::runtimeAssert(m_Pointer - offset >= m_Begin && "Iterator subtraction assignment out of bounds!");
-            m_Pointer -= offset;
+            Assert::runtimeAssert(Base::m_Pointer - offset >= Base::m_Begin && "Iterator subtraction assignment out of bounds!");
+            Base::m_Pointer -= offset;
             return *this;
         }
 
         Reference operator[](DifferenceType index) const {
-            Assert::runtimeAssert(Base::m_Pointer + index <= Base::m_End, "Index out of bounds!");
+            Assert::runtimeAssert(index >= 0 && Base::m_Pointer + index <= Base::m_End, "Index out of bounds!");
             Assert::runtimeAssert(Base::m_Pointer != nullptr, "Index null iterator!");
             return *(Base::m_Pointer + index);
         }

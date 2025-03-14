@@ -11,7 +11,7 @@ namespace TCMS
         using typename Base::Pointer;
         using typename Base::Reference;
         
-        explicit BidirectionalIterator(Pointer ptr) : Base(ptr) {
+        explicit BidirectionalIterator(Pointer ptr, Pointer begin, Pointer end) : Base(ptr, begin, end) {
 
         }
 

@@ -33,7 +33,7 @@ namespace TCMS
         bool operator==(const Iterator& other) const noexcept { return m_Pointer == other.m_Pointer; }
         bool operator!=(const Iterator& other) const noexcept { return m_Pointer != other.m_Pointer; }
     protected:
-        Pointer m_Pointer = nullptr;
+        Pointer m_Pointer;
 
         Pointer m_Begin;
         Pointer m_End; 

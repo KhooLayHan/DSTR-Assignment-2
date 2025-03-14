@@ -11,11 +11,12 @@ namespace TCMS
         using typename Base::Pointer;
         using typename Base::Reference;
         
-        explicit ForwardIterator(Pointer ptr) : Base(ptr) {
+        explicit ForwardIterator(Pointer ptr, Pointer begin, Pointer end) : Base(ptr, begin, end) {
 
         }
 
         ForwardIterator& operator++() {
+            Assert::runtimeAssert(Base::m_Pointer != nullptr, "Incrementing nullptr iterator!");
             ++Base::m_Pointer;
             return *this;
         }
