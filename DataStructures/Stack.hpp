@@ -1,3 +1,4 @@
+// DataStructures/Stack.hpp
 #pragma once  // Ensures the header file is included only once in a compilation unit
 
 #include "../LinkedLists/SinglyLinkedList.hpp"  // Includes the SinglyLinkedList class

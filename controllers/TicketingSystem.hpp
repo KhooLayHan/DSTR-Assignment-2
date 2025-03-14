@@ -1,34 +1,37 @@
+// controllers/TicketingSystem.hpp
 #pragma once
 
 #include <string>
-
-#include "../DataStructures/PriorityQueue.hpp" // Probably to use this ???
+#include "../DataStructures/PriorityQueue.hpp"
+#include "../DataStructures/Queue.hpp"
+#include "../models/Ticket.hpp"
+#include "../models/Spectator.hpp"
 
 namespace TCMS
 {
-    // Just a temporary template
     class TicketingSystem {
     public:
-        void sellTickets() {
+        TicketingSystem();
+        ~TicketingSystem();
 
-        }
+        void addTicket(Ticket* ticket);
+        void addBuyerToQueue(Spectator* spectator, TicketType type);
+        void sellTickets();
+        void cancelTicket(const std::string& ticket_id);
+        void checkInSpectator(Spectator* spectator);
+        void processEntryQueue();
+        int getAvailableTicketsCount(TicketType type);
+        double getTotalRevenue();
+        void displayAvailableTickets();
+        void displaySoldTickets();
+        void spectatorExit(Spectator* spectator);
 
-        void cancelTicket() {
-
-        }
-
-        void prioritizeVIP() {
-
-        }
-
-        void displayAllTickets() {
-            
-        }
     private:
-        PriorityQueue<std::string> m_TicketsQueue;
+        PriorityQueue<Spectator*> ticket_priority_queue;
+        Queue<Spectator*> entry_queue;
+        DoublyLinkedList<Ticket*> available_tickets; // Use provided DoublyLinkedList
+        DoublyLinkedList<Ticket*> sold_tickets;      // Use provided DoublyLinkedList
 
-        std::string m_SoldTicketsList; // Need to replace with std::vector or std::array
-
-        std::string m_AvailableTicketsList; // Need to replace with std::vector or std::array
+        Ticket* findAvailableTicket(TicketType type);
     };
 } // namespace TCMS
