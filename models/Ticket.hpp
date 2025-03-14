@@ -1,8 +1,10 @@
 // models/Ticket.hpp
 #pragma once
 
+#include <iostream>
 #include <string>
 #include "UUID.hpp"
+
 
 namespace TCMS {
 

@@ -2,6 +2,7 @@
 #pragma once
 
 #include <string>
+#include <iostream>
 #include <ctime> // For timestamps
 #include "UUID.hpp"
 #include "Ticket.hpp" // Include Ticket.hpp

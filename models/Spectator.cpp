@@ -7,7 +7,7 @@ Spectator::Spectator(const std::string& name, int age)
     : m_SpectatorId(UUID().toString()), m_Name(name), m_Age(age), m_Ticket(nullptr), m_EntryTime(0), m_ExitTime(0), m_InVenue(false) {}
 
 Spectator::~Spectator() {
-    // Destructor.  No need to delete m_Ticket here; TicketingSystem handles it.
+     // Destructor.  No need to delete m_Ticket here; TicketingSystem handles it.
      std::cout << "Spectator " << m_Name << " destroyed.\n";
 }
 

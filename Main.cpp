@@ -6,9 +6,9 @@
 
 
 using namespace std;
-using namespace TCMS;
 
 int main() {
+    using namespace TCMS;
     TicketingSystem ticketingSystem;
 
     // Create some tickets.  Use different Match IDs for variety.
@@ -77,7 +77,7 @@ int main() {
 
     ticketingSystem.spectatorExit(spectator5); //Spectator 5 exists
     ticketingSystem.spectatorExit(spectator3); //Spectator 3 exists
-    //ticketingSystem.processEntryQueue();
+    ticketingSystem.processEntryQueue();
     //delete spectator4; // Spectator 4 was never added to any queue, so delete directly.
 
 

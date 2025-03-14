@@ -13,7 +13,9 @@
                 "-g",
                 // "TCMS/Main.cpp",
                 "./Main.cpp",
-                
+                "./controllers/TicketingSystem.cpp",
+                "./models/Spectator.cpp",
+                "./models/Ticket.cpp",
                 // "./LinkedLists/SinglyLinkedListNode.cpp",
                 // "./LinkedLists/SinglyLinkedList.cpp",
                 // "./TCMS/DataStructures/${fileBasenameNoExtension}.cpp",
