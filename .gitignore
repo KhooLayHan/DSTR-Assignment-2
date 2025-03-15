@@ -30,3 +30,7 @@ release/
 
 # Ignore Main.o file
 Main
+
+# Ignore lib folders
+dev/lib
+dev/

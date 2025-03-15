@@ -68,7 +68,12 @@
         "regex": "cpp",
         "any": "cpp",
         "cstring": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "csignal": "cpp",
+        "forward_list": "cpp",
+        "set": "cpp",
+        "unordered_set": "cpp",
+        "cinttypes": "cpp"
     },
-    "C_Cpp.errorSquiggles": "disabled"
+    // "C_Cpp.errorSquiggles": "disabled"
 }
