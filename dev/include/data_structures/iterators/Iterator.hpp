@@ -10,6 +10,7 @@ namespace TCMS
     template <typename T, typename Category>
     class Iterator {
     public:
+        using iterator_category = Category;
         using ValueType = T;
         using DifferenceType = std::ptrdiff_t;
         using Pointer = T*;

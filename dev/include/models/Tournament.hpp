@@ -1,11 +1,13 @@
 #pragma once 
 
 #include <string>
+#include <memory> // For smart pointers
 
 #include "../data_structures/Vector.hpp"
 
+#include "../controllers/Qualifiers.hpp"
 #include "../controllers/RoundRobin.hpp"
-#include "../controllers/Knockout.hpp"
+#include "../controllers/KnockoutRound.hpp"
 
 #include "./Match.hpp"
 #include "./Player.hpp"
@@ -14,46 +16,27 @@
 
 namespace TCMS
 {
-    // Just a temporary template 
     class Tournament {
     public:
-        void startTournament() {
+        void runTournament(Vector<std::shared_ptr<Player>>& players) {
+            size_t qualifyingSpots = 8;
+            Queue<std::shared_ptr<Player>> qualifierQueue;
 
-        }   
-        
-        void displayInfo() {
+            // Move players into the Qualifiers Queue
+            for (const auto& player : players) {
+                qualifierQueue.enqueue(player);
+            }
 
+            // Run Qualifiers
+            Qualifiers qualifiers(qualifierQueue, qualifyingSpots);
+            qualifiers.playQualifiers();
+            Queue<std::shared_ptr<Player>>& advancingPlayers = qualifiers.getAdvancingPlayers();
+
+            // Run Knockout Rounds
+            KnockoutRound knockout(advancingPlayers);
+            knockout.playKnockoutMatches();
+
+            std::cout << "\n\nTournament Completed!\n";
         }
-    
-        void runTournament(Vector<Player>& players) {
-            size_t groupCount = 4; // Adjust as needed
-
-            RoundRobin roundRobin(players, groupCount);
-            roundRobin.playGroupMatches();
-            roundRobin.determineWinners();
-
-            // Queue<Player>& advancingPlayers = roundRobin.getAdvancingPlayers();
-
-            // MatchScheduler scheduler;
-            
-            // Knockout knockout;
-            // knockout.generateKnockoutMatches(advancingPlayers, scheduler);
-            // knockout.playKnockoutRounds(advancingPlayers, scheduler);
-        }
-
-        void endTournament() {
-
-        }
-    private:
-        std::string m_TournamentId;
-        
-        std::string m_Name;
-        std::string m_Location;
-
-        std::string m_StartDate; // Needs to replace the type later
-        std::string m_EndDate; // Needs to replace the type later
-
-        std::string m_PlayerList; // Needs to replace the type
-        std::string m_MatchesList; // Needs to replace the type
     };    
 } // namespace TCMS

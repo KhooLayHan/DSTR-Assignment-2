@@ -27,17 +27,34 @@
 int main() {
     using namespace TCMS;
 
-    // Vector<Player> players = {
-    //     { 1, "Roger Federer", 95 },
-    // };
+    std::cout << "Running...\n"; 
 
-    // std::vector<Player> plag = {
-    //     {},
+    Vector<std::shared_ptr<Player>> players = {
+        { "Roger Federer", 95 },
+        { "Rafael Nadal", 90 },
+        { "Novak Djokovic", 92 },
+        { "Andy Murray", 85 },
+        { "Alexander Zverev", 87 },
+        { "Daniil Medvedev", 88 },
+        { "Stefanos Tsitsipas", 86 },
+        { "Carlos Alcaraz", 89 },
+    };
 
-    // };
+    std::vector<int> vec = {4, 2, 5, 1, 3};
+
+    // TCMS::RandomAccessIterator<int> begin(vec.data(), vec.data(), vec.data() + vec.size());
+    // TCMS::RandomAccessIterator<int> end(vec.data() + vec.size(), vec.data(), vec.data() + vec.size());
+
+    // static_assert(std::random_access_iterator<TCMS::RandomAccessIterator<int>>, "Iterator does not satisfy RandomAccessIterator requirements!");
+
+    // std::sort(begin, end);  // Check for errors
+
+    // for (auto it = begin; it != end; ++it) {
+    //     std::cout << *it << " ";
+    // }
 
     Tournament tournament;
-    // tournament.runTournament(players);
+    tournament.runTournament(players);
 
     // Vector<int32_t> v1;
     

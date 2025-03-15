@@ -1,51 +1,64 @@
 #pragma once 
 
-#include <string>
 #include <iostream>
+#include <memory> // For smart pointers
+#include <string>
+#include <string_view>
+
+#include "../core/UUID.hpp"
 
 namespace TCMS
 {
-    // Just a temporary template 
     class Player {
     public:
-        void registerPlayer() {
+        Player() : m_Id(UUID().toString()), m_Name("Unknown"), m_SkillLevel(0) {}
 
+        Player(std::string_view name, int32_t skillLevel) 
+            : m_Id(UUID().toString()), m_Name(name), m_SkillLevel(skillLevel) {}
+
+        // Delete Copy Constructor (Prevent Shallow Copies)
+        Player(const Player&) = delete;
+        Player& operator=(const Player&) = delete;
+
+        // Allow Move Constructor
+        Player(Player&& other) noexcept
+            : m_Id(std::move(other.m_Id)),
+              m_Name(std::move(other.m_Name)),
+              m_SkillLevel(other.m_SkillLevel),
+              m_Wins(other.m_Wins),
+              m_Points(other.m_Points) {
+            std::cout << "Move Constructor Called for " << m_Name << "\n";
         }
 
-        void withdraw() {
-
+        Player& operator=(Player&& other) noexcept {
+            if (this != &other) {
+                m_Id = std::move(other.m_Id);
+                m_Name = std::move(other.m_Name);
+                m_SkillLevel = other.m_SkillLevel;
+                m_Wins = other.m_Wins;
+                m_Points = other.m_Points;
+            }
+            std::cout << "Move Assignment Called for " << m_Name << "\n";
+            return *this;
         }
 
-        bool operator<(const Player& other) const {
-            return m_SkillLevel < other.m_SkillLevel;
+        ~Player() {
+            std::cout << "Destructor Called for " << m_Name << "\n";
         }
 
-        bool operator>(const Player& other) const {
-            return m_SkillLevel < other.m_SkillLevel;
-        }
+        void addWin() { m_Wins++; m_Points += 3; }
 
-        bool operator==(const Player& other) const {
-            return m_Name == other.m_Name;
-        }
-
-        friend std::ostream& operator<<(std::ostream& output_stream, const Player& other) {
-            output_stream << "Player: " << other.m_Name;
-            return output_stream;
-        }
-
-        int32_t getSkillLevel() const { return m_SkillLevel; }
+        std::string getId() const { return m_Id; }
         std::string getName() const { return m_Name; }
-        int32_t getAge() const { return m_Age; }
+        int32_t getSkillLevel() const { return m_SkillLevel; }
+        int32_t getWins() const { return m_Wins; }
+        int32_t getPoints() const { return m_Points; }
 
     private:
-        std::string m_PlayerId;
-
+        std::string m_Id;
         std::string m_Name;
-        int32_t m_Age;
-
         int32_t m_SkillLevel;
-
-        std::string m_MatchHistory;
-        bool m_HasWithdrawn;
+        int32_t m_Wins = 0;
+        int32_t m_Points = 0;
     };    
 } // namespace TCMS

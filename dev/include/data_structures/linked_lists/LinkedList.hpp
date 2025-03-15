@@ -89,6 +89,7 @@ namespace TCMS
             if (isEmpty()) {
                 throw std::runtime_error("List is empty");
             }
+            
             return getHeadBase()->getData();
         }
 

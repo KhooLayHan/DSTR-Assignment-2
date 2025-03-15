@@ -77,7 +77,12 @@
         "regex": "cpp",
         "any": "cpp",
         "cstring": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "csignal": "cpp",
+        "forward_list": "cpp",
+        "set": "cpp",
+        "unordered_set": "cpp",
+        "cinttypes": "cpp"
     },
     "cmake.sourceDirectory": "/home/vincent-ubuntu/APU/DSTR/DSTR-Assignment-2/dev"
 }

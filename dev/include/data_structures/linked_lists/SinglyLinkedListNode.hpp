@@ -32,6 +32,11 @@ namespace TCMS
          * @return T The data stored in the node.
          */
         T getData() const override {
+            if (this == nullptr) {
+                std::cerr << "Error: Attempted to access getData() on nullptr!\n";
+                throw std::runtime_error("Null object access in getData()");
+            }
+
             return m_Data;
         }
 
