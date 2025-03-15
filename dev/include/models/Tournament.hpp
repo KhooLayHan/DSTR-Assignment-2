@@ -2,6 +2,16 @@
 
 #include <string>
 
+#include "../data_structures/Vector.hpp"
+
+#include "../controllers/RoundRobin.hpp"
+#include "../controllers/Knockout.hpp"
+
+#include "./Match.hpp"
+#include "./Player.hpp"
+#include "./Spectator.hpp"
+#include "./Ticket.hpp"
+
 namespace TCMS
 {
     // Just a temporary template 
@@ -15,6 +25,22 @@ namespace TCMS
 
         }
     
+        void runTournament(Vector<Player>& players) {
+            size_t groupCount = 4; // Adjust as needed
+
+            RoundRobin roundRobin(players, groupCount);
+            roundRobin.playGroupMatches();
+            roundRobin.determineWinners();
+
+            // Queue<Player>& advancingPlayers = roundRobin.getAdvancingPlayers();
+
+            // MatchScheduler scheduler;
+            
+            // Knockout knockout;
+            // knockout.generateKnockoutMatches(advancingPlayers, scheduler);
+            // knockout.playKnockoutRounds(advancingPlayers, scheduler);
+        }
+
         void endTournament() {
 
         }

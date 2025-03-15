@@ -1,5 +1,7 @@
 #pragma once 
 
+#include <iostream>
+
 #include "Player.hpp"
 
 namespace TCMS
@@ -7,8 +9,17 @@ namespace TCMS
     // Just a temporary template 
     class Match {
     public:
-        void playMatch() {
+        Match(Player player_1, Player player_2) : m_Player_1(player_1), m_Player_2(player_2) {
 
+        }
+
+        Player playMatch() {
+            Player winner = (m_Player_1.getSkillLevel() >= m_Player_2.getSkillLevel()) ? m_Player_1 : m_Player_2;
+
+            std::cout << m_Player_1.getName() << " vs " << m_Player_2.getName()
+                << "-> Winner: " << winner.getName() << "\n";
+
+            return winner;
         }
 
         void getWinner() {

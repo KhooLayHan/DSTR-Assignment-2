@@ -12,11 +12,68 @@
 
 #include "../include/core/UUID.hpp"
 
+#include "../include/data_structures/Vector.hpp"
+
+#include "../include/data_structures/iterators/Iterator.hpp"
+#include "../include/data_structures/iterators/ForwardIterator.hpp"
+#include "../include/data_structures/iterators/BidirectionalIterator.hpp"
+#include "../include/data_structures/iterators/RandomAccessIterator.hpp"
+
+#include "../include/models/Tournament.hpp"
+#include "../include/models/Player.hpp"
+
+#include <vector>
+
 int main() {
     using namespace TCMS;
 
-    UUID uuid;
-    std::cout << uuid.toString() << "\n";
+    // Vector<Player> players = {
+    //     { 1, "Roger Federer", 95 },
+    // };
+
+    // std::vector<Player> plag = {
+    //     {},
+
+    // };
+
+    Tournament tournament;
+    // tournament.runTournament(players);
+
+    // Vector<int32_t> v1;
+    
+    // v1.reserve(10);
+    // v1.resize(100);
+
+    // v1.popBack();
+    // v1.print();
+    
+    // v1.emplaceBack(1);
+    // v1.emplaceBack(2);
+    // v1.emplaceBack(3);
+    // v1.print();
+    
+    // v1.popBack();
+    // v1.print();
+
+    // v1.pushBack(4);
+    // v1.pushBack(5);
+    // v1.pushBack(6);
+    
+    // v1.popBack();
+    // v1.print();
+
+    // for (auto i = v1.begin(); i != v1.end(); i++) {
+    //     std::cout << *i << "\n"; 
+    // }
+
+    // for (const auto& v : v1) 
+    //     std::cout << v << "\n";
+
+    // v1.begin();
+    // v1.end();
+
+    // UUID uuid;
+    // std::cout << uuid.toString() << "\n";
 
     // TCMS::SinglyLinkedList<int> sll_1, sll_2, sll_3;
   
