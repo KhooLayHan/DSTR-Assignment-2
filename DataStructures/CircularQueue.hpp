@@ -20,6 +20,7 @@ namespace TCMS
          */
         void enqueue(T data) {
             m_List.insertEnd(data);
+            m_Length++;
         }
 
         /**
@@ -35,6 +36,7 @@ namespace TCMS
             T frontData = m_List.getFirst();
             m_List.removeBegin(); // Remove the front element.
             
+            m_Length--;
             return frontData;
         }
 
@@ -82,5 +84,6 @@ namespace TCMS
         }
     private:
         SinglyCircularLinkedList<T> m_List; ///< Internal storage using a singly circular linked list.
+        int32_t m_Length;
     };
 } // namespace TCMS

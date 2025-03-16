@@ -56,6 +56,7 @@ namespace TCMS
             // If queue is empty, insert the new item at the beginning.
             if (isEmpty()) {
                 m_List.insertBegin(newNode);
+                m_Length++;
                 return;
             }
 
@@ -71,6 +72,7 @@ namespace TCMS
 
             // Insert the new node at the identified position.
             m_List.insertPosition(newNode, position);
+            m_Length++;
         }
 
         /**
@@ -85,6 +87,8 @@ namespace TCMS
             
             T highestPriorityData = m_List.getFirst().m_Data;
             m_List.removeBegin(); // Remove the element with the highest priority.
+
+            m_Length--;
             return highestPriorityData;
         }
 
@@ -142,5 +146,6 @@ namespace TCMS
         }
     private:
         DoublyLinkedList<PriorityItem> m_List; // Internal storage using a doubly linked list.
+        int32_t m_Length;
     };
 } // namespace TCMS  

@@ -1,91 +1,179 @@
-// Main.cpp
 #include <iostream>
 #include <string>
+
+// #include "LinkedLists/SinglyLinkedList.hpp"
+#include "LinkedLists/DoublyLinkedList.hpp"
+#include "LinkedLists/SinglyCircularLinkedList.hpp"
+
+#include "DataStructures/Stack.hpp"
+#include "DataStructures/Queue.hpp"
+#include "DataStructures/PriorityQueue.hpp"
+#include "DataStructures/CircularQueue.hpp"
+#include "DataStructures/Vector.hpp"
+
+#include "models/UUID.hpp"
+
+#include "DataStructures/iterators/Iterator.hpp"
+#include "DataStructures/iterators/ForwardIterator.hpp"
+#include "DataStructures/iterators/BidirectionalIterator.hpp"
+#include "DataStructures/iterators/RandomAccessIterator.hpp"
+
+#include "models/Tournament.hpp"
+#include "models/Player.hpp"
 
 #include "controllers/TicketingSystem.hpp"
 #include "models/Ticket.hpp"
 #include "models/Spectator.hpp"
 
 
-#include "DataStructures/CircularQueue.hpp"
-#include "DataStructures/Stack.hpp"
-
-
-using namespace std;
+// #include <vector>
 
 int main() {
     using namespace TCMS;
-    TicketingSystem ticketingSystem;
+    std::cout << "Running...\n"; 
 
-    // Create some tickets.  Use different Match IDs for variety.
-    Ticket* ticket1 = new Ticket(TicketType::VIP, 100.0, "A1", "M1"); // Match 1
-    Ticket* ticket2 = new Ticket(TicketType::EARLY_BIRD, 75.0, "B2", "M1");
-    Ticket* ticket3 = new Ticket(TicketType::GENERAL, 50.0, "C3", "M2"); // Match 2
-    Ticket* ticket4 = new Ticket(TicketType::GENERAL, 50.0, "C4", "M2");
-    Ticket* ticket5 = new Ticket(TicketType::VIP, 110.0, "A2", "M1"); // Another VIP
-    Ticket* ticket6 = new Ticket(TicketType::GENERAL, 60.0, "D5", "M3"); // Match 3
+    // TicketingSystem ticketingSystem;
 
-    ticketingSystem.addTicket(ticket1);
-    ticketingSystem.addTicket(ticket2);
-    ticketingSystem.addTicket(ticket3);
-    ticketingSystem.addTicket(ticket4);
-    ticketingSystem.addTicket(ticket5);
-    ticketingSystem.addTicket(ticket6);
+    // // Create some tickets.  Use different Match IDs for variety.
+    // Ticket* ticket1 = new Ticket(TicketType::VIP, 100.0, "A1", "M1"); // Match 1
+    // Ticket* ticket2 = new Ticket(TicketType::EARLY_BIRD, 75.0, "B2", "M1");
+    // Ticket* ticket3 = new Ticket(TicketType::GENERAL, 50.0, "C3", "M2"); // Match 2
+    // Ticket* ticket4 = new Ticket(TicketType::GENERAL, 50.0, "C4", "M2");
+    // Ticket* ticket5 = new Ticket(TicketType::VIP, 110.0, "A2", "M1"); // Another VIP
+    // Ticket* ticket6 = new Ticket(TicketType::GENERAL, 60.0, "D5", "M3"); // Match 3
+
+    // ticketingSystem.addTicket(ticket1);
+    // ticketingSystem.addTicket(ticket2);
+    // ticketingSystem.addTicket(ticket3);
+    // ticketingSystem.addTicket(ticket4);
+    // ticketingSystem.addTicket(ticket5);
+    // ticketingSystem.addTicket(ticket6);
 
 
-    // Create some spectators
-    Spectator* spectator1 = new Spectator("Alice", 65); // VIP
-    Spectator* spectator2 = new Spectator("Bob", 45);   // Early Bird
-    Spectator* spectator3 = new Spectator("Charlie", 25); // General
-    Spectator* spectator4 = new Spectator("David", 30); // General
-    Spectator* spectator5 = new Spectator("Eve", 70);   // VIP
+    // // Create some spectators
+    // Spectator* spectator1 = new Spectator("Alice", 65); // VIP
+    // Spectator* spectator2 = new Spectator("Bob", 45);   // Early Bird
+    // Spectator* spectator3 = new Spectator("Charlie", 25); // General
+    // Spectator* spectator4 = new Spectator("David", 30); // General
+    // Spectator* spectator5 = new Spectator("Eve", 70);   // VIP
 
-    // Add spectators to the queue (correct priorities are assigned in addBuyerToQueue)
-    ticketingSystem.addBuyerToQueue(spectator1, TicketType::VIP); // Pass the type!
-    ticketingSystem.addBuyerToQueue(spectator2, TicketType::EARLY_BIRD); // Pass the type!
-    ticketingSystem.addBuyerToQueue(spectator3, TicketType::GENERAL); // Pass the type!
-    ticketingSystem.addBuyerToQueue(spectator4, TicketType::GENERAL);
-    ticketingSystem.addBuyerToQueue(spectator5, TicketType::VIP);
-    // Sell tickets
-    ticketingSystem.sellTickets();
+    // // Add spectators to the queue (correct priorities are assigned in addBuyerToQueue)
+    // ticketingSystem.addBuyerToQueue(spectator1, TicketType::VIP); // Pass the type!
+    // ticketingSystem.addBuyerToQueue(spectator2, TicketType::EARLY_BIRD); // Pass the type!
+    // ticketingSystem.addBuyerToQueue(spectator3, TicketType::GENERAL); // Pass the type!
+    // ticketingSystem.addBuyerToQueue(spectator4, TicketType::GENERAL);
+    // ticketingSystem.addBuyerToQueue(spectator5, TicketType::VIP);
+    // // Sell tickets
+    // ticketingSystem.sellTickets();
 
-    // Display available and sold tickets
-    cout << "\n--- Available Tickets After Selling ---" << endl;
-    ticketingSystem.displayAvailableTickets();
-    cout << "\n--- Sold Tickets ---" << endl;
-    ticketingSystem.displaySoldTickets();
+    // // Display available and sold tickets
+    // std::cout << "\n--- Available Tickets After Selling ---\n";
+    // ticketingSystem.displayAvailableTickets();
+    // std::cout << "\n--- Sold Tickets ---\n";
+    // ticketingSystem.displaySoldTickets();
 
-    // Process entry queue (check-in)
-    ticketingSystem.processEntryQueue();
+    // // Process entry queue (check-in)
+    // ticketingSystem.processEntryQueue();
 
-    // Spectator Exit
-    ticketingSystem.spectatorExit(spectator1); // Spectator 1 exits
+    // // Spectator Exit
+    // ticketingSystem.spectatorExit(spectator1); // Spectator 1 exits
 
-    // Cancel a ticket (using the *actual* ticket ID, not just "T123")
-    cout << "\n--- Cancelling Ticket " << ticket2->getTicketId() << " ---" << endl;
-    ticketingSystem.cancelTicket(ticket2->getTicketId()); // Cancel Bob's ticket
+    // // Cancel a ticket (using the *actual* ticket ID, not just "T123")
+    // std::cout << "\n--- Cancelling Ticket " << ticket2->getTicketId() << " ---\n";
+    // ticketingSystem.cancelTicket(ticket2->getTicketId()); // Cancel Bob's ticket
 
-    //Try to Cancel an exiting ticket
-    cout << "\n--- Cancelling Ticket " << ticket1->getTicketId() << " ---" << endl;
-    ticketingSystem.cancelTicket(ticket1->getTicketId());
+    // //Try to Cancel an exiting ticket
+    // std::cout << "\n--- Cancelling Ticket " << ticket1->getTicketId() << " ---\n";
+    // ticketingSystem.cancelTicket(ticket1->getTicketId());
 
-    // Show available tickets after cancellation
-    cout << "\n--- Available Tickets After Cancellation ---" << endl;
-    ticketingSystem.displayAvailableTickets();
+    // // Show available tickets after cancellation
+    // std::cout << "\n--- Available Tickets After Cancellation ---\n";
+    // ticketingSystem.displayAvailableTickets();
 
-    //Test revenue
-    cout << "\n--- Total Revenue ---" << endl;
-    cout << "Total Revenue: " << ticketingSystem.getTotalRevenue() << endl;
+    // //Test revenue
+    // std::cout << "\n--- Total Revenue ---\n";
+    // std::cout << "Total Revenue: " << ticketingSystem.getTotalRevenue() << "\n";
 
-    // --- Clean up remaining spectators ---  VERY IMPORTANT
-    // Spectators 2 and 3 are still in the entry queue.  Spectator 4 never got a ticket.
-    // We *must* delete them to avoid memory leaks.
+    // // --- Clean up remaining spectators ---  VERY IMPORTANT
+    // // Spectators 2 and 3 are still in the entry queue.  Spectator 4 never got a ticket.
+    // // We *must* delete them to avoid memory leaks.
 
-    ticketingSystem.spectatorExit(spectator5); //Spectator 5 exists
-    ticketingSystem.spectatorExit(spectator3); //Spectator 3 exists
-    ticketingSystem.processEntryQueue();
+    // ticketingSystem.spectatorExit(spectator5); //Spectator 5 exists
+    // ticketingSystem.spectatorExit(spectator3); //Spectator 3 exists
+    // ticketingSystem.processEntryQueue();
     //delete spectator4; // Spectator 4 was never added to any queue, so delete directly.
 
+
+    TCMS::Vector<std::shared_ptr<TCMS::Player>> players = {
+        std::make_shared<Player>("Roger Federer",         95),
+        std::make_shared<Player>("Rafael Nadal",          90),
+        std::make_shared<Player>("Novak Djokovic",        92),
+        std::make_shared<Player>("Andy Murray",           85),
+        std::make_shared<Player>("Alexander Zverev",      87),
+        std::make_shared<Player>("Daniil Medvedev",       88),
+        std::make_shared<Player>("Stefanos Tsitsipas",    86),
+        std::make_shared<Player>("Carlos Alcaraz",        89),
+    };
+
+    // std::vector<int> vec = {4, 2, 5, 1, 3};
+
+    // TCMS::RandomAccessIterator<int> begin(vec.data(), vec.data(), vec.data() + vec.size());
+    // TCMS::RandomAccessIterator<int> end(vec.data() + vec.size(), vec.data(), vec.data() + vec.size());
+
+    // static_assert(std::random_access_iterator<TCMS::RandomAccessIterator<int>>, "Iterator does not satisfy RandomAccessIterator requirements!");
+
+    // std::sort(begin, end);  // Check for errors
+
+    // for (auto it = begin; it != end; ++it) {
+    //     std::cout << *it << " ";
+    // }
+
+    Tournament tournament;
+    tournament.runTournament(players);
+
+    
+
+    // std::cout << "\n\n\n";
+}
+
+
+
+
+// Vector<int32_t> v1;
+    
+    // v1.reserve(10);
+    // v1.resize(100);
+
+    // v1.popBack();
+    // v1.print();
+    
+    // v1.emplaceBack(1);
+    // v1.emplaceBack(2);
+    // v1.emplaceBack(3);
+    // v1.print();
+    
+    // v1.popBack();
+    // v1.print();
+
+    // v1.pushBack(4);
+    // v1.pushBack(5);
+    // v1.pushBack(6);
+    
+    // v1.popBack();
+    // v1.print();
+
+    // for (auto i = v1.begin(); i != v1.end(); i++) {
+    //     std::cout << *i << "\n"; 
+    // }
+
+    // for (const auto& v : v1) 
+    //     std::cout << v << "\n";
+
+    // v1.begin();
+    // v1.end();
+
+    // UUID uuid;
+    // std::cout << uuid.toString() << "\n";
 
     // TCMS::SinglyLinkedList<int> sll_1, sll_2, sll_3;
   
@@ -99,14 +187,14 @@ int main() {
     // sll_2.insertEnd(30);
     // sll_2.print();
     
-    // sll.remove(20);
-    // sll.remove(30);
-    // sll.remove(10);
+    // sll_1.remove(20);
+    // sll_1.remove(30);
+    // sll_1.remove(10);
 
-    // sll.removeBegin();
-    // sll.removeEnd();
+    // sll_1.removeBegin();
+    // sll_1.removeEnd();
 
-    // sll.print();
+    // sll_2.print();
     
     // sll_3.insertPosition(10, 0);
     // sll_3.insertPosition(20, 0);
@@ -256,8 +344,3 @@ int main() {
     // std::cout << cq_1.dequeue() << "\n";
     // std::cout << cq_1.dequeue() << "\n";
     // cq_1.print();
-
-    std::cout << "\n\n\n";
-
-    return 0;
-}

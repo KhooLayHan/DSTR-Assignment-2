@@ -1,4 +1,3 @@
-// DataStructures/Queue.hpp
 #pragma once  // Ensures the header file is included only once in a compilation unit
 
 #include "../LinkedLists/SinglyLinkedList.hpp"  // Includes the SinglyLinkedList class
@@ -20,6 +19,11 @@ namespace TCMS  // Defines a namespace to prevent naming conflicts
          */
         void enqueue(T data) {
             m_List.insertEnd(data);  // Inserts the new element at the end of the list
+            m_Length++;
+        }
+
+        ~Queue() {
+            std::cout << "Queue destructor called.\n";
         }
 
         /**
@@ -32,9 +36,11 @@ namespace TCMS  // Defines a namespace to prevent naming conflicts
             if (isEmpty())  // Check if the queue is empty before attempting to dequeue
                 throw std::runtime_error("Queue is empty");
 
-            T frontData = m_List.getFirst();  // Retrieve the front element
+            T frontData = std::move(m_List.getFirst());  // MOVE instead of COPY
+            // T frontData = m_List.getFirst();  // Retrieve the front element
             m_List.removeBegin();  // Remove the front element from the list
 
+            m_Length--;
             return frontData;  // Return the removed element
         }
 
@@ -74,6 +80,15 @@ namespace TCMS  // Defines a namespace to prevent naming conflicts
         }
 
         /**
+         * @brief Returns the length of the queue.
+         * 
+         * @return The length of the queue.
+         */
+        size_t getLength() const {
+            return m_Length;
+        }
+
+        /**
          * @brief Prints the elements of the queue from front to back.
          */
         void print() const {
@@ -82,5 +97,6 @@ namespace TCMS  // Defines a namespace to prevent naming conflicts
         }
     private:
         SinglyLinkedList<T> m_List;  // Internal linked list to store queue elements
+        int32_t m_Length = 0;
     };
 } // namespace TCMS

@@ -20,6 +20,7 @@ namespace TCMS  // Defines a namespace to avoid name conflicts
          */
         void push(T data) {
             m_List.insertBegin(data);  // Insert at the beginning to maintain LIFO order
+            m_Length++;
         }
 
         /**
@@ -32,9 +33,12 @@ namespace TCMS  // Defines a namespace to avoid name conflicts
             if (isEmpty())  // Check if the stack is empty before popping
                 throw std::runtime_error("Stack is empty");
 
-            T topData = m_List.getFirst();  // Retrieve the first element
+            // ! NOTE: If you are using Stack, you need to check if the object is moved or copied since we might be using smart pointers or new/delete !!! 
+            T topData = std::move(m_List.getFirst());  // Retrieve the first element (move)
+            // T topData = m_List.getFirst();  // Retrieve the first element (copy)
             m_List.removeBegin();  // Remove the first element
 
+            m_Length--;
             return topData;  // Return the removed element
         }
 
@@ -61,6 +65,15 @@ namespace TCMS  // Defines a namespace to avoid name conflicts
         }
 
         /**
+         * @brief Returns the length of the queue.
+         * 
+         * @return The length of the queue.
+         */
+        size_t getLength() const {
+            return m_Length;
+        }
+
+        /**
          * @brief Prints the elements of the stack from top to bottom.
          */
         void print() const {
@@ -69,5 +82,6 @@ namespace TCMS  // Defines a namespace to avoid name conflicts
         }
     private:
         SinglyLinkedList<T> m_List;  // Internal linked list to store stack elements
+        int32_t m_Length = 0;
     };
 } // namespace TCMS
