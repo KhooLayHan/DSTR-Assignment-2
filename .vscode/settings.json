@@ -85,4 +85,5 @@
         "cinttypes": "cpp"
     },
     "cmake.sourceDirectory": "/home/vincent-ubuntu/APU/DSTR/DSTR-Assignment-2/dev"
+    // "C_Cpp.errorSquiggles": "disabled"
 }

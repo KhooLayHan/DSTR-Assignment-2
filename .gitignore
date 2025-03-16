@@ -29,12 +29,8 @@ Thumbs.db
 release/
 
 # Ignore Main.o file
-Main.o
+Main
 
-# Ignore src file FOR NOW
-
-# Ignore lib olders
-dev/lib/
-
-# Ignore build folders
-build 
+# Ignore lib folders
+dev/lib
+dev/
