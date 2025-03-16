@@ -29,15 +29,15 @@ int main() {
 
     std::cout << "Running...\n"; 
 
-    Vector<std::shared_ptr<Player>> players = {
-        { "Roger Federer", 95 },
-        { "Rafael Nadal", 90 },
-        { "Novak Djokovic", 92 },
-        { "Andy Murray", 85 },
-        { "Alexander Zverev", 87 },
-        { "Daniil Medvedev", 88 },
-        { "Stefanos Tsitsipas", 86 },
-        { "Carlos Alcaraz", 89 },
+    TCMS::Vector<std::shared_ptr<TCMS::Player>> players = {
+        std::make_shared<Player>("Roger Federer",         95),
+        std::make_shared<Player>("Rafael Nadal",          90),
+        std::make_shared<Player>("Novak Djokovic",        92),
+        std::make_shared<Player>("Andy Murray",           85),
+        std::make_shared<Player>("Alexander Zverev",      87),
+        std::make_shared<Player>("Daniil Medvedev",       88),
+        std::make_shared<Player>("Stefanos Tsitsipas",    86),
+        std::make_shared<Player>("Carlos Alcaraz",        89),
     };
 
     std::vector<int> vec = {4, 2, 5, 1, 3};

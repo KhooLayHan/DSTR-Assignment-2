@@ -1,13 +1,13 @@
-#pragma once
+// #pragma once
 
-#include <cassert>
-#include "../core/utils/Assert.hpp"
-#include <initializer_list>
-#include <iostream>
-#include <memory>  // For smart pointers
-#include <utility>
+// #include <cassert>
+// #include "../core/utils/Assert.hpp"
+// #include <initializer_list>
+// #include <iostream>
+// #include <memory>  // For smart pointers
+// #include <utility>
 
-#include "./iterators/RandomAccessIterator.hpp"
+// #include "./iterators/RandomAccessIterator.hpp"
 
 // namespace TCMS
 // {
@@ -15,15 +15,6 @@
 //     class Vector {
 //     public:
 //         Vector() : m_Length(0), m_Capacity(1) {
-//             m_Data = std::make_unique<std::shared_ptr<T>[]>(m_Capacity);
-//         }
-
-//         /**
-//          * @brief Constructor that initializes a vector with a given size.
-//          * 
-//          * @param size The initial size of the vector.
-//          */
-//         Vector(size_t size) : m_Length(0), m_Capacity(size) {
 //             m_Data = std::make_unique<std::shared_ptr<T>[]>(m_Capacity);
 //         }
 

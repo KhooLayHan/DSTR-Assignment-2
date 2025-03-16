@@ -70,3 +70,77 @@ namespace TCMS  // Defines a namespace to avoid name conflicts
         SinglyLinkedList<T> m_List;  // Internal linked list to store stack elements
     };
 } // namespace TCMS
+
+// #pragma once  // Ensures the header file is included only once in a compilation unit
+
+// #include <memory>  // For smart pointers
+// #include "./linked_lists/SinglyLinkedList.hpp"  // Includes the SinglyLinkedList class
+
+// namespace TCMS  // Defines a namespace to avoid name conflicts
+// {
+//     /**
+//      * @brief A stack data structure implemented using a singly linked list.
+//      * 
+//      * @tparam T The type of elements stored in the stack.
+//      */
+//     template <typename T>
+//     class Stack {
+//     public:
+//         /**
+//          * @brief Pushes an element onto the top of the stack.
+//          * 
+//          * @param data The element to be added.
+//          */
+//         void push(std::shared_ptr<T> data) {
+//             m_List.insertBegin(data);  // Insert at the beginning to maintain LIFO order
+//         }
+
+//         /**
+//          * @brief Removes and returns the top element from the stack.
+//          * 
+//          * @return The top element of the stack as a shared pointer.
+//          * @throws std::runtime_error If the stack is empty.
+//          */
+//         std::shared_ptr<T> pop() {
+//             if (isEmpty())  // Check if the stack is empty before popping
+//                 throw std::runtime_error("Stack is empty");
+
+//             std::shared_ptr<T> topData = m_List.getFirst();  // Retrieve the first element
+//             m_List.removeBegin();  // Remove the first element
+
+//             return topData;  // Return shared_ptr to the removed element
+//         }
+
+//         /**
+//          * @brief Returns the top element without removing it.
+//          * 
+//          * @return The top element of the stack as a shared pointer.
+//          * @throws std::runtime_error If the stack is empty.
+//          */
+//         std::shared_ptr<T> peek() const {
+//             if (isEmpty())  // Check if the stack is empty before peeking
+//                 throw std::runtime_error("Stack is empty");
+
+//             return m_List.getFirst();  // Return shared_ptr to the first element
+//         }
+
+//         /**
+//          * @brief Checks whether the stack is empty.
+//          * 
+//          * @return True if the stack is empty, otherwise false.
+//          */
+//         bool isEmpty() const {
+//             return m_List.isEmpty();  // Returns true if the linked list is empty
+//         }
+
+//         /**
+//          * @brief Prints the elements of the stack from top to bottom.
+//          */
+//         void print() const {
+//             std::cout << "Stack (top -> bottom): ";
+//             m_List.print();  // Print elements in LIFO order
+//         }
+//     private:
+//         SinglyLinkedList<std::shared_ptr<T>> m_List;  // Store shared_ptr objects in the list
+//     };
+// } // namespace TCMS

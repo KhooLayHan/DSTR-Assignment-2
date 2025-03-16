@@ -22,6 +22,10 @@ namespace TCMS  // Defines a namespace to prevent naming conflicts
             m_Length++;
         }
 
+        ~Queue() {
+            std::cout << "Queue destructor called.\n";
+        }
+
         /**
          * @brief Removes and returns the front element of the queue.
          * 
@@ -96,3 +100,45 @@ namespace TCMS  // Defines a namespace to prevent naming conflicts
         int32_t m_Length = 0;
     };
 } // namespace TCMS
+
+// #pragma once
+
+// #include <iostream>
+// #include <string>
+// #include <memory>  // For smart pointers
+// #include "../data_structures/PriorityQueue.hpp"
+// #include "../models/Player.hpp"  // Include Player class
+
+// namespace TCMS
+// {
+//     class SeedingQueue
+//     {
+//     public:
+//         /**
+//          * @brief Adds a player to the seeding queue.
+//          * 
+//          * @param player A shared pointer to the player object.
+//          */
+//         void addPlayer(std::shared_ptr<Player> player) {
+//             m_SeedingQueue.enqueue(player, -player->getSkillLevel()); // Higher skill = higher priority
+//         }
+    
+//         /**
+//          * @brief Prints the seeding order of players.
+//          */
+//         void printSeedingOrder() const {
+//             std::cout << "Seeding Order: ";
+//             m_SeedingQueue.print();
+//         }
+
+//         /**
+//          * @brief Checks if the seeding queue is empty.
+//          * 
+//          * @return True if the queue is empty, otherwise false.
+//          */
+//         bool isEmpty() const { return m_SeedingQueue.isEmpty(); }
+
+//     private:
+//         PriorityQueue<std::shared_ptr<Player>> m_SeedingQueue; 
+//     };
+// } // namespace TCMS

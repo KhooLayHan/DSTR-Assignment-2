@@ -16,10 +16,21 @@ namespace TCMS
         Player(std::string_view name, int32_t skillLevel) 
             : m_Id(UUID().toString()), m_Name(name), m_SkillLevel(skillLevel) {}
 
-        // Delete Copy Constructor (Prevent Shallow Copies)
-        Player(const Player&) = delete;
-        Player& operator=(const Player&) = delete;
+        // Copy Constructor (Prevent Shallow Copies)
+        Player(const Player& other) 
+            : m_Id(other.m_Id), m_Name(other.m_Name), 
+              m_SkillLevel(other.m_SkillLevel), m_Wins(other.m_Wins), m_Points(other.m_Points) {}
 
+        Player& operator=(const Player& other) {
+            if (this != &other) {
+                m_Id = other.m_Id;
+                m_Name = other.m_Name;
+                m_SkillLevel = other.m_SkillLevel;
+                m_Wins = other.m_Wins;
+                m_Points = other.m_Points;
+            }
+            return *this;
+        }
         // Allow Move Constructor
         Player(Player&& other) noexcept
             : m_Id(std::move(other.m_Id)),
@@ -40,6 +51,15 @@ namespace TCMS
             }
             std::cout << "Move Assignment Called for " << m_Name << "\n";
             return *this;
+        }
+
+        bool operator==(const Player& other) {
+            return m_SkillLevel == other.m_SkillLevel;
+        } 
+
+        friend std::ostream& operator<<(std::ostream& output_stream, const Player& other) {
+            output_stream << "Player: " << other.m_Name;
+            return output_stream;
         }
 
         ~Player() {
