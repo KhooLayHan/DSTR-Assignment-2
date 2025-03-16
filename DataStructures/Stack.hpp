@@ -34,8 +34,8 @@ namespace TCMS  // Defines a namespace to avoid name conflicts
                 throw std::runtime_error("Stack is empty");
 
             // ! NOTE: If you are using Stack, you need to check if the object is moved or copied since we might be using smart pointers or new/delete !!! 
-            T topData = std::move(m_List.getFirst());  // Retrieve the first element (move)
-            // T topData = m_List.getFirst();  // Retrieve the first element (copy)
+            // T topData = std::move(m_List.getFirst());  // Retrieve the first element (move)
+            T topData = m_List.getFirst();  // Retrieve the first element (copy)
             m_List.removeBegin();  // Remove the first element
 
             m_Length--;

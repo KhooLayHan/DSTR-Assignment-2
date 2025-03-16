@@ -36,8 +36,8 @@ namespace TCMS  // Defines a namespace to prevent naming conflicts
             if (isEmpty())  // Check if the queue is empty before attempting to dequeue
                 throw std::runtime_error("Queue is empty");
 
-            T frontData = std::move(m_List.getFirst());  // MOVE instead of COPY
-            // T frontData = m_List.getFirst();  // Retrieve the front element
+            // T frontData = std::move(m_List.getFirst());  // MOVE instead of COPY
+            T frontData = m_List.getFirst();  // Retrieve the front element
             m_List.removeBegin();  // Remove the front element from the list
 
             m_Length--;
