@@ -85,8 +85,8 @@
 #include <string>
 
 #include "controllers/TicketingSystem.hpp"
-#include "models/Ticket.hpp"
-#include "models/Spectator.hpp"
+#include "Ticket.hpp"
+#include "Spectator.hpp"
 
 
 #include "CircularQueue.hpp"

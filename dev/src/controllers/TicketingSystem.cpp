@@ -1,7 +1,7 @@
 // #include "../../include/controllers/TicketingSystem.hpp"
 
 // controllers/TicketingSystem.cpp
-#include "../controllers/TicketingSystem.hpp"
+#include "../../include/controllers/TicketingSystem.hpp"
 #include <iostream>
 
 namespace TCMS {

@@ -1,7 +1,7 @@
 // #include "../../include/models/Ticket.hpp"
 
 // models/Ticket.cpp
-#include "Ticket.hpp"
+#include "../../include/models/Ticket.hpp"
 
 namespace TCMS {
 

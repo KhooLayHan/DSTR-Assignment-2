@@ -4,7 +4,7 @@
 #include <string>
 
 #include "../data_structures/PriorityQueue.hpp" // Probably to use this ???
-#include "Queue.hpp"
+#include "../data_structures/Queue.hpp"
 #include "../models/Ticket.hpp"
 #include "../models/Spectator.hpp"
 

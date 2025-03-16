@@ -1,7 +1,7 @@
 // #include "../../include/models/Spectator.hpp"
 
 // models/Spectator.cpp
-#include "Spectator.hpp"
+#include "../../include/models/Spectator.hpp"
 
 namespace TCMS {
 
