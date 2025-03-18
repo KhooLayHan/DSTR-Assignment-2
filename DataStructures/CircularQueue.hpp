@@ -1,6 +1,7 @@
 // DataStructures/CircularQueue.hpp
 #pragma once
 
+#include <iostream>
 #include "../LinkedLists/SinglyCircularLinkedList.hpp"
 
 namespace TCMS
@@ -13,6 +14,13 @@ namespace TCMS
     template <typename T>
     class CircularQueue {
     public:
+
+        /**
+         * @brief Default constructor for an empty circular queue.
+         */
+        CircularQueue() : m_Length(0) {}
+
+
         /**
          * @brief Adds an element to the back of the queue.
          * 
@@ -76,12 +84,34 @@ namespace TCMS
         }
 
         /**
+         * @brief Gets the current number of elements in the queue.
+         * 
+         * @return The number of elements.
+         */
+        size_t getSize() const {
+            return m_Length;
+        }
+
+        /**
+         * @brief Rotates the queue by moving the front element to the rear
+         */
+        void rotate() {
+            if (isEmpty())
+                throw std::runtime_error("Cannot rotate an empty CircularQueue");
+            
+            T frontItem = dequeue();
+            enqueue(frontItem);
+        }
+
+
+        /**
          * @brief Prints the contents of the circular queue from front to back.
          */
         void print() const {
             std::cout << "Circular Queue (front -> back): ";
             m_List.print();
         }
+
     private:
         SinglyCircularLinkedList<T> m_List; ///< Internal storage using a singly circular linked list.
         int32_t m_Length;

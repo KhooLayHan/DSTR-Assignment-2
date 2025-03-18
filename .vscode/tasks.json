@@ -16,6 +16,7 @@
                 // "TCMS/Main.cpp",
                 "./Main.cpp",
                 "./controllers/TicketingSystem.cpp",
+                "./controllers/TicketingMenu.cpp",
                 "./models/Spectator.cpp",
                 "./models/Ticket.cpp",
 
@@ -52,6 +53,7 @@
                 "-g",
                 // "TCMS/Main.cpp",
                 "./Main.cpp",
+                "./controllers/TicketingMenu.cpp",
                 "./controllers/TicketingSystem.cpp",
                 "./models/Spectator.cpp",
                 "./models/Ticket.cpp",
