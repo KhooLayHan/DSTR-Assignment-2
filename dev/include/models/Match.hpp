@@ -13,6 +13,7 @@ namespace TCMS
             : m_Player_1(player_1), m_Player_2(player_2) {}
 
         std::shared_ptr<Player> playMatch() {
+        // Player* playMatch() {
             if (m_Player_1->getSkillLevel() > m_Player_2->getSkillLevel()) {
                 m_Player_1->addWin();
                             std::cout << m_Player_1->getName() << " vs " << m_Player_2->getName()
@@ -33,6 +34,8 @@ namespace TCMS
     private:
         std::shared_ptr<Player> m_Player_1;
         std::shared_ptr<Player> m_Player_2;
+        // Player* m_Player_1;
+        // Player* m_Player_2;
     };    
 } // namespace TCMS
 

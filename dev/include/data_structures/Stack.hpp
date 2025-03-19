@@ -2,6 +2,8 @@
 
 #include "./linked_lists/SinglyLinkedList.hpp"  // Includes the SinglyLinkedList class
 
+#include "Vector.hpp"
+
 namespace TCMS  // Defines a namespace to avoid name conflicts
 {
     /**
@@ -12,6 +14,25 @@ namespace TCMS  // Defines a namespace to avoid name conflicts
     template <typename T>
     class Stack {
     public:
+        Vector<T> getElements() const {
+            Vector<T> elements;
+            SinglyLinkedListNode<T>* current = static_cast<SinglyLinkedListNode<T>*>(m_List.getHeadBase());
+
+            // Traverse the list and collect all elements
+            while (current) {
+                elements.emplaceBack(current->getData());
+                current = current->getNext();
+            }
+
+            return elements;
+        }
+
+        ~Stack() {
+            std::cout << "DES\n";
+            // delete m_List;
+            m_List.removeBegin();
+        }
+
         /**
          * @brief Pushes an element onto the top of the stack.
          * 
@@ -35,6 +56,39 @@ namespace TCMS  // Defines a namespace to avoid name conflicts
             m_List.removeBegin();  // Remove the first element
 
             return topData;  // Return the removed element
+        }
+
+        // /**
+        //  * @brief Detaches the first node from the linked list without deleting it.
+        //  * 
+        //  * @return Pointer to the detached node. If the list is empty, returns nullptr.
+        //  */
+        // SinglyLinkedListNode<T>* detachBegin() {
+        //     if (!m_Head) return nullptr;  // If the list is empty, return nullptr
+
+        //     SinglyLinkedListNode<T>* detachedNode = m_Head;  // Store the head node
+        //     m_Head = m_Head->getNext();  // Move head to the next node
+
+        //     if (!m_Head) m_Tail = nullptr;  // If list becomes empty, update tail as well
+
+        //     detachedNode->setNext(nullptr);  // Disconnect the detached node
+        //     return detachedNode;  // Return the detached node (caller must manage memory)
+        // }
+
+        /**
+         * @brief Removes and returns a pointer to the top node of the stack without deleting it.
+         * 
+         * @return SinglyLinkedListNode<T>* Pointer to the detached top node.
+         * @throws std::runtime_error If the stack is empty.
+         */
+        T popNoDelete() {
+            if (isEmpty()) 
+                throw std::runtime_error("Stack is empty");
+
+            T topData = m_List.getFirst(); 
+            m_List.detachBegin();  // Detach the first node without deleting it
+            
+            return topData;
         }
 
         /**
@@ -64,7 +118,17 @@ namespace TCMS  // Defines a namespace to avoid name conflicts
          */
         void print() const {
             std::cout << "Stack (top -> bottom): ";
+            std::cout << m_List.getFirst() << "\n";
             m_List.print();  // Print elements in LIFO order
+        }
+
+        /**
+         * @brief Returns the number of elements in the stack.
+         * 
+         * @return The length of the stack. 
+         */
+        size_t getLength() const {
+            return m_List.getLength();
         }
     private:
         SinglyLinkedList<T> m_List;  // Internal linked list to store stack elements

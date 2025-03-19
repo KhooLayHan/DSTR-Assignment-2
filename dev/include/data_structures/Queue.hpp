@@ -1,6 +1,7 @@
 // DataStructures/Queue.hpp
 #pragma once  // Ensures the header file is included only once in a compilation unit
 
+#include "Vector.hpp"
 #include "./linked_lists/SinglyLinkedList.hpp"  // Includes the SinglyLinkedList class
 
 namespace TCMS  // Defines a namespace to prevent naming conflicts
@@ -14,6 +15,24 @@ namespace TCMS  // Defines a namespace to prevent naming conflicts
     class Queue {
     public:
         /**
+         * @brief Returns a vector of all elements in the priority queue without modifying the priority queue.
+         * 
+         * @return Vector<T> A vector containing all elements in the priority queue.
+         */
+        Vector<T> getElements() const {
+            Vector<T> elements;
+            SinglyLinkedListNode<T>* current = static_cast<SinglyLinkedListNode<T>*>(m_List.getHeadBase());
+
+            // Traverse the list and collect all elements
+            while (current) {
+                elements.pushBack(current->getData().m_Data);
+                current = current->getNext();
+            }
+
+            return elements;
+        }
+        
+        /**
          * @brief Adds an element to the back (end) of the queue.
          * 
          * @param data The element to be enqueued.
@@ -24,7 +43,10 @@ namespace TCMS  // Defines a namespace to prevent naming conflicts
         }
 
         ~Queue() {
-            std::cout << "Queue destructor called.\n";
+            while (!isEmpty()) {
+                dequeue(); // Delete each Player object
+                std::cout << "Queue destructor called.\n";
+            }
         }
 
         /**
@@ -36,14 +58,25 @@ namespace TCMS  // Defines a namespace to prevent naming conflicts
         T dequeue() {
             if (isEmpty())  // Check if the queue is empty before attempting to dequeue
                 throw std::runtime_error("Queue is empty");
-
-            T frontData = std::move(m_List.getFirst());  // MOVE instead of COPY
-            // T frontData = m_List.getFirst();  // Retrieve the front element
+                
+            // T frontData = std::move(m_List.getFirst());  // MOVE instead of COPY
+            T frontData = m_List.getFirst();  // Retrieve the front element
             m_List.removeBegin();  // Remove the front element from the list
 
             m_Length--;
             return frontData;  // Return the removed element
         }
+
+        // std::shared_ptr<T> dequeue() {
+        //     if (isEmpty()) 
+        //         throw std::runtime_error("Queue is empty");
+            
+        //     // Remove and return the first element
+        //     // std::shared_ptr<T> data = /* remove and return the first element */;
+        //     std::shared_ptr<T> data = m_List.getFirst();
+        //     // m_List.
+        //     return data;
+        // }
 
         /**
          * @brief Returns the front element without removing it.
@@ -81,65 +114,23 @@ namespace TCMS  // Defines a namespace to prevent naming conflicts
         }
 
         /**
-         * @brief Returns the length of the queue.
-         * 
-         * @return The length of the queue.
-         */
-        size_t getLength() const {
-            return m_Length;
-        }
-
-        /**
          * @brief Prints the elements of the queue from front to back.
          */
         void print() const {
             std::cout << "Queue (front -> back): ";
             m_List.print();  // Print elements in FIFO order
         }
+
+        /**
+         * @brief Returns the number of elements in the queue.
+         * 
+         * @return The length of the queue. 
+         */
+        size_t getLength() const {
+            return m_List.getLength();
+        }
     private:
         SinglyLinkedList<T> m_List;  // Internal linked list to store queue elements
         int32_t m_Length = 0;
     };
 } // namespace TCMS
-
-// #pragma once
-
-// #include <iostream>
-// #include <string>
-// #include <memory>  // For smart pointers
-// #include "../data_structures/PriorityQueue.hpp"
-// #include "../models/Player.hpp"  // Include Player class
-
-// namespace TCMS
-// {
-//     class SeedingQueue
-//     {
-//     public:
-//         /**
-//          * @brief Adds a player to the seeding queue.
-//          * 
-//          * @param player A shared pointer to the player object.
-//          */
-//         void addPlayer(std::shared_ptr<Player> player) {
-//             m_SeedingQueue.enqueue(player, -player->getSkillLevel()); // Higher skill = higher priority
-//         }
-    
-//         /**
-//          * @brief Prints the seeding order of players.
-//          */
-//         void printSeedingOrder() const {
-//             std::cout << "Seeding Order: ";
-//             m_SeedingQueue.print();
-//         }
-
-//         /**
-//          * @brief Checks if the seeding queue is empty.
-//          * 
-//          * @return True if the queue is empty, otherwise false.
-//          */
-//         bool isEmpty() const { return m_SeedingQueue.isEmpty(); }
-
-//     private:
-//         PriorityQueue<std::shared_ptr<Player>> m_SeedingQueue; 
-//     };
-// } // namespace TCMS

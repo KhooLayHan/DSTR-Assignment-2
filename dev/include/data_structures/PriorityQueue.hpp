@@ -3,6 +3,8 @@
 #include <iostream>
 #include "./linked_lists/DoublyLinkedList.hpp"
 
+#include "Vector.hpp"
+
 namespace TCMS 
 {
     /**
@@ -44,6 +46,36 @@ namespace TCMS
         };
     public:
         /**
+         * @brief Returns a vector of all elements in the priority queue without modifying the priority queue.
+         * 
+         * @return Vector<T> A vector containing all elements in the priority queue.
+         */
+        Vector<T> getElements() const {
+            Vector<T> elements;
+            DoublyLinkedListNode<PriorityItem>* current = 
+                static_cast<DoublyLinkedListNode<PriorityItem>*>(m_List.getHeadBase());
+
+            // Traverse the list and collect all elements
+            while (current) {
+                elements.pushBack(current->getData().m_Data);
+                current = current->getNext();
+            }
+
+            return elements;
+        }
+
+        /**
+         * @brief Creates a deep copy of the priority queue.
+         * 
+         * @return PriorityQueue<T> A new priority queue with the same elements and priorities.
+         */
+        PriorityQueue<T> deepCopy() const {
+            PriorityQueue<T> newQueue;
+            newQueue.m_List = this->m_List.deepCopy(); // Calls deep copy of DoublyLinkedList
+            return newQueue;
+        }
+
+        /**
          * @brief Inserts an element into the priority queue based on its priority.
          * 
          * @param data The value to be inserted.
@@ -82,6 +114,11 @@ namespace TCMS
             if (isEmpty()) 
                 throw std::runtime_error("PriorityQueue is empty");
             
+            // auto first = m_List.getFirst();
+            // if (first != nullptr) {
+            //     std::cout << "[DEBUG] getFirst() returning: " << first << "\n";
+            // }
+            // m_List.getFirst();
             T highestPriorityData = m_List.getFirst().m_Data;
             m_List.removeBegin(); // Remove the element with the highest priority.
             return highestPriorityData;
@@ -138,6 +175,21 @@ namespace TCMS
             }
 
             std::cout << "nullptr\n";
+        }
+
+        /**
+         * @brief Returns the number of elements in the priority queue.
+         * 
+         * @return The length of the priority queue. 
+         */
+        size_t getLength() const {
+            return m_List.getLength();
+        }
+
+        ~PriorityQueue() {
+            while (!isEmpty()) {
+                dequeue(); // Delete each Player object
+            }
         }
     private:
         DoublyLinkedList<PriorityItem> m_List; // Internal storage using a doubly linked list.

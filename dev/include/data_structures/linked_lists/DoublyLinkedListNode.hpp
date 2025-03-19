@@ -80,3 +80,48 @@ namespace TCMS
         DoublyLinkedListNode<T>* m_Previous; // Pointer to the previous node.
     };
 } // namespace TCMS
+
+// #pragma once
+
+// #include "LinkedListNode.hpp"
+// #include <memory>  // For smart pointers
+
+// // Tennis Championship Management System
+// namespace TCMS
+// {
+//     template <typename T>
+//     class DoublyLinkedListNode : public LinkedListNode<T, DoublyLinkedListNode<T>> {
+//     public:
+//         explicit DoublyLinkedListNode(T data)
+//             : m_Data(std::move(data)), m_Next(nullptr), m_Previous() {}
+
+//         T getData() const override {
+//             return m_Data;
+//         }
+
+//         void setData(T data) override {
+//             m_Data = std::move(data);
+//         }
+
+//         std::shared_ptr<DoublyLinkedListNode<T>> getNext() const override {
+//             return m_Next;
+//         }
+
+//         void setNext(std::shared_ptr<DoublyLinkedListNode<T>> next) override {
+//             m_Next = std::move(next);
+//         }
+
+//         std::shared_ptr<DoublyLinkedListNode<T>> getPrevious() const {
+//             return m_Previous.lock(); // Convert weak_ptr to shared_ptr
+//         }
+
+//         void setPrevious(const std::shared_ptr<DoublyLinkedListNode<T>>& previous) {
+//             m_Previous = previous;
+//         }
+
+//     private:
+//         T m_Data;
+//         std::shared_ptr<DoublyLinkedListNode<T>> m_Next; // Shared ownership for next node
+//         std::weak_ptr<DoublyLinkedListNode<T>> m_Previous; // Non-owning reference to avoid cycles
+//     };
+// } // namespace TCMS

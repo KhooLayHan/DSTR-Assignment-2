@@ -50,56 +50,56 @@
 //     };
 // } // namespace TCMS
 
-#pragma once
+// #pragma once
 
-#include <memory>
-#include "../models/Player.hpp"
-#include "../models/Match.hpp"
-#include "./MatchScheduler.hpp"
-#include "./SeedingQueue.hpp"
-#include "../data_structures/Queue.hpp"
-#include "../data_structures/Stack.hpp"
+// #include <memory>
+// #include "../models/Player.hpp"
+// #include "../models/Match.hpp"
+// #include "./MatchScheduler.hpp"
+// #include "./SeedingQueue.hpp"
+// #include "../data_structures/Queue.hpp"
+// #include "../data_structures/Stack.hpp"
 
-namespace TCMS
-{
-    class KnockoutRound {
-    public:
-        // ✅ Use std::shared_ptr to ensure `advancingPlayers` lives until KnockoutRound is done
-        explicit KnockoutRound(std::shared_ptr<Queue<std::shared_ptr<Player>>> advancingPlayers)
-            : m_PlayersQueue(advancingPlayers) {}
+// namespace TCMS
+// {
+//     class KnockoutRound {
+//     public:
+//         // ✅ Use std::shared_ptr to ensure `advancingPlayers` lives until KnockoutRound is done
+//         explicit KnockoutRound(std::shared_ptr<Queue<std::shared_ptr<Player>>> advancingPlayers)
+//             : m_PlayersQueue(advancingPlayers) {}
 
-        void playKnockoutMatches() {
-            std::cout << "\n--- Knockout Rounds Begin ---\n";
+//         void playKnockoutMatches() {
+//             std::cout << "\n--- Knockout Rounds Begin ---\n";
 
-            while (m_PlayersQueue->getLength() > 1) {
-                auto nextRoundQueue = std::make_shared<Queue<std::shared_ptr<Player>>>(); // ✅ Avoid memory overwrite
+//             while (m_PlayersQueue->getLength() > 1) {
+//                 auto nextRoundQueue = std::make_shared<Queue<std::shared_ptr<Player>>>(); // ✅ Avoid memory overwrite
                 
-                while (!m_PlayersQueue->isEmpty()) {
-                    if (m_PlayersQueue->getLength() == 1) {  
-                        auto byePlayer = m_PlayersQueue->dequeue();
-                        std::cout << byePlayer->getName() << " gets a bye to the next round!\n";
-                        nextRoundQueue->enqueue(byePlayer);
-                        break;
-                    }
+//                 while (!m_PlayersQueue->isEmpty()) {
+//                     if (m_PlayersQueue->getLength() == 1) {  
+//                         auto byePlayer = m_PlayersQueue->dequeue();
+//                         std::cout << byePlayer->getName() << " gets a bye to the next round!\n";
+//                         nextRoundQueue->enqueue(byePlayer);
+//                         break;
+//                     }
 
-                    auto p1 = m_PlayersQueue->dequeue();
-                    auto p2 = m_PlayersQueue->dequeue();
+//                     auto p1 = m_PlayersQueue->dequeue();
+//                     auto p2 = m_PlayersQueue->dequeue();
 
-                    Match match(p1, p2);
-                    auto winner = match.playMatch();
-                    nextRoundQueue->enqueue(winner);
-                }
+//                     Match match(p1, p2);
+//                     auto winner = match.playMatch();
+//                     nextRoundQueue->enqueue(winner);
+//                 }
 
-                m_PlayersQueue = nextRoundQueue; // ✅ Assign the new queue safely
-            }
+//                 m_PlayersQueue = nextRoundQueue; // ✅ Assign the new queue safely
+//             }
 
-            std::cout << "\n🏆 Champion: " << m_PlayersQueue->peekFront()->getName() << " 🏆\n";
-        }
+//             std::cout << "\n🏆 Champion: " << m_PlayersQueue->peekFront()->getName() << " 🏆\n";
+//         }
 
-    private:
-        std::shared_ptr<Queue<std::shared_ptr<Player>>> m_PlayersQueue;  // ✅ Use shared_ptr to avoid premature deletion
-    };
-} // namespace TCMS
+//     private:
+//         std::shared_ptr<Queue<std::shared_ptr<Player>>> m_PlayersQueue;  // ✅ Use shared_ptr to avoid premature deletion
+//     };
+// } // namespace TCMS
 
 
 
@@ -169,3 +169,53 @@ namespace TCMS
 //     };
 // } // namespace TCMS
 
+#pragma once
+
+#include <iostream>
+#include <memory>
+#include "../data_structures/Stack.hpp"
+#include "../models/Player.hpp"
+#include "../models/Match.hpp"
+
+namespace TCMS {
+    class KnockoutRound {
+    public:
+        KnockoutRound(std::shared_ptr<Stack<Players>> bracket) : m_KnockoutPlayers(bracket) {
+            m_KnockoutPlayers = bracket;    
+        }
+
+        void playKnockoutMatches() {
+            std::cout << "\n--- Knockout Rounds Begin ---\n";
+
+            while (m_KnockoutPlayers->getLength() > 1) {
+                auto nextRoundStack = std::make_shared<Stack<Players>>();
+
+                while (!m_KnockoutPlayers->isEmpty()) {
+                    if (m_KnockoutPlayers->getLength() == 1) {
+                        auto byePlayer = m_KnockoutPlayers->pop();
+
+                        std::cout << byePlayer->getName() << " gets a bye!\n";
+                        nextRoundStack->push(byePlayer);
+                        
+                        break;
+                    }
+
+                    auto p1 = m_KnockoutPlayers->pop();
+                    auto p2 = m_KnockoutPlayers->pop();
+
+                    Match match(p1, p2);
+                    auto winner = match.playMatch();
+                    nextRoundStack->push(winner);
+                }
+
+                m_KnockoutPlayers = nextRoundStack;
+            }
+
+            std::cout << "\n🏆 Champion: " << m_KnockoutPlayers->peek()->getName() << " 🏆\n";
+        }
+    private:
+        std::shared_ptr<Stack<Players>> m_KnockoutPlayers;
+        
+    };
+}             
+           

@@ -43,3 +43,95 @@ namespace TCMS
         virtual ~LinkedListNode() = default; 
     };
 } // namespace TCMS
+
+// // LinkedLists/LinkedListNode.hpp
+// #pragma once
+
+// // Tennis Championship Management System
+// namespace TCMS
+// {
+//     /**
+//      * @brief Base class for linked list nodes.
+//      * 
+//      * @tparam T The data type stored in the node.
+//      * @tparam DerivedNode The derived node type (e.g., Singly or Doubly Linked List node).
+//      */
+//     template <typename T, typename DerivedNode>
+//     class LinkedListNode {
+//     public:
+//         /**
+//          * @brief Gets the data stored in the node.
+//          * @return The stored data.
+//          */
+//         virtual T getData() const = 0; 
+
+//         /**
+//          * @brief Sets the data for the node.
+//          * @param data The new data value.
+//          */
+//         virtual void setData(T data) = 0;
+
+//         /**
+//          * @brief Gets the next node in the list.
+//          * @return Pointer to the next node.
+//          */
+//         virtual DerivedNode* getNext() const = 0;
+
+//         /**
+//          * @brief Sets the next node in the list.
+//          * @param next Pointer to the next node.
+//          */
+//         virtual void setNext(DerivedNode* next) = 0; 
+
+//         /**
+//          * @brief Virtual destructor to ensure proper cleanup in derived classes.
+//          */
+//         virtual ~LinkedListNode() = default; 
+//     };
+// } // namespace TCMS
+
+// #pragma once
+
+// #include <memory>
+
+// namespace TCMS
+// {
+//     /**
+//      * @brief Base class for linked list nodes.
+//      * 
+//      * @tparam T The data type stored in the node.
+//      * @tparam DerivedNode The derived node type (e.g., Singly or Doubly Linked List node).
+//      */
+//     template <typename T, typename DerivedNode>
+//     class LinkedListNode {
+//     public:
+//         /**
+//          * @brief Gets the data stored in the node.
+//          * @return The stored data.
+//          */
+//         virtual T getData() const = 0; 
+
+//         /**
+//          * @brief Sets the data for the node.
+//          * @param data The new data value.
+//          */
+//         virtual void setData(T data) = 0;
+
+//         /**
+//          * @brief Gets the shared pointer to the next node in the list.
+//          * @return Shared pointer to the next node.
+//          */
+//         virtual std::shared_ptr<DerivedNode> getNext() const = 0;
+
+//         /**
+//          * @brief Sets the next node in the list using a shared pointer.
+//          * @param next Shared pointer to the next node.
+//          */
+//         virtual void setNext(std::shared_ptr<DerivedNode> next) = 0; 
+
+//         /**
+//          * @brief Virtual destructor to ensure proper cleanup in derived classes.
+//          */
+//         virtual ~LinkedListNode() = default; 
+//     };
+// } // namespace TCMS

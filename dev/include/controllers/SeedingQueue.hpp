@@ -1,69 +1,45 @@
-// #pragma once
-
-// #include <iostream>
-// #include <string>
-// #include <string_view>
-
-// #include "../data_structures/PriorityQueue.hpp"
-
-// namespace TCMS
-// {
-//     class SeedingQueue
-//     {
-//     public:
-//         void addPlayer(const std::string& name, int32_t ranking) {
-//             m_SeedingQueue.enqueue(name, -ranking);
-//         }
-    
-//         void printSeedingOrder() const {
-//             std::cout << "Seeding Order: ";
-//             m_SeedingQueue.print();
-//         }
-
-//         bool isEmpty() const { return m_SeedingQueue.isEmpty(); }
-//     private:
-//         PriorityQueue<std::string> m_SeedingQueue; 
-//     };
-// } // namespace TCMS
-
 #pragma once
 
 #include <iostream>
-#include <string>
-#include <memory>  // For smart pointers
+#include <memory>
 #include "../data_structures/PriorityQueue.hpp"
-#include "../models/Player.hpp"  // Include Player class
+#include "../models/Player.hpp"
 
-namespace TCMS
-{
-    class SeedingQueue
-    {
+namespace TCMS {
+    class SeedingQueue {
     public:
-        /**
-         * @brief Adds a player to the seeding queue.
-         * 
-         * @param player A shared pointer to the player object.
-         */
-        void addPlayer(std::shared_ptr<Player> player) {
-            m_SeedingQueue.enqueue(player, -player->getSkillLevel()); // Higher skill = higher priority
-        }
-    
-        /**
-         * @brief Prints the seeding order of players.
-         */
-        void printSeedingOrder() const {
-            std::cout << "Seeding Order: ";
-            m_SeedingQueue.print();
+        explicit SeedingQueue(std::shared_ptr<PriorityQueue<Players>> advancingPlayers) : 
+            m_SeedingQueue(std::make_shared<PriorityQueue<Players>>()), m_AdvancingPlayers(std::make_shared<PriorityQueue<Players>>()) {
+            while (!advancingPlayers->isEmpty()) {
+                // auto player = m_AdvancingPlayers->peekFront();  // ✅ Peek first
+                // m_SeedingQueue->enqueue(advancingPlayers->dequeue(), -advancingPlayers->peekFront()->getSkillLevel());
+                m_AdvancingPlayers->enqueue(advancingPlayers->dequeue(), -advancingPlayers->peekFront()->getSkillLevel());
+            }
         }
 
-        /**
-         * @brief Checks if the seeding queue is empty.
-         * 
-         * @return True if the queue is empty, otherwise false.
-         */
-        bool isEmpty() const { return m_SeedingQueue.isEmpty(); }
+        void printSeedingOrder() const {
+            std::cout << "\nSeeding Order: \n";
+            // m_SeedingQueue->print();
+
+            // auto tempQueue = m_AdvancingPlayers;
+            // while (!tempQueue->isEmpty()) {
+            //     std::cout << tempQueue->dequeue()->getName() << "\n";
+            // }
+
+            for (const auto& player : m_AdvancingPlayers->getElements()) {
+                std::cout << player->getName() << "\n";
+            }
+        }
+
+        std::shared_ptr<PriorityQueue<Players>> getSeedingQueue() {
+            return m_AdvancingPlayers;
+        }
+
+        bool isEmpty() const { return m_AdvancingPlayers->isEmpty(); }
+        
 
     private:
-        PriorityQueue<std::shared_ptr<Player>> m_SeedingQueue; 
+        std::shared_ptr<PriorityQueue<Players>> m_SeedingQueue;
+        std::shared_ptr<PriorityQueue<Players>> m_AdvancingPlayers;
     };
-} // namespace TCMS
+}

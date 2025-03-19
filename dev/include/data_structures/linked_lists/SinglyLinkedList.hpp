@@ -23,7 +23,25 @@ namespace TCMS
         using Base = LinkedList<T, SinglyLinkedListNode<T>>;
         using Base::m_Head;
         using Base::m_Tail;
+        using Base::m_Length;
         using Base::downcastFunc;
+
+        /**
+         * @brief Detaches the first node from the linked list without deleting it.
+         * 
+         * @return Pointer to the detached node. If the list is empty, returns nullptr.
+         */
+        SinglyLinkedListNode<T>* detachBegin() {
+            if (!m_Head) return nullptr;  // If the list is empty, return nullptr
+
+            SinglyLinkedListNode<T>* detachedNode = downcastFunc(m_Head);  // Store the head node
+            m_Head = m_Head->getNext();  // Move head to the next node
+
+            if (!m_Head) m_Tail = nullptr;  // If list becomes empty, update tail as well
+
+            detachedNode->setNext(nullptr);  // Disconnect the detached node
+            return detachedNode;  // Return the detached node (caller must manage memory)
+        }
 
         /**
          * @brief Destructor to deallocate all nodes in the list.
@@ -33,10 +51,28 @@ namespace TCMS
          */
         ~SinglyLinkedList() override {
             while (m_Head != nullptr) {
+                std::cout << "HHHHH\n";
                 removeBegin();
+            //     if (m_Head == nullptr)
             }
+            //     return;
 
-            std::cout << "SinglyLinkedList destroyed.\n";
+            // SinglyLinkedListNode<T>* temp = downcastFunc(m_Head);
+            // m_Head = m_Head->getNext();
+
+            // if (m_Head == nullptr)
+            //     m_Tail = nullptr;
+                
+            // if (temp->getData()) {
+            //     std::cout << temp->getData() << "\n";
+            //     delete temp;
+            //     temp = nullptr;
+            // }
+
+            // --m_Length;
+            //     std::cout << "SinglyLinkedList destroyed.\n";
+            // }
+
         }
 
         /**
@@ -52,6 +88,8 @@ namespace TCMS
             
             if (m_Tail == nullptr)
                 m_Tail = newNode;
+
+            ++m_Length;
         }
 
         /**
@@ -81,6 +119,8 @@ namespace TCMS
 
             if (newNode->getNext() == nullptr)
                 m_Tail = newNode;
+            
+            ++m_Length;
         }
 
         /**
@@ -96,7 +136,8 @@ namespace TCMS
             else    
                 m_Tail->setNext(newNode);
 
-            m_Tail = newNode;            
+            m_Tail = newNode;
+            ++m_Length;            
         }
 
         /**
@@ -126,6 +167,8 @@ namespace TCMS
                     }
 
                     delete current;
+                    --m_Length;
+
                     return;
                 }
 
@@ -147,7 +190,13 @@ namespace TCMS
             if (m_Head == nullptr)
                 m_Tail = nullptr;
                 
-            delete temp;
+            if (temp->getData()) {
+                std::cout << temp->getData() << "\n";
+                delete temp;
+                temp = nullptr;
+            }
+
+            --m_Length;
         }
 
         /**
@@ -170,6 +219,8 @@ namespace TCMS
                 current = current->getNext();
 
             delete m_Tail;
+            --m_Length;
+
             m_Tail = current;
             m_Tail->setNext(nullptr);
         }
@@ -189,3 +240,137 @@ namespace TCMS
         }
     };
 } // namespace TCMS
+#pragma once
+
+// #include <iostream>
+// #include <memory> // For std::shared_ptr
+
+// #include "LinkedList.hpp"
+// #include "SinglyLinkedListNode.hpp"
+
+// namespace TCMS
+// {
+//     template <typename T>
+//     class SinglyLinkedList : public LinkedList<T, SinglyLinkedListNode<T>> {
+//     public:
+//         using Base = LinkedList<T, SinglyLinkedListNode<T>>;
+//         using Base::m_Head;
+//         using Base::m_Tail;
+//         using Base::m_Length;
+//         using Base::downcastFunc;
+
+//         ~SinglyLinkedList() override = default; // Smart pointers handle cleanup
+
+//         void insertBegin(T data) override {
+//             auto newNode = std::make_shared<SinglyLinkedListNode<T>>(data);
+//             newNode->setNext(m_Head);
+//             m_Head = newNode;
+
+//             if (!m_Tail) 
+//                 m_Tail = downcastFunc(m_Head.get());
+
+//             ++m_Length;
+//         }
+
+//         void insertPosition(T data, size_t position) override {
+//             if (position == 0) {
+//                 insertBegin(data);
+//                 return;
+//             }
+
+//             auto current = downcastFunc(m_Head.get());
+//             for (size_t i = 0; i < position - 1 && current; i++) 
+//                 current = current->getNext().get();
+
+//             if (!current)
+//                 throw std::out_of_range("Position is out of range");
+
+//             auto newNode = std::make_shared<SinglyLinkedListNode<T>>(data);
+//             newNode->setNext(current->getNext());
+//             current->setNext(newNode);
+
+//             if (!newNode->getNext()) 
+//                 m_Tail = newNode.get();
+
+//             ++m_Length;
+//         }
+
+//         void insertEnd(T data) override {    
+//             auto newNode = std::make_shared<SinglyLinkedListNode<T>>(data);
+
+//             if (!m_Tail)
+//                 m_Head = newNode;
+//             else
+//                 m_Tail->setNext(newNode);
+
+//             m_Tail = newNode.get();
+//             ++m_Length;
+//         }
+
+//         void remove(T data) override {
+//             if (!m_Head)
+//                 return;
+
+//             if (m_Head->getData() == data) {
+//                 removeBegin();
+//                 return;
+//             }
+
+//             auto current = downcastFunc(m_Head.get());
+
+//             while (current->getNext() && current->getNext()->getData() != data) 
+//                 current = current->getNext().get();
+
+//             if (current->getNext()) {
+//                 if (!current->getNext()->getNext()) 
+//                     m_Tail = current;
+
+//                 current->setNext(current->getNext()->getNext());
+//                 --m_Length;
+//             }
+//         }
+
+//         void removeBegin() override {
+//             if (!m_Head)
+//                 return;
+
+//             m_Head = m_Head->getNext();
+
+//             if (!m_Head) 
+//                 m_Tail = nullptr;
+
+//             --m_Length;
+//         }
+
+//         void removeEnd() override {
+//             if (!m_Head)
+//                 return;
+
+//             if (!m_Head->getNext()) {
+//                 m_Head.reset();
+//                 m_Tail = nullptr;
+//                 m_Length = 0;
+//                 return;
+//             }
+
+//             auto current = downcastFunc(m_Head.get());
+//             while (current->getNext()->getNext()) 
+//                 current = current->getNext().get();
+
+//             current->setNext(nullptr);
+//             m_Tail = current;
+//             --m_Length;
+//         }
+
+//         void print() const override {
+//             auto current = downcastFunc(m_Head.get());
+
+//             while (current) {
+//                 std::cout << current->getData() << " -> ";
+//                 current = current->getNext().get();
+//             }
+
+//             std::cout << "nullptr\n";
+//         }
+//     };
+// } // namespace TCMS

@@ -79,6 +79,15 @@ namespace TCMS
             std::cout << "Circular Queue (front -> back): ";
             m_List.print();
         }
+
+        /**
+         * @brief Returns the number of elements in the circular queue.
+         * 
+         * @return The length of the circular queue. 
+         */
+        size_t getLength() const {
+            return m_List.getLength();
+        }
     private:
         SinglyCircularLinkedList<T> m_List; ///< Internal storage using a singly circular linked list.
     };
