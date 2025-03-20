@@ -138,9 +138,12 @@ int main() {
     v1.emplaceBack(3);
     v1.emplaceBack(4);
     // v1.
-    // v1.emplace(v1.begin() + 2, 20);
-    v1.erase(v1.begin(), v1.begin() + 2);
+    // v1.emplace(v1.begin() + 2);
+    // v1.erase(v1.begin(), v1.begin() + 2);
     v1.print();
+
+    Vector<int32_t> v2;
+    // auto v3 = v2 - v1;
 
     // std::cout << "\n\n\n";
 }

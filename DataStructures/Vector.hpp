@@ -379,25 +379,54 @@ namespace TCMS
                 m_Data[m_Length++] = value;
             }
 
-            // Emplace an element at a specific position
+            // // Emplace an element at a specific position
+            // template <typename... Args>
+            // Iterator emplace(Iterator pos, Args&&... args) {
+            //     Iterator it = begin() + (pos - begin());
+
+            //     if (m_Length == m_Capacity) {
+            //         size_t newCapacity = (m_Capacity == 0) ? 1 : m_Capacity * 2;
+            //         resize(newCapacity);
+            //     }
+                
+            //     // std::ptrdiff_t posIndex = pos - begin(); 
+            //     auto posIndex = pos - begin(); 
+            //     for (std::ptrdiff_t i = m_Length; i > (posIndex); --i) {
+            //         m_Data[i] = std::move(m_Data[i - 1]);
+            //     }
+
+            //     ::new(&m_Data[posIndex]) T(std::forward<Args>(args)...);
+            //     m_Length++;
+
+            //     return pos;
+            // }
+
             template <typename... Args>
             Iterator emplace(Iterator pos, Args&&... args) {
-                Iterator it = begin() + (pos - begin());
+                // Calculate the position index
+                std::ptrdiff_t posIndex = pos - begin();
 
+                // Ensure the position is valid
+                if (posIndex < 0 || posIndex > static_cast<std::ptrdiff_t>(m_Length)) {
+                    throw std::out_of_range("Invalid position for emplace");
+                }
+
+                // Resize if necessary
                 if (m_Length == m_Capacity) {
                     size_t newCapacity = (m_Capacity == 0) ? 1 : m_Capacity * 2;
                     resize(newCapacity);
                 }
-                
-                std::ptrdiff_t posIndex = pos - begin(); 
-                for (auto i = static_cast<std::ptrdiff_t>(m_Length); i > (posIndex); --i) {
+
+                // Shift elements to the right to make space for the new element
+                for (std::ptrdiff_t i = static_cast<std::ptrdiff_t>(m_Length); i > posIndex; --i) {
                     m_Data[i] = std::move(m_Data[i - 1]);
                 }
 
+                // Construct the new element in place
                 ::new(&m_Data[posIndex]) T(std::forward<Args>(args)...);
                 m_Length++;
 
-                return pos;
+                return begin() + posIndex;
             }
 
             // Insert an element at the front
