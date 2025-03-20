@@ -53,6 +53,8 @@
                 // "TCMS/Main.cpp",
                 "./Main.cpp",
                 "./controllers/TicketingSystem.cpp",
+                "./controllers/MatchHistoryTracker.hpp",
+                "./models/MatchRecord.hpp",
                 "./models/Spectator.cpp",
                 "./models/Ticket.cpp",
                 // "./LinkedLists/SinglyLinkedListNode.cpp",

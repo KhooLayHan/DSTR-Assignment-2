@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
-
-// #include "LinkedLists/SinglyLinkedList.hpp"
+#include <memory>
+#include "LinkedLists/SinglyLinkedList.hpp"
 #include "LinkedLists/DoublyLinkedList.hpp"
 #include "LinkedLists/SinglyCircularLinkedList.hpp"
 
@@ -21,16 +21,230 @@
 #include "models/Tournament.hpp"
 #include "models/Player.hpp"
 
-#include "controllers/TicketingSystem.hpp"
-#include "models/Ticket.hpp"
-#include "models/Spectator.hpp"
-
+// #include "controllers/TicketingSystem.hpp"
+#include "controllers/MatchHistoryTracker.hpp"
+#include "models/MatchRecord.hpp"
+// #include "models/Ticket.hpp"
+// #include "models/Spectator.hpp"
 
 // #include <vector>
 
-int main() {
+void Task4_displayMenu()
+{
+    std::cout << "\033[1;34m" // 🔵 Bold Blue
+              << "\n==================================\n"
+              << "      🎾 MATCH HISTORY TRACKER 🎾\n"
+              << "==================================\n"
+              << "\033[0m"; // Reset color
+
+    std::cout << "\033[1;33m" // 🟡 Bold Yellow
+              << "1️⃣  Record Match Result\n"
+              << "2️⃣  View Match History\n"
+              << "3️⃣  Retrieve Specific Match\n"
+              << "4️⃣  Delete Specific Match\n"
+              << "5️⃣  Update Specific Match\n"
+              << "6️⃣  Withdraw a Player\n"
+              << "7️⃣  Undo Last Match\n"
+              << "8️⃣  Exit\n"
+              << "\033[0m"; // Reset color
+
+    std::cout << "\033[1;34m==================================\033[0m\n"; // 🔵 Blue divider
+    std::cout << "👉 Enter your choice: ";
+}
+
+int main()
+{
     using namespace TCMS;
-    std::cout << "Running...\n"; 
+    std::cout << "Running...\n";
+
+    MatchHistoryTracker historyTracker; // Object to manage match history
+    int choice;
+
+    do
+    {
+        Task4_displayMenu(); // Function renamed everywhere it's called
+        std::cin >> choice;
+
+        if (std::cin.fail()) // Handle invalid input
+        {
+            std::cin.clear();
+            std::cin.ignore(1000, '\n');
+            std::cout << "\033[1;31m❌ Invalid choice! Please enter a number (1-8).\033[0m\n";
+            continue;
+        }
+
+        std::cin.ignore();
+
+        if (choice == 1) // Record a match
+        {
+            std::string p1, p2;
+            int s1, s2;
+
+            std::cout << "Enter Player 1 Name: ";
+            std::getline(std::cin, p1);
+            std::cout << "Enter Player 2 Name: ";
+            std::getline(std::cin, p2);
+            std::cout << "Enter " << p1 << " Score: ";
+            std::cin >> s1;
+            std::cout << "Enter " << p2 << " Score: ";
+            std::cin >> s2;
+
+            if (std::cin.fail())
+            {
+                std::cin.clear();
+                std::cin.ignore(1000, '\n');
+                std::cout << "\033[1;31m❌ Invalid scores! Enter valid integers.\033[0m\n";
+                continue;
+            }
+
+            historyTracker.addMatchHistory(p1, p2, s1, s2);
+        }
+        else if (choice == 2) // Display all match history
+        {
+            historyTracker.displayAllHistory();
+        }
+        else if (choice == 3) // Retrieve a specific match
+        {
+            int position;
+            std::cout << "Enter match position to retrieve: ";
+            std::cin >> position;
+
+            if (std::cin.fail())
+            {
+                std::cin.clear();
+                std::cin.ignore(1000, '\n');
+                std::cout << "\033[1;31m❌ Invalid position! Enter a valid number.\033[0m\n";
+                continue;
+            }
+
+            std::string matchDetails = historyTracker.retrieveHistory(position);
+            std::cout << matchDetails << std::endl;
+        }
+        else if (choice == 4) // Delete a specific match
+        {
+            int position;
+            std::cout << "Enter match position to delete: ";
+            std::cin >> position;
+
+            if (std::cin.fail())
+            {
+                std::cin.clear();
+                std::cin.ignore(1000, '\n');
+                std::cout << "\033[1;31m❌ Invalid position! Enter a valid number.\033[0m\n";
+                continue;
+            }
+
+            historyTracker.deleteMatch(position);
+        }
+        else if (choice == 5) // Update a specific match
+        {
+            int position;
+            std::string p1, p2;
+            int s1, s2;
+
+            std::cout << "Enter match position to update: ";
+            std::cin >> position;
+
+            if (std::cin.fail())
+            {
+                std::cin.clear();
+                std::cin.ignore(1000, '\n');
+                std::cout << "\033[1;31m❌ Invalid position! Enter a valid number.\033[0m\n";
+                continue;
+            }
+
+            std::cin.ignore();
+            std::cout << "Enter new Player 1 Name: ";
+            std::getline(std::cin, p1);
+            std::cout << "Enter new Player 2 Name: ";
+            std::getline(std::cin, p2);
+            std::cout << "Enter new " << p1 << " Score: ";
+            std::cin >> s1;
+            std::cout << "Enter new " << p2 << " Score: ";
+            std::cin >> s2;
+
+            if (std::cin.fail())
+            {
+                std::cin.clear();
+                std::cin.ignore(1000, '\n');
+                std::cout << "\033[1;31m❌ Invalid scores! Enter valid integers.\033[0m\n";
+                continue;
+            }
+
+            historyTracker.updateMatch(position, p1, p2, s1, s2);
+        }
+        else if (choice == 6) // Handle Player Withdrawal
+        {
+            int position;
+            std::cout << "Enter match position to update: ";
+            std::cin >> position;
+
+            if (std::cin.fail())
+            {
+                std::cin.clear();
+                std::cin.ignore(1000, '\n');
+                std::cout << "\033[1;31m❌ Invalid position! Enter a valid number.\033[0m\n";
+                continue;
+            }
+
+            // Retrieve the match record based on the position
+            auto matchToUpdate = historyTracker.retrieveMatch(position); // Ensure this method exists and returns a MatchRecord pointer
+
+            if (!matchToUpdate)
+            {
+                std::cout << "\033[1;31m❌ Match not found!\033[0m\n";
+                continue;
+            }
+
+            // Display current match details
+            std::cout << "Current Match: " << matchToUpdate->getMatchDetails() << "\n";
+
+            // Prompt user to select which player to withdraw
+            std::cout << "Which player do you want to withdraw?\n";
+            std::cout << "1️⃣ " << matchToUpdate->getPlayer1() << "\n";
+            std::cout << "2️⃣ " << matchToUpdate->getPlayer2() << "\n";
+            std::cout << "👉 Enter 1 or 2: ";
+
+            int playerChoice;
+            std::cin >> playerChoice;
+
+            if (std::cin.fail() || (playerChoice != 1 && playerChoice != 2))
+            {
+                std::cin.clear();
+                std::cin.ignore(1000, '\n');
+                std::cout << "\033[1;31m❌ Invalid choice! Please enter 1 or 2.\033[0m\n";
+                continue;
+            }
+
+            std::cin.ignore(); // Clear the newline character from the input buffer
+            std::string newPlayer;
+            std::cout << "Enter new Player Name (replacement): ";
+            std::getline(std::cin, newPlayer);
+
+            // Call the handlePlayerWithdrawal method with the selected player
+            if (playerChoice == 1)
+            {
+                historyTracker.handlePlayerWithdrawal(position, newPlayer, true); // true for Player 1
+            }
+            else
+            {
+                historyTracker.handlePlayerWithdrawal(position, newPlayer, false); // false for Player 2
+            }
+        }
+        else if (choice == 7) // Undo last match
+        {
+            historyTracker.undoLastMatch();
+        }
+        else if (choice == 8) // Exit the system
+        {
+            std::cout << "\033[1;32m✅ Exiting Match History Tracker...\033[0m\n";
+        }
+        else
+        {
+            std::cout << "\033[1;31m❌ Invalid choice! Please enter a number (1-8).\033[0m\n";
+        }
+
+    } while (choice != 8);
 
     // TicketingSystem ticketingSystem;
 
@@ -42,13 +256,13 @@ int main() {
     // Ticket* ticket5 = new Ticket(TicketType::VIP, 110.0, "A2", "M1"); // Another VIP
     // Ticket* ticket6 = new Ticket(TicketType::GENERAL, 60.0, "D5", "M3"); // Match 3
 
+    // MatchHios -= new
     // ticketingSystem.addTicket(ticket1);
     // ticketingSystem.addTicket(ticket2);
     // ticketingSystem.addTicket(ticket3);
     // ticketingSystem.addTicket(ticket4);
     // ticketingSystem.addTicket(ticket5);
     // ticketingSystem.addTicket(ticket6);
-
 
     // // Create some spectators
     // Spectator* spectator1 = new Spectator("Alice", 65); // VIP
@@ -101,246 +315,230 @@ int main() {
     // ticketingSystem.spectatorExit(spectator5); //Spectator 5 exists
     // ticketingSystem.spectatorExit(spectator3); //Spectator 3 exists
     // ticketingSystem.processEntryQueue();
-    //delete spectator4; // Spectator 4 was never added to any queue, so delete directly.
+    // delete spectator4; // Spectator 4 was never added to any queue, so delete directly.
 
+    // TCMS::Vector<std::shared_ptr<TCMS::Player>> players = {
+    //     std::make_shared<Player>("Roger Federer",         95),
+    //     std::make_shared<Player>("Rafael Nadal",          90),
+    //     std::make_shared<Player>("Novak Djokovic",        92),
+    //     std::make_shared<Player>("Andy Murray",           85),
+    //     std::make_shared<Player>("Alexander Zverev",      87),
+    //     std::make_shared<Player>("Daniil Medvedev",       88),
+    //     std::make_shared<Player>("Stefanos Tsitsipas",    86),
+    //     std::make_shared<Player>("Carlos Alcaraz",        89),
+    // };
 
-    TCMS::Vector<std::shared_ptr<TCMS::Player>> players = {
-        std::make_shared<Player>("Roger Federer",         95),
-        std::make_shared<Player>("Rafael Nadal",          90),
-        std::make_shared<Player>("Novak Djokovic",        92),
-        std::make_shared<Player>("Andy Murray",           85),
-        std::make_shared<Player>("Alexander Zverev",      87),
-        std::make_shared<Player>("Daniil Medvedev",       88),
-        std::make_shared<Player>("Stefanos Tsitsipas",    86),
-        std::make_shared<Player>("Carlos Alcaraz",        89),
-    };
+    // the code provided will have heap-use-after-free error unless using smart pointer or new/delete
+    // dangling memory address
 
-    // std::vector<int> vec = {4, 2, 5, 1, 3};
-
-    // TCMS::RandomAccessIterator<int> begin(vec.data(), vec.data(), vec.data() + vec.size());
-    // TCMS::RandomAccessIterator<int> end(vec.data() + vec.size(), vec.data(), vec.data() + vec.size());
-
-    // static_assert(std::random_access_iterator<TCMS::RandomAccessIterator<int>>, "Iterator does not satisfy RandomAccessIterator requirements!");
-
-    // std::sort(begin, end);  // Check for errors
-
-    // for (auto it = begin; it != end; ++it) {
-    //     std::cout << *it << " ";
-    // }
-
-    Tournament tournament;
-    tournament.runTournament(players);
-
-    
+    // Tournament tournament;
+    // tournament.runTournament(players);
 
     // std::cout << "\n\n\n";
 }
 
-
-
-
 // Vector<int32_t> v1;
-    
-    // v1.reserve(10);
-    // v1.resize(100);
 
-    // v1.popBack();
-    // v1.print();
-    
-    // v1.emplaceBack(1);
-    // v1.emplaceBack(2);
-    // v1.emplaceBack(3);
-    // v1.print();
-    
-    // v1.popBack();
-    // v1.print();
+// v1.reserve(10);
+// v1.resize(100);
 
-    // v1.pushBack(4);
-    // v1.pushBack(5);
-    // v1.pushBack(6);
-    
-    // v1.popBack();
-    // v1.print();
+// v1.popBack();
+// v1.print();
 
-    // for (auto i = v1.begin(); i != v1.end(); i++) {
-    //     std::cout << *i << "\n"; 
-    // }
+// v1.emplaceBack(1);
+// v1.emplaceBack(2);
+// v1.emplaceBack(3);
+// v1.print();
 
-    // for (const auto& v : v1) 
-    //     std::cout << v << "\n";
+// v1.popBack();
+// v1.print();
 
-    // v1.begin();
-    // v1.end();
+// v1.pushBack(4);
+// v1.pushBack(5);
+// v1.pushBack(6);
 
-    // UUID uuid;
-    // std::cout << uuid.toString() << "\n";
+// v1.popBack();
+// v1.print();
 
-    // TCMS::SinglyLinkedList<int> sll_1, sll_2, sll_3;
-  
-    // sll_1.insertBegin(10);
-    // sll_1.insertBegin(20);
-    // sll_1.insertBegin(30);
-    // sll_1.print();
-    
-    // sll_2.insertEnd(10);
-    // sll_2.insertEnd(20);
-    // sll_2.insertEnd(30);
-    // sll_2.print();
-    
-    // sll_1.remove(20);
-    // sll_1.remove(30);
-    // sll_1.remove(10);
+// for (auto i = v1.begin(); i != v1.end(); i++) {
+//     std::cout << *i << "\n";
+// }
 
-    // sll_1.removeBegin();
-    // sll_1.removeEnd();
+// for (const auto& v : v1)
+//     std::cout << v << "\n";
 
-    // sll_2.print();
-    
-    // sll_3.insertPosition(10, 0);
-    // sll_3.insertPosition(20, 0);
-    // sll_3.insertPosition(30, 0);
-    // sll_3.print();
+// v1.begin();
+// v1.end();
 
-    // sll.insertPosition(20, 1);
-    // sll.insertPosition(10, 0);
-    // sll.insertPosition(30, 2);
-    // sll.print();
+// UUID uuid;
+// std::cout << uuid.toString() << "\n";
 
-    // TCMS::DoublyLinkedList<int> dll_1, dll_2, dll_3;
+// TCMS::SinglyLinkedList<int> sll_1, sll_2, sll_3;
 
-    // dll_1.insertBegin(10);
-    // dll_1.insertBegin(20);
-    // dll_1.insertBegin(30);
-    // dll_1.print();
-    
-    // dll_2.insertEnd(10);
-    // dll_2.insertEnd(20);
-    // dll_2.insertEnd(30);
-    // dll_2.print();
+// sll_1.insertBegin(10);
+// sll_1.insertBegin(20);
+// sll_1.insertBegin(30);
+// sll_1.print();
 
-    // dll_3.insertPosition(10, 0);
-    // dll_3.insertPosition(20, 1);
-    // dll_3.insertPosition(30, 2);
-    // dll_3.print();
+// sll_2.insertEnd(10);
+// sll_2.insertEnd(20);
+// sll_2.insertEnd(30);
+// sll_2.print();
 
-    // dll_1.removeBegin();
-    // dll_1.removeBegin();
-    // dll_1.removeBegin();
-    // dll_1.print();
+// sll_1.remove(20);
+// sll_1.remove(30);
+// sll_1.remove(10);
 
-    // dll_2.removeEnd();
-    // dll_2.removeEnd();
-    // dll_2.removeEnd();
-    // dll_2.print();
+// sll_1.removeBegin();
+// sll_1.removeEnd();
 
-    // dll_3.remove(10);
-    // dll_3.remove(20);
-    // dll_3.remove(30);
-    // dll_3.print();
+// sll_2.print();
 
-    // TCMS::SinglyCircularLinkedList<int> scll_1, scll_2, scll_3;
+// sll_3.insertPosition(10, 0);
+// sll_3.insertPosition(20, 0);
+// sll_3.insertPosition(30, 0);
+// sll_3.print();
 
-    // scll_1.insertBegin(10);
-    // scll_1.insertBegin(20);
-    // scll_1.insertBegin(30);
-    // scll_1.print();
+// sll.insertPosition(20, 1);
+// sll.insertPosition(10, 0);
+// sll.insertPosition(30, 2);
+// sll.print();
 
-    // scll_1.removeBegin();
-    // scll_1.removeBegin();
-    // scll_1.removeBegin();
-    // scll_1.print();
+// TCMS::DoublyLinkedList<int> dll_1, dll_2, dll_3;
 
-    // scll_2.insertEnd(10);
-    // scll_2.insertEnd(20);
-    // scll_2.insertEnd(30);
-    // scll_2.print();
+// dll_1.insertBegin(10);
+// dll_1.insertBegin(20);
+// dll_1.insertBegin(30);
+// dll_1.print();
 
-    // scll_2.removeEnd();
-    // scll_2.removeEnd();
-    // scll_2.removeEnd();
-    // scll_2.print();
-    
-    // scll_3.insertPosition(10, 0);
-    // scll_3.insertPosition(20, 1);
-    // scll_3.insertPosition(30, 3);
-    // scll_3.print();
-    
-    // scll_3.remove(30);
-    // scll_3.remove(10);
-    // scll_3.remove(20);
-    // scll_3.print();
+// dll_2.insertEnd(10);
+// dll_2.insertEnd(20);
+// dll_2.insertEnd(30);
+// dll_2.print();
 
-    // std::cout << "\n\n\n";
+// dll_3.insertPosition(10, 0);
+// dll_3.insertPosition(20, 1);
+// dll_3.insertPosition(30, 2);
+// dll_3.print();
 
-    // Stack<int> s1;
+// dll_1.removeBegin();
+// dll_1.removeBegin();
+// dll_1.removeBegin();
+// dll_1.print();
 
-    // s1.push(10);
-    // s1.push(20);
-    // s1.push(30);
-    // s1.push(50);
-    // s1.print();
+// dll_2.removeEnd();
+// dll_2.removeEnd();
+// dll_2.removeEnd();
+// dll_2.print();
 
-    // std::cout << s1.peek() << "\n";
-    // s1.print();
+// dll_3.remove(10);
+// dll_3.remove(20);
+// dll_3.remove(30);
+// dll_3.print();
 
-    // std::cout << s1.pop() << "\n";
-    // s1.print();
+// TCMS::SinglyCircularLinkedList<int> scll_1, scll_2, scll_3;
 
-    // Queue<std::string> q1;
+// scll_1.insertBegin(10);
+// scll_1.insertBegin(20);
+// scll_1.insertBegin(30);
+// scll_1.print();
 
-    // q1.enqueue("10");
-    // q1.enqueue("20");
-    // q1.enqueue("30");
-    // q1.enqueue("100");
-    // q1.print();
-    
-    // std::cout << q1.peekFront() << "\n";
-    // q1.print();
-    // std::cout << q1.peekBack() << "\n";
-    // q1.print();
-    
-    // std::cout << q1.dequeue() << "\n";
-    // q1.print();
-    
-    // std::cout << q1.dequeue() << "\n";
-    // std::cout << q1.dequeue() << "\n";
-    // q1.print();
+// scll_1.removeBegin();
+// scll_1.removeBegin();
+// scll_1.removeBegin();
+// scll_1.print();
 
-    // PriorityQueue<std::string> pq_1;
+// scll_2.insertEnd(10);
+// scll_2.insertEnd(20);
+// scll_2.insertEnd(30);
+// scll_2.print();
 
-    // pq_1.enqueue("World", 1);
-    // pq_1.enqueue("C++", 2);
-    // pq_1.enqueue("Hello", 0);
-    // pq_1.print();
-    
-    // std::cout << pq_1.peekFront() << "\n";
-    // pq_1.print();
-    // std::cout << pq_1.peekBack() << "\n";
-    // pq_1.print();
-    
-    // pq_1.dequeue();
-    // pq_1.print();
-    
-    // pq_1.dequeue();
-    // pq_1.dequeue();
-    // pq_1.print();
-    
-    // CircularQueue<std::string> cq_1;
+// scll_2.removeEnd();
+// scll_2.removeEnd();
+// scll_2.removeEnd();
+// scll_2.print();
 
-    // cq_1.enqueue("20");
-    // cq_1.enqueue("10");
-    // cq_1.enqueue("30");
-    // cq_1.enqueue("100");
-    // cq_1.print();
-    
-    // std::cout << cq_1.peekFront() << "\n";
-    // cq_1.print();
-    // std::cout << cq_1.peekBack() << "\n";
-    // cq_1.print();
-    
-    // std::cout << cq_1.dequeue() << "\n";
-    // cq_1.print();
-    
-    // std::cout << cq_1.dequeue() << "\n";
-    // std::cout << cq_1.dequeue() << "\n";
-    // cq_1.print();
+// scll_3.insertPosition(10, 0);
+// scll_3.insertPosition(20, 1);
+// scll_3.insertPosition(30, 3);
+// scll_3.print();
+
+// scll_3.remove(30);
+// scll_3.remove(10);
+// scll_3.remove(20);
+// scll_3.print();
+
+// std::cout << "\n\n\n";
+
+// Stack<int> s1;
+
+// s1.push(10);
+// s1.push(20);
+// s1.push(30);
+// s1.push(50);
+// s1.print();
+
+// std::cout << s1.peek() << "\n";
+// s1.print();
+
+// std::cout << s1.pop() << "\n";
+// s1.print();
+
+// Queue<std::string> q1;
+
+// q1.enqueue("10");
+// q1.enqueue("20");
+// q1.enqueue("30");
+// q1.enqueue("100");
+// q1.print();
+
+// std::cout << q1.peekFront() << "\n";
+// q1.print();
+// std::cout << q1.peekBack() << "\n";
+// q1.print();
+
+// std::cout << q1.dequeue() << "\n";
+// q1.print();
+
+// std::cout << q1.dequeue() << "\n";
+// std::cout << q1.dequeue() << "\n";
+// q1.print();
+
+// PriorityQueue<std::string> pq_1;
+
+// pq_1.enqueue("World", 1);
+// pq_1.enqueue("C++", 2);
+// pq_1.enqueue("Hello", 0);
+// pq_1.print();
+
+// std::cout << pq_1.peekFront() << "\n";
+// pq_1.print();
+// std::cout << pq_1.peekBack() << "\n";
+// pq_1.print();
+
+// pq_1.dequeue();
+// pq_1.print();
+
+// pq_1.dequeue();
+// pq_1.dequeue();
+// pq_1.print();
+
+// CircularQueue<std::string> cq_1;
+
+// cq_1.enqueue("20");
+// cq_1.enqueue("10");
+// cq_1.enqueue("30");
+// cq_1.enqueue("100");
+// cq_1.print();
+
+// std::cout << cq_1.peekFront() << "\n";
+// cq_1.print();
+// std::cout << cq_1.peekBack() << "\n";
+// cq_1.print();
+
+// std::cout << cq_1.dequeue() << "\n";
+// cq_1.print();
+
+// std::cout << cq_1.dequeue() << "\n";
+// std::cout << cq_1.dequeue() << "\n";
+// cq_1.print();
