@@ -128,10 +128,19 @@ int main() {
     //     std::cout << *it << " ";
     // }
 
-    Tournament tournament;
-    tournament.runTournament(players);
+    // Tournament tournament;
+    // tournament.runTournament(players);
 
+    Vector<int32_t> v1;
+    v1.pushBack(1);
     
+    v1.emplaceFront(2);
+    v1.emplaceBack(3);
+    v1.emplaceBack(4);
+    // v1.
+    // v1.emplace(v1.begin() + 2, 20);
+    v1.erase(v1.begin(), v1.begin() + 2);
+    v1.print();
 
     // std::cout << "\n\n\n";
 }

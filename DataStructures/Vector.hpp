@@ -197,6 +197,9 @@ namespace TCMS
     template <typename T>
     class Vector {
         public:
+            using Iterator = RandomAccessIterator<T>;
+            using ConstIterator = RandomAccessIterator<const T>;
+
             Vector() : m_Length(0), m_Capacity(1) {
                 m_Data = new T[m_Capacity];
             }
@@ -334,11 +337,107 @@ namespace TCMS
                 return m_Length;
             } 
 
+            // Insert an element at the front
+            void pushFront(const T& value) {
+                if (m_Length == m_Capacity) {
+                    size_t newCapacity = (m_Capacity == 0) ? 1 : m_Capacity * 2;
+                    resize(newCapacity);
+                }
+
+                // Shift all elements to the right
+                for (size_t i = m_Length; i > 0; --i) {
+                    m_Data[i] = std::move(m_Data[i - 1]);
+                }
+
+                // Insert the new element at the beginning
+                m_Data[0] = value;
+                m_Length++;
+            }
+
+            // Emplace an element at the front
+            template <typename... Args>
+            void emplaceFront(Args&&... args) {
+                if (m_Length == m_Capacity) {
+                    size_t newCapacity = (m_Capacity == 0) ? 1 : m_Capacity * 2;
+                    resize(newCapacity);
+                }
+
+                // Shift all elements to the right
+                for (size_t i = m_Length; i > 0; --i) {
+                    m_Data[i] = std::move(m_Data[i - 1]);
+                }
+
+                // Construct the new element in place at the beginning
+                ::new(&m_Data[0]) T(std::forward<Args>(args)...);
+                m_Length++;
+            }
+
             void pushBack(const T& value) {
                 if (m_Length == m_Capacity)
                     resize(m_Capacity * 2);
 
                 m_Data[m_Length++] = value;
+            }
+
+            // Emplace an element at a specific position
+            template <typename... Args>
+            Iterator emplace(Iterator pos, Args&&... args) {
+                Iterator it = begin() + (pos - begin());
+
+                if (m_Length == m_Capacity) {
+                    size_t newCapacity = (m_Capacity == 0) ? 1 : m_Capacity * 2;
+                    resize(newCapacity);
+                }
+                
+                std::ptrdiff_t posIndex = pos - begin(); 
+                for (auto i = static_cast<std::ptrdiff_t>(m_Length); i > (posIndex); --i) {
+                    m_Data[i] = std::move(m_Data[i - 1]);
+                }
+
+                ::new(&m_Data[posIndex]) T(std::forward<Args>(args)...);
+                m_Length++;
+
+                return pos;
+            }
+
+            // Insert an element at the front
+            void insertFront(const T& value) {
+                emplaceFront(value);
+            }
+
+            // Insert an element at the back
+            void insertBack(const T& value) {
+                pushBack(value);
+            }
+
+            // Erase an element at a specific position
+            Iterator erase(Iterator pos) {
+                Iterator it = begin() + (pos - begin());
+
+                for (size_t i = (it - begin()); i < m_Length - 1; ++i) {
+                    m_Data[i] = std::move(m_Data[i + 1]);
+                }
+
+                m_Data[--m_Length].~T();
+                return it;
+            }
+
+            // Erase a range of elements
+            Iterator erase(Iterator first, Iterator last) {
+                Iterator itFirst = begin() + (first - begin());
+                Iterator itLast = begin() + (last - begin());
+
+                size_t numElements = itLast - itFirst;
+                for (size_t i = (itFirst - begin()); i < m_Length - numElements; ++i) {
+                    m_Data[i] = std::move(m_Data[i + numElements]);
+                }
+
+                for (auto i = m_Length - numElements; i < m_Length; ++i) {
+                    m_Data[i].~T();
+                }
+
+                m_Length -= numElements;
+                return itFirst;
             }
 
             // Sourced from ChatGPT
@@ -381,8 +480,9 @@ namespace TCMS
             void print() {
                 std::cout << "Length: " << m_Length << ", Capacity: " << m_Capacity << "\n";
                 
+                std::cout << "Data: ";
                 for (size_t i = 0; i != m_Length; i++) {
-                    std::cout << "Data: " << m_Data[i] << ", "; 
+                    std::cout << m_Data[i] << ", "; 
                 }
 
                 std::cout << "\n";
@@ -395,9 +495,6 @@ namespace TCMS
             constexpr const T* getData() const noexcept {
                 return m_Data;
             } 
-
-            using Iterator = RandomAccessIterator<T>;
-            using ConstIterator = RandomAccessIterator<const T>;
 
             Iterator begin() noexcept { return Iterator(m_Data, m_Data, m_Data + m_Length); }
             Iterator end()   noexcept { return Iterator(m_Data + m_Length, m_Data, m_Data + m_Length); }

@@ -9,6 +9,19 @@
 
 namespace TCMS
 {
+    enum class MatchType {
+        Qualifiers,
+        RoundRobin,
+        Knockout
+    };
+    // struct IMatch {
+    
+        
+    //     union {
+    //         std::string, std::string, std::string
+    //     };
+    // };
+
     class Player {
     public:
         Player() : m_Id(UUID().toString()), m_Name("Unknown"), m_SkillLevel(0) {}
@@ -80,5 +93,10 @@ namespace TCMS
         int32_t m_SkillLevel;
         int32_t m_Wins = 0;
         int32_t m_Points = 0;
+
+        bool isInMatch;
+        bool isInSeedingQueue;
+        bool isInBrackets;
+
     };    
 } // namespace TCMS
