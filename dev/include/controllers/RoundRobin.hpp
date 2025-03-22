@@ -204,12 +204,12 @@ namespace TCMS {
                     auto winner = match.playMatch();
 
                     if (winner) {
-                        m_MatchWins[winner->getId()]++;
-                        m_TotalPoints[winner->getId()] += winner->getSkillLevel() + winner->getPoints();
+                        m_MatchWins[winner->getUUID()]++;
+                        m_TotalPoints[winner->getUUID()] += winner->getSkillLevel() + winner->getPoints();
 
-                        if (!m_AdvancingPlayersMap.count(winner->getId())) {
+                        if (!m_AdvancingPlayersMap.count(winner->getUUID())) {
                             m_AdvancingPlayers->enqueue(winner, winner->getSkillLevel());
-                            m_AdvancingPlayersMap[winner->getId()] = winner;
+                            m_AdvancingPlayersMap[winner->getUUID()] = winner;
                         }
                     }
                     

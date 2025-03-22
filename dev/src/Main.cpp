@@ -14,10 +14,10 @@
 
 #include "../include/data_structures/Vector.hpp"
 
-#include "../include/data_structures/iterators/Iterator.hpp"
-#include "../include/data_structures/iterators/ForwardIterator.hpp"
-#include "../include/data_structures/iterators/BidirectionalIterator.hpp"
-#include "../include/data_structures/iterators/RandomAccessIterator.hpp"
+// #include "../include/data_structures/iterators/Iterator.hpp"
+// #include "../include/data_structures/iterators/ForwardIterator.hpp"
+// #include "../include/data_structures/iterators/BidirectionalIterator.hpp"
+// #include "../include/data_structures/iterators/RandomAccessIterator.hpp"
 
 #include "../include/models/Tournament.hpp"
 #include "../include/models/Player.hpp"
@@ -26,12 +26,93 @@
 #include "../include/models/Ticket.hpp"
 #include "../include/models/Spectator.hpp"
 
+#include "../include/data_structures/hash_map/HashMap.hpp"
+
+#include "../include/controllers/PlayerManager.hpp"
 
 #include <vector>
 
 int main() {
     using namespace TCMS;
     std::cout << "Running...\n"; 
+
+    // HashMap<std::string, Players> players;
+    // auto player1 = std::make_shared<Player>("Roger Federez", 56, "Spain", 5, "Male", 1);
+    // players[player1->getUID()] = player1;
+    // auto player = std::make_shared<Player>("Alcarez", 56, "Spain", 5, "Male", 1);
+    // players[player->getUID()] = player;
+    // map.insert("GG", );
+    // map.insert("one", 1);
+    // map.insert("two", 2);
+    // map.insert("something", 3);
+    // map.printAll();
+    // // map.
+    // map.
+    // std::cout << map.bucketCount() << '\n';
+    // std::cout << map.getLength() << '\n';
+    // std::cout << map.remove("ee") << '\n';
+    // map.clear();
+    // std::cout << map. << '\n';
+
+    // std::cout << map["ff"] << "\n\n";
+
+    // for (const auto& pair : players) {
+    //     std::cout << pair.first << ": " << pair.second->getName() << std::endl;
+    // }
+
+    PlayerManager pp;
+
+    pp.createPlayer("Roger Federez", 56, "Spain", 5, "Male", 1);
+    std::cout << pp.getPlayer("1")->getName();
+pp.listPlayers();
+    // Vector<Players> players = {
+    //     std::make_shared<Player>("Roger Federer",         95),
+    //     std::make_shared<Player>("Rafael Nadal",          90),
+    //     std::make_shared<Player>("Novak Djokovic",        92),
+    //     std::make_shared<Player>("Andy Murray",           85),
+    //     std::make_shared<Player>("Alexander Zverev",      87),
+    //     std::make_shared<Player>("Daniil Medvedev",       88),
+    //     std::make_shared<Player>("Stefanos Tsitsipas",    86),
+    //     std::make_shared<Player>("Carlos Alcaraz",        89),
+    // };
+    // Vector<std::unique_ptr<Player>> players = {
+    //     std::make_unique<Player>("Roger Federer",         95),
+    //     std::make_unique<Player>("Rafael Nadal",          90),
+    //     std::make_unique<Player>("Novak Djokovic",        92),
+    //     std::make_unique<Player>("Andy Murray",           85),
+    //     std::make_unique<Player>("Alexander Zverev",      87),
+    //     std::make_unique<Player>("Daniil Medvedev",       88),
+    //     std::make_unique<Player>("Stefanos Tsitsipas",    86),
+    //     std::make_unique<Player>("Carlos Alcaraz",        89),
+    // };
+    // Vector<Players> players = {
+    //     new Player("Roger Federer",         95),
+    //     new Player("Rafael Nadal",          90),
+    //     new Player("Novak Djokovic",        92),
+    //     new Player("Andy Murray",           85),
+    //     new Player("Alexander Zverev",      87),
+    //     new Player("Daniil Medvedev",       88),
+    //     new Player("Stefanos Tsitsipas",    86),
+    //     new Player("Carlos Alcaraz",        89),
+    // };
+
+    // Tournament tournament;
+    // tournament.runTournament(players);
+
+    // // Clean up players in the qualifier queue
+    // while (!m_QualifierQueue.isEmpty()) {
+    //     delete m_QualifierQueue.dequeue();
+    // }
+
+    // // Clean up players in the advancing players queue
+    // while (!m_AdvancingPlayers->isEmpty()) {
+    //     delete m_AdvancingPlayers->dequeue();
+    // }
+
+    // // Delete the advancing players queue itself
+    // delete m_AdvancingPlayers;
+}
+
 
     // TicketingSystem ticketingSystem;
 
@@ -104,54 +185,6 @@ int main() {
     // ticketingSystem.processEntryQueue();
     //delete spectator4; // Spectator 4 was never added to any queue, so delete directly.
 
-
-    Vector<Players> players = {
-        std::make_shared<Player>("Roger Federer",         95),
-        std::make_shared<Player>("Rafael Nadal",          90),
-        std::make_shared<Player>("Novak Djokovic",        92),
-        std::make_shared<Player>("Andy Murray",           85),
-        std::make_shared<Player>("Alexander Zverev",      87),
-        std::make_shared<Player>("Daniil Medvedev",       88),
-        std::make_shared<Player>("Stefanos Tsitsipas",    86),
-        std::make_shared<Player>("Carlos Alcaraz",        89),
-    };
-    // Vector<std::unique_ptr<Player>> players = {
-    //     std::make_unique<Player>("Roger Federer",         95),
-    //     std::make_unique<Player>("Rafael Nadal",          90),
-    //     std::make_unique<Player>("Novak Djokovic",        92),
-    //     std::make_unique<Player>("Andy Murray",           85),
-    //     std::make_unique<Player>("Alexander Zverev",      87),
-    //     std::make_unique<Player>("Daniil Medvedev",       88),
-    //     std::make_unique<Player>("Stefanos Tsitsipas",    86),
-    //     std::make_unique<Player>("Carlos Alcaraz",        89),
-    // };
-    // Vector<Players> players = {
-    //     new Player("Roger Federer",         95),
-    //     new Player("Rafael Nadal",          90),
-    //     new Player("Novak Djokovic",        92),
-    //     new Player("Andy Murray",           85),
-    //     new Player("Alexander Zverev",      87),
-    //     new Player("Daniil Medvedev",       88),
-    //     new Player("Stefanos Tsitsipas",    86),
-    //     new Player("Carlos Alcaraz",        89),
-    // };
-
-    Tournament tournament;
-    tournament.runTournament(players);
-
-    // // Clean up players in the qualifier queue
-    // while (!m_QualifierQueue.isEmpty()) {
-    //     delete m_QualifierQueue.dequeue();
-    // }
-
-    // // Clean up players in the advancing players queue
-    // while (!m_AdvancingPlayers->isEmpty()) {
-    //     delete m_AdvancingPlayers->dequeue();
-    // }
-
-    // // Delete the advancing players queue itself
-    // delete m_AdvancingPlayers;
-}
 
     // new/delete / smart pointers
     // the codebase requires smart pointers / new/delete otherwhttps://lms2.apiit.edu.my/course/view.php?id=46547ise heap-use-after-free memory error
