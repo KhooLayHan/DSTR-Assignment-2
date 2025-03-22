@@ -70,6 +70,7 @@ namespace TCMS
         }
 
         void addWin() { m_Wins++; m_Points += 3; }
+        void setWithdrawn(bool withdrawn) { m_Withdrawn = withdrawn; }
         void withdraw() { 
             m_Withdrawn = true; 
             std::cout << m_Name << " has withdrawn from the tournament.\n"; 

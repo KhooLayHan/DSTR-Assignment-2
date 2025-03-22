@@ -22,23 +22,11 @@ namespace TCMS
             size_t qualifyingSpots = 8;
             Queue<std::shared_ptr<Player>> qualifierQueue;
             
-            // Move players into the Qualifiers Queue
-            // while (!players.isEmpty()) { // Assuming isEmpty() checks if the queue is empty
-            //     qualifierQueue.enqueue(players.dequeue()); // Assuming dequeue() removes and returns the front element
-            // }
+            size_t playerCount = players.getLength(); // Get the number of players before qualifiers
 
-            size_t playerCount = players.getLength();
-
-            for (size_t i = 0; i < playerCount; ++i) {
-                auto player = players.dequeue();
-                
-                if (player->isWithdrawn() && !substitutes.isEmpty()) {
-                    auto substitute = substitutes.dequeue();
-                    std::cout << player->getName() << " has withdrawn. Replacing with " << substitute->getName() << ".\n";
-                    qualifierQueue.enqueue(substitute);
-                } else {
-                    qualifierQueue.enqueue(player);
-                }
+            // Ensure players are moved into the qualifierQueue
+            for (size_t i = 0; i < playerCount; i++) {
+                qualifierQueue.enqueue(players.dequeue()); // Move players into the qualifier queue
             }
             
             // // Run Qualifiers
