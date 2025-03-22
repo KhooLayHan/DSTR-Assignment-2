@@ -18,13 +18,27 @@ namespace TCMS
 {
     class Tournament {
     public:
-    void runTournament(Vector<std::shared_ptr<Player>>& players) {
+    void runTournament(Queue<std::shared_ptr<Player>>& players, Queue<std::shared_ptr<Player>>& substitutes) {
             size_t qualifyingSpots = 8;
             Queue<std::shared_ptr<Player>> qualifierQueue;
             
             // Move players into the Qualifiers Queue
-            for (const auto& player : players) {
-                qualifierQueue.enqueue(player);
+            // while (!players.isEmpty()) { // Assuming isEmpty() checks if the queue is empty
+            //     qualifierQueue.enqueue(players.dequeue()); // Assuming dequeue() removes and returns the front element
+            // }
+
+            size_t playerCount = players.getLength();
+
+            for (size_t i = 0; i < playerCount; ++i) {
+                auto player = players.dequeue();
+                
+                if (player->isWithdrawn() && !substitutes.isEmpty()) {
+                    auto substitute = substitutes.dequeue();
+                    std::cout << player->getName() << " has withdrawn. Replacing with " << substitute->getName() << ".\n";
+                    qualifierQueue.enqueue(substitute);
+                } else {
+                    qualifierQueue.enqueue(player);
+                }
             }
             
             // // Run Qualifiers

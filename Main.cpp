@@ -104,16 +104,35 @@ int main() {
     //delete spectator4; // Spectator 4 was never added to any queue, so delete directly.
 
 
-    TCMS::Vector<std::shared_ptr<TCMS::Player>> players = {
-        std::make_shared<Player>("Roger Federer",         95),
-        std::make_shared<Player>("Rafael Nadal",          90),
-        std::make_shared<Player>("Novak Djokovic",        92),
-        std::make_shared<Player>("Andy Murray",           85),
-        std::make_shared<Player>("Alexander Zverev",      87),
-        std::make_shared<Player>("Daniil Medvedev",       88),
-        std::make_shared<Player>("Stefanos Tsitsipas",    86),
-        std::make_shared<Player>("Carlos Alcaraz",        89),
-    };
+    // TCMS::Vector<std::shared_ptr<TCMS::Player>> players = {
+    //     std::make_shared<Player>("Roger Federer",         95),
+    //     std::make_shared<Player>("Rafael Nadal",          90),
+    //     std::make_shared<Player>("Novak Djokovic",        92),
+    //     std::make_shared<Player>("Andy Murray",           85),
+    //     std::make_shared<Player>("Alexander Zverev",      87),
+    //     std::make_shared<Player>("Daniil Medvedev",       88),
+    //     std::make_shared<Player>("Stefanos Tsitsipas",    86),
+    //     std::make_shared<Player>("Carlos Alcaraz",        89),
+    // };
+
+    // TCMS::Vector<std::shared_ptr<TCMS::Player>> substitutes = {
+    //     std::make_shared<Player>("Khoo Lay Han",         91),
+    //     std::make_shared<Player>("Ong Yu Hong",          86),
+    // };
+
+    TCMS::Queue<std::shared_ptr<TCMS::Player>> players;
+    players.enqueue(std::make_shared<Player>("Roger Federer", 95));
+    players.enqueue(std::make_shared<Player>("Rafael Nadal", 90));
+    players.enqueue(std::make_shared<Player>("Novak Djokovic", 92));
+    players.enqueue(std::make_shared<Player>("Andy Murray", 85));
+    players.enqueue(std::make_shared<Player>("Alexander Zverev", 87));
+    players.enqueue(std::make_shared<Player>("Daniil Medvedev", 88));
+    players.enqueue(std::make_shared<Player>("Stefanos Tsitsipas", 86));
+    players.enqueue(std::make_shared<Player>("Carlos Alcaraz", 89));
+
+    TCMS::Queue<std::shared_ptr<TCMS::Player>> substitutes;
+    substitutes.enqueue(std::make_shared<Player>("Khoo Lay Han", 91));
+    substitutes.enqueue(std::make_shared<Player>("Ong Yu Hong", 86));
 
     // std::vector<int> vec = {4, 2, 5, 1, 3};
 
@@ -129,7 +148,7 @@ int main() {
     // }
 
     Tournament tournament;
-    tournament.runTournament(players);
+    tournament.runTournament(players, substitutes);
 
     
 
