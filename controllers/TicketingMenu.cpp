@@ -16,7 +16,7 @@ TicketingMenu::TicketingMenu() {
 // Destructor
 TicketingMenu::~TicketingMenu() {
     // No need to delete Ticket objects here as they are managed by TicketingSystem
-    std::cout << "TicketingMenu destroyed.\n";
+    // std::cout << "TicketingMenu destroyed.\n";
 }
 
 // Main menu loop

@@ -18,7 +18,7 @@ namespace TCMS {
               m_CurrentOccupancy(0) {}
     
         ~VenueSection() {
-            std::cout << "VenueSection " << m_Name << " destroyed.\n";
+            // std::cout << "VenueSection " << m_Name << " destroyed.\n";
         }
     
         std::string getSectionId() const { 

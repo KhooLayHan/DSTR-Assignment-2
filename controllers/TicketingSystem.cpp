@@ -45,7 +45,7 @@ TicketingSystem::~TicketingSystem() {
         delete section;
     }
 
-    std::cout << "TicketingSystem destroyed.\n";
+    // std::cout << "TicketingSystem destroyed.\n";
 }
 
 // Setup venue sections with specified number and capacity

@@ -15,7 +15,7 @@ Spectator::Spectator(const std::string& name, int age, int priority)
       m_SectionId("") {}
 
 Spectator::~Spectator() {
-    std::cout << "Spectator " << m_Name << " destroyed.\n";
+    // std::cout << "Spectator " << m_Name << " destroyed.\n";
 }
 
 std::string Spectator::getSpectatorId() const {

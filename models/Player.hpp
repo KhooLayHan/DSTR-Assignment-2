@@ -81,4 +81,6 @@ namespace TCMS
         int32_t m_Wins = 0;
         int32_t m_Points = 0;
     };    
+
+    using Players = std::shared_ptr<Player>;
 } // namespace TCMS

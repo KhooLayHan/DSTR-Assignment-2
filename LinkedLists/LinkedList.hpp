@@ -132,7 +132,7 @@ namespace TCMS
          * @return Downcasted pointer as DerivedNode*.
          */
         DerivedNode* downcastFunc(LinkedListNode<T, DerivedNode>* node) const {
-            return static_cast<DerivedNode*>(node);
+            return dynamic_cast<DerivedNode*>(node);
         }
     };
 } // namespace TCMS
