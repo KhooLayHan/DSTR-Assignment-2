@@ -162,8 +162,28 @@ int main() {
     manager.listPlayers();
     // manager.listPlayers();
 
+    std::cout << "1. Create a New Player\n";
+    std::cout << "2. Read a Player:\n";
+    std::cout << "3. Update an Existing Player\n";
+    std::cout << "4. Delete a Player\n";
     
+    std::cout << "\nInput: \n";
 
+    int32_t input;
+    std::cin >> input;
+
+    PlayerManager playerManager;
+    // if (input == 1) {
+    //     std::string name
+    //     int32_t skilLLevel;
+
+    //     std::cout << "Enter the new player's name, skillLevel,: \n";
+    //     std::cin >> name >> skillLevel;
+
+    //     // playerManager.createPlayer(name., 100,);
+    // } else if (input == 2) {
+    //     // playerManager.updatePlayer();
+    // }
     std::cout << "\n\n\n";
 }
 

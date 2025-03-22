@@ -51,6 +51,7 @@ namespace TCMS
             if (it != players.end()) {
                 std::cout << "Player deleted: " << it->second->getName() << " (ID: " << id << ")\n";
                 players.erase(it);
+                players.
             } else {
                 std::cout << "Player with ID " << id << " not found.\n";
             }

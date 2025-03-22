@@ -27,7 +27,7 @@ namespace PerformanceEvaluation {
             size_t index = m_HashFunction(key) % m_BucketCount;
             BucketNode<K, V>* existing = m_Buckets[index].Find(key);
             if (existing) {
-                existing->m_Value = value; // Update value if key exists
+                existing->mA_Value = value; // Update value if key exists
             } else {
                 m_Buckets[index].Insert(key, value); // Insert new key-value pair
                 ++m_Size;
