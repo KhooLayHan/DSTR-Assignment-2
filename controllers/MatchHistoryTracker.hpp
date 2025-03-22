@@ -8,6 +8,7 @@
 #include "../DataStructures/Queue.hpp"
 #include "../DataStructures/Stack.hpp"
 #include "../models/MatchRecord.hpp"
+#include "../models/Player.hpp" // From Task 1
 
 namespace TCMS
 {
@@ -27,6 +28,22 @@ namespace TCMS
             m_HistoryList.insertEnd(match); // Store in Linked List
 
             saveMatchHistoryToFile();
+        }
+
+        // Integration with Task 1: Record match using Player objects
+        void addMatchFromPlayers(const Player &player1, const Player &player2)
+        {
+            auto match = std::make_shared<MatchRecord>(player1, player2);
+            m_HistoryQueue.enqueue(match);
+            m_HistoryStack.push(match);
+            m_HistoryList.insertEnd(match);
+
+            std::ofstream file("match_history.txt", std::ios::app);
+            if (file.is_open())
+            {
+                file << match->toFileString() << "\n";
+                file.close();
+            }
         }
 
         void displayAllHistory()

@@ -20,6 +20,7 @@
 
 #include "models/Tournament.hpp"
 #include "models/Player.hpp"
+#include "models/Match.hpp"
 
 // #include "controllers/TicketingSystem.hpp"
 #include "controllers/MatchHistoryTracker.hpp"
@@ -45,7 +46,7 @@ void Task4_displayMenu()
               << "5️⃣  Update Specific Match\n"
               << "6️⃣  Withdraw a Player\n"
               << "7️⃣  Undo Last Match\n"
-              << "8️⃣  Exit\n"
+              << "8️⃣  Exit..\n"
               << "\033[0m"; // Reset color
 
     std::cout << "\033[1;34m==================================\033[0m\n"; // 🔵 Blue divider
@@ -75,30 +76,59 @@ int main()
 
         std::cin.ignore();
 
-        if (choice == 1) // Record a match
+        if (choice == 1) // Record match result using Task 1's Match class
         {
-            std::string p1, p2;
-            int s1, s2;
-
+            std::string name1, name2;
+            int skill1, skill2;
+        
             std::cout << "Enter Player 1 Name: ";
-            std::getline(std::cin, p1);
-            std::cout << "Enter Player 2 Name: ";
-            std::getline(std::cin, p2);
-            std::cout << "Enter " << p1 << " Score: ";
-            std::cin >> s1;
-            std::cout << "Enter " << p2 << " Score: ";
-            std::cin >> s2;
-
-            if (std::cin.fail())
+            std::getline(std::cin, name1);
+        
+            while (true)
             {
+                std::cout << "Enter Player 1 Skill Level (0-100): ";
+                std::cin >> skill1;
+        
+                if (!std::cin.fail() && skill1 >= 0 && skill1 <= 100)
+                    break;
+        
                 std::cin.clear();
                 std::cin.ignore(1000, '\n');
-                std::cout << "\033[1;31m❌ Invalid scores! Enter valid integers.\033[0m\n";
-                continue;
+                std::cout << "\033[1;31m❌ Invalid skill! Please enter a number between 0 and 100.\033[0m\n";
             }
+        
+            std::cin.ignore(); // clear newline after number input
+        
+            std::cout << "Enter Player 2 Name: ";
+            std::getline(std::cin, name2);
+        
+            while (true)
+            {
+                std::cout << "Enter Player 2 Skill Level (0-100): ";
+                std::cin >> skill2;
+        
+                if (!std::cin.fail() && skill2 >= 0 && skill2 <= 100)
+                    break;
+        
+                std::cin.clear();
+                std::cin.ignore(1000, '\n');
+                std::cout << "\033[1;31m❌ Invalid skill! Please enter a number between 0 and 100.\033[0m\n";
+            }
+        
+            std::cin.ignore(); // again to handle any leftover newline
+        
+            auto p1 = std::make_shared<TCMS::Player>(name1, skill1);
+            auto p2 = std::make_shared<TCMS::Player>(name2, skill2);
+        
+            TCMS::Match match(p1, p2);
+            auto winner = match.playMatch(); // This prints result + updates wins
 
-            historyTracker.addMatchHistory(p1, p2, s1, s2);
+            // Use the actual Match object
+            historyTracker.addMatchFromPlayers(*match.getPlayer1(), *match.getPlayer2());
+        
+            std::cout << "\033[1;32m✅ Match recorded successfully!\033[0m\n";
         }
+        
         else if (choice == 2) // Display all match history
         {
             historyTracker.displayAllHistory();

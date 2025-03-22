@@ -30,6 +30,10 @@ namespace TCMS
             return nullptr;
         }
 
+        //these getters for integration with MatchRecord / Tracker (BY SALLY)
+        std::shared_ptr<Player> getPlayer1() const { return m_Player_1; }
+        std::shared_ptr<Player> getPlayer2() const { return m_Player_2; }
+
     private:
         std::shared_ptr<Player> m_Player_1;
         std::shared_ptr<Player> m_Player_2;
