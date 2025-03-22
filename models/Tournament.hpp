@@ -18,15 +18,13 @@ namespace TCMS
 {
     class Tournament {
     public:
-    void runTournament(Queue<std::shared_ptr<Player>>& players, Queue<std::shared_ptr<Player>>& substitutes) {
+    void runTournament(Vector<std::shared_ptr<Player>>& players) {
             size_t qualifyingSpots = 8;
             Queue<std::shared_ptr<Player>> qualifierQueue;
-            
-            size_t playerCount = players.getLength(); // Get the number of players before qualifiers
 
-            // Ensure players are moved into the qualifierQueue
-            for (size_t i = 0; i < playerCount; i++) {
-                qualifierQueue.enqueue(players.dequeue()); // Move players into the qualifier queue
+            // Move players into the Qualifiers Queue
+            for (const auto& player : players) {
+                qualifierQueue.enqueue(player);
             }
             
             // // Run Qualifiers
