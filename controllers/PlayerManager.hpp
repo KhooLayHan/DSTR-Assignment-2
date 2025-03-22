@@ -8,15 +8,17 @@
 
 namespace TCMS
 {
-    class Player; // Forward declaration
+    // class Player; // Forward declaration
 
     class PlayerManager {
     public:
+        PlayerManager() {}
+
         // Create a new player
         void createPlayer(std::string_view name, int32_t skillLevel, std::string_view nationality, int32_t age, std::string_view gender, int32_t ranking) {
             auto player = std::make_shared<Player>(name, skillLevel, nationality, age, gender, ranking);
-            players[player->getId()] = player;
-            std::cout << "Player created: " << player->getName() << " (ID: " << player->getId() << ")\n";
+            players[player->getUID()] = player;
+            std::cout << "Player created: " << player->getName() << " (ID: " << player->getUUID() << ",  UID: " << player->getUID() << ")\n";
         }
 
         // Read a player by ID
@@ -39,7 +41,7 @@ namespace TCMS
                 player->setAge(age);
                 player->setGender(gender);
                 player->setRanking(ranking);
-                std::cout << "Player updated: " << player->getName() << " (ID: " << player->getId() << ")\n";
+                std::cout << "Player updated: " << player->getName() << " (ID: " << player->getUUID() << ", UID: " << player->getUID() << ")\n";
             }
         }
 
@@ -61,7 +63,7 @@ namespace TCMS
                 return;
             }
             for (const auto& [id, player] : players) {
-                std::cout << "ID: " << id << ", Name: " << player->getName() << ", Skill Level: " << player->getSkillLevel() << "\n";
+                std::cout << "ID: " << player->getUID() << ", Name: " << player->getName() << ", Skill Level: " << player->getSkillLevel() << "\n";
             }
         }
 

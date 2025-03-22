@@ -25,6 +25,7 @@
 #include "models/Ticket.hpp"
 #include "models/Spectator.hpp"
 
+#include "controllers/PlayerManager.hpp"
 
 // #include <vector>
 
@@ -104,16 +105,16 @@ int main() {
     //delete spectator4; // Spectator 4 was never added to any queue, so delete directly.
 
 
-    TCMS::Vector<std::shared_ptr<TCMS::Player>> players = {
-        std::make_shared<Player>("Roger Federer",         95),
-        std::make_shared<Player>("Rafael Nadal",          90),
-        std::make_shared<Player>("Novak Djokovic",        92),
-        std::make_shared<Player>("Andy Murray",           85),
-        std::make_shared<Player>("Alexander Zverev",      87),
-        std::make_shared<Player>("Daniil Medvedev",       88),
-        std::make_shared<Player>("Stefanos Tsitsipas",    86),
-        std::make_shared<Player>("Carlos Alcaraz",        89),
-    };
+    // TCMS::Vector<std::shared_ptr<TCMS::Player>> players = {
+    //     std::make_shared<Player>("Roger Federer",         95),
+    //     std::make_shared<Player>("Rafael Nadal",          90),
+    //     std::make_shared<Player>("Novak Djokovic",        92),
+    //     std::make_shared<Player>("Andy Murray",           85),
+    //     std::make_shared<Player>("Alexander Zverev",      87),
+    //     std::make_shared<Player>("Daniil Medvedev",       88),
+    //     std::make_shared<Player>("Stefanos Tsitsipas",    86),
+    //     std::make_shared<Player>("Carlos Alcaraz",        89),
+    // };
 
     // std::vector<int> vec = {4, 2, 5, 1, 3};
 
@@ -131,21 +132,39 @@ int main() {
     // Tournament tournament;
     // tournament.runTournament(players);
 
-    Vector<int32_t> v1;
-    v1.pushBack(1);
+    // Vector<int32_t> v1;
+    // v1.pushBack(1);
     
-    v1.emplaceFront(2);
-    v1.emplaceBack(3);
-    v1.emplaceBack(4);
-    // v1.
-    // v1.emplace(v1.begin() + 2);
-    // v1.erase(v1.begin(), v1.begin() + 2);
-    v1.print();
+    // v1.emplaceFront(2);
+    // v1.emplaceBack(3);
+    // v1.emplaceBack(4);
+    // // v1.
+    // // v1.emplace(v1.begin() + 2);
+    // // v1.erase(v1.begin(), v1.begin() + 2);
+    // v1.print();
 
-    Vector<int32_t> v2;
+    // Vector<int32_t> v2;
     // auto v3 = v2 - v1;
 
-    // std::cout << "\n\n\n";
+    // Player p1("F", 45, "Spain", 32, "Male", 2);
+
+    PlayerManager manager;
+    manager.createPlayer("F", 45, "Spain", 32, "Male", 2);
+    manager.createPlayer("M", 45, "Spain", 32, "Male", 2);
+    manager.createPlayer("C", 45, "Spain", 32, "Male", 2);
+    manager.createPlayer("D", 45, "Spain", 32, "Male", 2);
+
+    std::cout << manager.getPlayer("2")->getName() << "\n";
+    
+    manager.listPlayers();
+    manager.updatePlayer("1", "Female", 23, "Malaysia", 45, "Male", 1);
+    manager.deletePlayer("1");
+    manager.listPlayers();
+    // manager.listPlayers();
+
+    
+
+    std::cout << "\n\n\n";
 }
 
 

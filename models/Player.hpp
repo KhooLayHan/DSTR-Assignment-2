@@ -6,6 +6,7 @@
 #include <string_view>
 
 #include "UUID.hpp"
+#include "UID.hpp"
 
 namespace TCMS
 {
@@ -103,14 +104,15 @@ namespace TCMS
     
 class Player {
     public:
-        Player() : m_Id(UUID().toString()), m_Name("Unknown"), m_SkillLevel(0), m_Age(0), m_Ranking(0), m_IsActive(true) {}
+        Player() : m_UUID(UUID().toString()), m_UID(UID(TCMS_UID::Player).toPlayerString()), m_Name("Unknown"), m_SkillLevel(0), m_Age(0), m_Ranking(0), m_IsActive(true) {}
     
         Player(std::string_view name, int32_t skillLevel, std::string_view nationality, int32_t age, std::string_view gender, int32_t ranking)
-            : m_Id(UUID().toString()), m_Name(name), m_SkillLevel(skillLevel), m_Nationality(nationality), m_Age(age), m_Gender(gender), m_Ranking(ranking), m_IsActive(true) {}
+            : m_UUID(UUID().toString()), m_UID(UID(TCMS_UID::Player).toPlayerString()), 
+              m_Name(name), m_SkillLevel(skillLevel), m_Nationality(nationality), m_Age(age), m_Gender(gender), m_Ranking(ranking), m_IsActive(true) {}
     
         // Copy Constructor
         Player(const Player& other)
-            : m_Id(other.m_Id), m_Name(other.m_Name), m_SkillLevel(other.m_SkillLevel),
+            : m_UUID(other.m_UUID), m_UID(other.m_UID), m_Name(other.m_Name), m_SkillLevel(other.m_SkillLevel),
               m_Nationality(other.m_Nationality), m_Age(other.m_Age), m_Gender(other.m_Gender),
               m_Ranking(other.m_Ranking), m_Wins(other.m_Wins), m_Losses(other.m_Losses),
               m_MatchesPlayed(other.m_MatchesPlayed), m_Points(other.m_Points),
@@ -123,7 +125,7 @@ class Player {
     
         // Move Constructor
         Player(Player&& other) noexcept
-            : m_Id(std::move(other.m_Id)), m_Name(std::move(other.m_Name)),
+            : m_UUID(std::move(other.m_UUID)), m_UID(std::move(other.m_UID)), m_Name(std::move(other.m_Name)),
               m_SkillLevel(other.m_SkillLevel), m_Nationality(std::move(other.m_Nationality)),
               m_Age(other.m_Age), m_Gender(std::move(other.m_Gender)),
               m_Ranking(other.m_Ranking), m_Wins(other.m_Wins), m_Losses(other.m_Losses),
@@ -138,7 +140,9 @@ class Player {
         // Assignment Operators (Copy and Move)
         Player& operator=(const Player& other) {
             if (this != &other) {
-                m_Id = other.m_Id;
+                m_UUID = std::move(other.m_UUID);
+                m_UID = std::move(other.m_UID);
+
                 m_Name = other.m_Name;
                 m_SkillLevel = other.m_SkillLevel;
                 m_Nationality = other.m_Nationality;
@@ -166,7 +170,9 @@ class Player {
     
         Player& operator=(Player&& other) noexcept {
             if (this != &other) {
-                m_Id = std::move(other.m_Id);
+                m_UUID = std::move(other.m_UUID);
+                m_UID = std::move(other.m_UID);
+
                 m_Name = std::move(other.m_Name);
                 m_SkillLevel = other.m_SkillLevel;
                 m_Nationality = std::move(other.m_Nationality);
@@ -193,7 +199,9 @@ class Player {
         }
     
         // Getters and Setters
-        std::string getId() const { return m_Id; }
+        std::string getUUID() const { return m_UUID; }
+        std::string getUID() const { return m_UID; }
+        
         std::string getName() const { return m_Name; }
         int32_t getSkillLevel() const { return m_SkillLevel; }
         int32_t getWins() const { return m_Wins; }
@@ -233,13 +241,16 @@ class Player {
         void setActive(bool isActive) { m_IsActive = isActive; }
     
     private:
-        std::string m_Id;
+        std::string m_UUID;
+        std::string m_UID;
+
         std::string m_Name;
         int32_t m_SkillLevel;
         std::string m_Nationality;
         int32_t m_Age;
         std::string m_Gender;
         int32_t m_Ranking;
+
         int32_t m_Wins = 0;
         int32_t m_Losses = 0;
         int32_t m_MatchesPlayed = 0;
@@ -250,6 +261,7 @@ class Player {
         int32_t m_GamesLost = 0;
         int32_t m_TournamentPoints = 0;
         int32_t m_Seeding = 0;
+        
         bool m_IsActive = true;
         std::string m_NextMatchId;
         std::vector<std::string> m_PreviousMatchIds;

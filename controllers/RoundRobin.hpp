@@ -69,8 +69,8 @@ namespace TCMS
                         auto winner = match.playMatch();
 
                         if (winner) {
-                            m_MatchWins[winner->getId()]++;  // Track number of wins
-                            m_TotalPoints[winner->getId()] += winner->getSkillLevel() + winner->getPoints();  // Track points
+                            m_MatchWins[winner->getUUID()]++;  // Track number of wins
+                            m_TotalPoints[winner->getUUID()] += winner->getSkillLevel() + winner->getPoints();  // Track points
                         }
                     }                        
                 }
@@ -86,15 +86,15 @@ namespace TCMS
                 std::cout << group[2]->getName() << "\n";
                 std::cout << group[3]->getName() << "\n";
 
-                std::cout << m_MatchWins[group[0]->getId()] << "\n";
-                std::cout << m_MatchWins[group[1]->getId()] << "\n";
-                std::cout << m_MatchWins[group[2]->getId()] << "\n";
-                std::cout << m_MatchWins[group[3]->getId()] << "\n";
+                std::cout << m_MatchWins[group[0]->getUUID()] << "\n";
+                std::cout << m_MatchWins[group[1]->getUUID()] << "\n";
+                std::cout << m_MatchWins[group[2]->getUUID()] << "\n";
+                std::cout << m_MatchWins[group[3]->getUUID()] << "\n";
 
                 auto firstPlayer = group[group.getLength() - 1];  // First best player
                 auto secondPlayer = group[group.getLength() - 2];  // Second best player
 
-                if (m_MatchWins[firstPlayer->getId()] == m_MatchWins[secondPlayer->getId()]) {
+                if (m_MatchWins[firstPlayer->getUUID()] == m_MatchWins[secondPlayer->getUUID()]) {
                     auto tiebreakerWinner = applyTieBreaker(firstPlayer, secondPlayer);
                     m_AdvancingPlayers->enqueue(tiebreakerWinner);
                 } else {
@@ -105,9 +105,9 @@ namespace TCMS
         }
 
         std::shared_ptr<Player> applyTieBreaker(std::shared_ptr<Player>& firstPlayer, std::shared_ptr<Player>& secondPlayer) {
-            if (m_TotalPoints[firstPlayer->getId()] > m_TotalPoints[secondPlayer->getId()]) {
+            if (m_TotalPoints[firstPlayer->getUUID()] > m_TotalPoints[secondPlayer->getUUID()]) {
                 return firstPlayer;
-            } else if (m_TotalPoints[secondPlayer->getId()] > m_TotalPoints[firstPlayer->getId()]) {
+            } else if (m_TotalPoints[secondPlayer->getUUID()] > m_TotalPoints[firstPlayer->getUUID()]) {
                 return secondPlayer;
             } else {
                 return (firstPlayer->getSkillLevel() > secondPlayer->getSkillLevel()) ? firstPlayer : secondPlayer;
@@ -197,8 +197,8 @@ namespace TCMS
 //                         Match match(group[i], group[j]);
 //                         Player winner = match.playMatch();
 
-//                         m_MatchWins[winner.getId()]++; // Track number of wins
-//                         m_TotalPoints[winner.getId()] += winner.getSkillLevel() + winner.getPoints(); // Track number of points
+//                         m_MatchWins[winner.getUUID()]++; // Track number of wins
+//                         m_TotalPoints[winner.getUUID()] += winner.getSkillLevel() + winner.getPoints(); // Track number of points
 
 //                         // match.playMatch();
                         
@@ -234,22 +234,22 @@ namespace TCMS
 //                 // std::cout << group[5].getName() << "\n";
 //                 // std::cout << group[6].getName() << "\n";
 
-//                 std::cout << m_MatchWins[group[0].getId()] << "\n";
-//                 std::cout << m_MatchWins[group[1].getId()] << "\n";
-//                 std::cout << m_MatchWins[group[2].getId()] << "\n";
-//                 std::cout << m_MatchWins[group[3].getId()] << "\n";
+//                 std::cout << m_MatchWins[group[0].getUUID()] << "\n";
+//                 std::cout << m_MatchWins[group[1].getUUID()] << "\n";
+//                 std::cout << m_MatchWins[group[2].getUUID()] << "\n";
+//                 std::cout << m_MatchWins[group[3].getUUID()] << "\n";
 
 //                 // std::sort(m_Groups.begin(), m_Groups.end(), [&](const Player& first_player, const Player& second_player) {
-//                 //         return m_MatchWins[first_player.getId()] > m_MatchWins[second_player.getId()];
+//                 //         return m_MatchWins[first_player.getUUID()] > m_MatchWins[second_player.getUUID()];
 //                 //     });
 
 //                 // Sort::quickSort(group.begin(), group.end(), [&](const Player& first_player, const Player& second_player) {
-//                 //     std::cout << "\n\nPPP" << first_player.getId() << second_player.getId() << "\n";
+//                 //     std::cout << "\n\nPPP" << first_player.getUUID() << second_player.getUUID() << "\n";
 
-//                 //     return m_MatchWins[first_player.getId()] > m_MatchWins[second_player.getId()];
+//                 //     return m_MatchWins[first_player.getUUID()] > m_MatchWins[second_player.getUUID()];
 //                 // });
 //                 // std::sort(group.begin(), group.end(), [&](const Player& first_player, const Player& second_player) {
-//                 //     return m_MatchWins[first_player.getId()] > m_MatchWins[second_player.getId()];
+//                 //     return m_MatchWins[first_player.getUUID()] > m_MatchWins[second_player.getUUID()];
 //                 // });
 
 //                 // for (size_t i = 0; i != group.getLength(); i++) {
@@ -260,7 +260,7 @@ namespace TCMS
 //                 Player firstPlayerId = group[group.getLength() - 1]; // First best player
 //                 Player secondPlayerId = group[group.getLength() - 2]; // Second best player
 
-//                 if (m_MatchWins[firstPlayerId.getId()] == m_MatchWins[secondPlayerId.getId()]) {
+//                 if (m_MatchWins[firstPlayerId.getUUID()] == m_MatchWins[secondPlayerId.getUUID()]) {
 //                     Player tiebreakerWinner = applyTieBreaker(firstPlayerId, secondPlayerId);
 //                     m_AdvancingPlayers.enqueue(tiebreakerWinner);
 //                 } else {
@@ -271,9 +271,9 @@ namespace TCMS
 //         }
 
 //         Player applyTieBreaker(Player& first_player, Player& second_player) {
-//             if (m_TotalPoints[first_player.getId()] > m_TotalPoints[second_player.getId()]) {
+//             if (m_TotalPoints[first_player.getUUID()] > m_TotalPoints[second_player.getUUID()]) {
 //                 return first_player;
-//             } else if (m_TotalPoints[second_player.getId()] > m_TotalPoints[first_player.getId()]) {
+//             } else if (m_TotalPoints[second_player.getUUID()] > m_TotalPoints[first_player.getUUID()]) {
 //                 return second_player;
 //             } else {
 //                 return (first_player.getSkillLevel() > second_player.getSkillLevel()) ? first_player : second_player;
