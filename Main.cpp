@@ -48,30 +48,30 @@ int main() {
     
     // Demonstrate a player withdrawal
     std::cout << "\nSimulating player withdrawal...\n";
-    withdrawalManager->processWithdrawal(tournamentPlayers[1], "Knee injury"); // Federer withdraws
+    // withdrawalManager->processWithdrawal(tournamentPlayers[1], "Knee injury"); // Federer withdraws
     
     // Show the updated withdrawal list
-    withdrawalManager->displayWithdrawals();
+    // withdrawalManager->displayWithdrawals();
     
     // Find a replacement and update the tournament
     std::cout << "\nFinding replacement and updating tournament...\n";
-    auto replacement = withdrawalManager->findReplacement();
-    if (replacement) {
-        std::cout << "Replacement found: " << replacement->getName() << "\n";
-        // In a real scenario, we would update the tournament brackets here
-    }
+    // auto replacement = withdrawalManager->findReplacement();
+    // if (replacement) {
+    //     std::cout << "Replacement found: " << replacement->getName() << "\n";
+    //     // In a real scenario, we would update the tournament brackets here
+    // }
     
-    // Update the match schedule with the withdrawal manager
-    withdrawalManager->updateSchedule(matchScheduler);
+    // // Update the match schedule with the withdrawal manager
+    // withdrawalManager->updateSchedule(matchScheduler);
     
-    // Show the updated reserve list
-    withdrawalManager->displayReservePlayers();
+    // // Show the updated reserve list
+    // withdrawalManager->displayReservePlayers();
     
-    // Start the interactive user interface
-    std::cout << "\nStarting interactive user interface...\n";
-    withdrawalManager->handleUserInput();
+    // // Start the interactive user interface
+    // std::cout << "\nStarting interactive user interface...\n";
+    // withdrawalManager->handleUserInput();
     
-    std::cout << "\nThank you for using the Player Withdrawal Management System.\n";
+    // std::cout << "\nThank you for using the Player Withdrawal Management System.\n";
     
     return 0;
 }
