@@ -1,12 +1,10 @@
 #include <iostream>
 
-#include "./models/System.hpp"
+#include "./core/System.hpp"
 
 int main()
 {
-    using namespace TCMS;
-
-    System::Init();
-    System::Run();
-    System::ShutDown();
+    TCMS::System::Init();
+    TCMS::System::Run();
+    TCMS::System::ShutDown();
 }

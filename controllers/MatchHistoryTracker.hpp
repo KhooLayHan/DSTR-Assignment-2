@@ -4,11 +4,12 @@
 #include <fstream>
 #include <sstream>
 #include <memory>
-#include "../LinkedLists/SinglyLinkedList.hpp"
-#include "../DataStructures/Queue.hpp"
-#include "../DataStructures/Stack.hpp"
-#include "../models/MatchRecord.hpp"
-#include "../models/Player.hpp" // From Task 1
+
+#include "./data_structures/linked_lists/SinglyLinkedList.hpp"
+#include "./data_structures/Queue.hpp"
+#include "./data_structures/Stack.hpp"
+#include "./models/MatchRecord.hpp"
+#include "./models/Player.hpp" // From Task 1
 
 namespace TCMS
 {

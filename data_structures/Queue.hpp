@@ -1,6 +1,6 @@
 #pragma once // Ensures the header file is included only once in a compilation unit
 
-#include "../LinkedLists/SinglyLinkedList.hpp" // Includes the SinglyLinkedList class
+#include "./data_structures/linked_lists/SinglyLinkedList.hpp" // Includes the SinglyLinkedList class
 
 namespace TCMS // Defines a namespace to prevent naming conflicts
 {
@@ -26,7 +26,7 @@ namespace TCMS // Defines a namespace to prevent naming conflicts
 
         ~Queue()
         {
-            std::cout << "Queue destructor called.\n";
+            // std::cout << "Queue destructor called.\n";
         }
 
         /**
@@ -40,7 +40,6 @@ namespace TCMS // Defines a namespace to prevent naming conflicts
             if (isEmpty()) // Check if the queue is empty before attempting to dequeue
                 throw std::runtime_error("Queue is empty");
 
-            // T frontData = std::move(m_List.getFirst());  // MOVE instead of COPY
             T frontData = m_List.getFirst(); // Retrieve the front element
             m_List.removeBegin();            // Remove the front element from the list
 

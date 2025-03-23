@@ -5,21 +5,21 @@
 #include <string>
 #include <string_view>
 
-#include "UUID.hpp"
+#include "./core/UUID.hpp"
 
 namespace TCMS
 {
     class Player {
     public:
-        Player() : m_Id(UUID().toString()), m_Name("Unknown"), m_SkillLevel(0) {}
+        Player() : m_Id(UUID().toString()), m_Name("Unknown"), m_SkillLevel(0), m_Withdrawn(false) {}
 
         Player(std::string_view name, int32_t skillLevel) 
-            : m_Id(UUID().toString()), m_Name(name), m_SkillLevel(skillLevel) {}
+            : m_Id(UUID().toString()), m_Name(name), m_SkillLevel(skillLevel), m_Withdrawn(false){}
 
         // Copy Constructor (Prevent Shallow Copies)
         Player(const Player& other) 
             : m_Id(other.m_Id), m_Name(other.m_Name), 
-              m_SkillLevel(other.m_SkillLevel), m_Wins(other.m_Wins), m_Points(other.m_Points) {}
+              m_SkillLevel(other.m_SkillLevel), m_Wins(other.m_Wins), m_Points(other.m_Points), m_Withdrawn(other.m_Withdrawn) {}
 
         Player& operator=(const Player& other) {
             if (this != &other) {
@@ -28,6 +28,7 @@ namespace TCMS
                 m_SkillLevel = other.m_SkillLevel;
                 m_Wins = other.m_Wins;
                 m_Points = other.m_Points;
+                m_Withdrawn = other.m_Withdrawn;
             }
             return *this;
         }
@@ -37,7 +38,8 @@ namespace TCMS
               m_Name(std::move(other.m_Name)),
               m_SkillLevel(other.m_SkillLevel),
               m_Wins(other.m_Wins),
-              m_Points(other.m_Points) {
+              m_Points(other.m_Points),
+              m_Withdrawn(other.m_Withdrawn) {
             std::cout << "Move Constructor Called for " << m_Name << "\n";
         }
 
@@ -48,6 +50,7 @@ namespace TCMS
                 m_SkillLevel = other.m_SkillLevel;
                 m_Wins = other.m_Wins;
                 m_Points = other.m_Points;
+                m_Withdrawn = other.m_Withdrawn;
             }
             std::cout << "Move Assignment Called for " << m_Name << "\n";
             return *this;
@@ -67,6 +70,12 @@ namespace TCMS
         }
 
         void addWin() { m_Wins++; m_Points += 3; }
+        void setWithdrawn(bool withdrawn) { m_Withdrawn = withdrawn; }
+        void withdraw() { 
+            m_Withdrawn = true; 
+            std::cout << m_Name << " has withdrawn from the tournament.\n"; 
+        }
+        bool isWithdrawn() const { return m_Withdrawn; }
 
         std::string getId() const { return m_Id; }
         std::string getName() const { return m_Name; }
@@ -80,6 +89,7 @@ namespace TCMS
         int32_t m_SkillLevel;
         int32_t m_Wins = 0;
         int32_t m_Points = 0;
+        bool m_Withdrawn;
     };    
 
     using Players = std::shared_ptr<Player>;

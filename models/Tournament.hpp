@@ -3,16 +3,16 @@
 #include <string>
 #include <memory> // For smart pointers
 
-#include "../DataStructures/Vector.hpp"
+#include "./data_structures/Vector.hpp"
 
-#include "../controllers/Qualifiers.hpp"
-#include "../controllers/RoundRobin.hpp"
-#include "../controllers/KnockoutRound.hpp"
+#include "./controllers/Qualifiers.hpp"
+#include "./controllers/SeedingQueue.hpp"
+#include "./controllers/RoundRobin.hpp"
+#include "./controllers/BracketManager.hpp"
+#include "./controllers/KnockoutRound.hpp"
 
-#include "Match.hpp"
-#include "Player.hpp"
-#include "Spectator.hpp"
-#include "Ticket.hpp"
+#include "./Match.hpp"
+#include "./Player.hpp"
 
 namespace TCMS
 {
@@ -21,7 +21,7 @@ namespace TCMS
     void runTournament(Vector<std::shared_ptr<Player>>& players) {
             size_t qualifyingSpots = 8;
             Queue<std::shared_ptr<Player>> qualifierQueue;
-            
+
             // Move players into the Qualifiers Queue
             for (const auto& player : players) {
                 qualifierQueue.enqueue(player);

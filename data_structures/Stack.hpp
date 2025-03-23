@@ -1,7 +1,6 @@
-// DataStructures/Stack.hpp
 #pragma once // Ensures the header file is included only once in a compilation unit
 
-#include "../LinkedLists/SinglyLinkedList.hpp" // Includes the SinglyLinkedList class
+#include "./data_structures/linked_lists/SinglyLinkedList.hpp" // Includes the SinglyLinkedList class
 
 namespace TCMS // Defines a namespace to avoid name conflicts
 {
@@ -36,8 +35,6 @@ namespace TCMS // Defines a namespace to avoid name conflicts
             if (isEmpty()) // Check if the stack is empty before popping
                 throw std::runtime_error("Stack is empty");
 
-            // ! NOTE: If you are using Stack, you need to check if the object is moved or copied since we might be using smart pointers or new/delete !!!
-            // T topData = std::move(m_List.getFirst());  // Retrieve the first element (move)
             T topData = m_List.getFirst(); // Retrieve the first element (copy)
             m_List.removeBegin();          // Remove the first element
 

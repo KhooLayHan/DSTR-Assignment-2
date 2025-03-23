@@ -3,7 +3,8 @@
 #include <fstream> // For file handling
 #include <sstream>
 #include <memory>
-#include "../models/Player.hpp" // From Task 1
+
+#include "./Player.hpp" // From Task 1
 
 namespace TCMS
 {

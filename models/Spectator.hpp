@@ -4,8 +4,9 @@
 #include <string>
 #include <iostream>
 #include <ctime> 
-#include "UUID.hpp"
-#include "Ticket.hpp" 
+
+#include "./core/UUID.hpp"
+#include "./Ticket.hpp" 
 
 namespace TCMS {
     class Ticket;  // Forward declaration

@@ -90,7 +90,7 @@
                 // "./WordList.cpp",
                 // "./WordListSorted.cpp",
                 
-                "-o",
+               "-o",
                 "./Main"
             ],
             "options": {

@@ -3,12 +3,12 @@
 
 #include <iostream>
 #include <string>
-#include "../DataStructures/Vector.hpp"
-#include "../models/Spectator.hpp"
-#include "../models/UUID.hpp"
+
+#include "./data_structures/Vector.hpp"
+#include "./models/Spectator.hpp"
+#include "./core/UUID.hpp"
 
 namespace TCMS {
-
     class VenueSection {
     public:
         VenueSection(const std::string& name, size_t capacity)
