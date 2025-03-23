@@ -238,53 +238,6 @@ namespace TCMS
             std::cout << "\033[1;33m🔄 Match deleted: " << matchToDelete->getMatchDetails() << "\033[0m\n";
         }
 
-        void handlePlayerWithdrawal(int position, const std::string &newPlayer, bool isPlayer1)
-        {
-            if (m_HistoryList.isEmpty() || position <= 0)
-            {
-                std::cout << "\033[1;31m❌ No match history available or invalid position.\033[0m\n";
-                return;
-            }
-
-            auto current = m_HistoryList.getHead();
-            int index = 1;
-            std::shared_ptr<MatchRecord> matchToUpdate = nullptr;
-
-            // Find the match to update
-            while (current)
-            {
-                if (index == position)
-                {
-                    matchToUpdate = current->getData();
-                    break;
-                }
-                current = current->getNext();
-                index++;
-            }
-
-            if (!matchToUpdate)
-            {
-                std::cout << "\033[1;31m❌ Error: Match not found!\033[0m\n";
-                return;
-            }
-
-            // Replace the chosen player with the new player
-            if (isPlayer1)
-            {
-                matchToUpdate->setPlayer1(newPlayer); // Replace Player 1
-            }
-            else
-            {
-                matchToUpdate->setPlayer2(newPlayer); // Replace Player 2
-            }
-
-            // Update the file
-            saveMatchHistoryToFile();
-
-            // Print only the updated player names (without scores and winner)
-            std::cout << "\033[1;33m🔄 Player updated: " << matchToUpdate->getPlayer1() << " vs " << matchToUpdate->getPlayer2() << "\033[0m\n";
-        }
-
         std::shared_ptr<MatchRecord> retrieveMatch(int position)
         {
             if (m_HistoryList.isEmpty() || position <= 0)

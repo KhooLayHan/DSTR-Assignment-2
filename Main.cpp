@@ -44,9 +44,8 @@ void Task4_displayMenu()
               << "3️⃣  Retrieve Specific Match\n"
               << "4️⃣  Delete Specific Match\n"
               << "5️⃣  Update Specific Match\n"
-              << "6️⃣  Withdraw a Player\n"
-              << "7️⃣  Undo Last Match\n"
-              << "8️⃣  Exit..\n"
+              << "6️⃣  Undo Last Match\n"
+              << "7️⃣  Exit..\n"
               << "\033[0m"; // Reset color
 
     std::cout << "\033[1;34m==================================\033[0m\n"; // 🔵 Blue divider
@@ -70,7 +69,7 @@ int main()
         {
             std::cin.clear();
             std::cin.ignore(1000, '\n');
-            std::cout << "\033[1;31m❌ Invalid choice! Please enter a number (1-8).\033[0m\n";
+            std::cout << "\033[1;31m❌ Invalid choice! Please enter a number (1-7).\033[0m\n";
             continue;
         }
 
@@ -166,115 +165,20 @@ int main()
 
             historyTracker.deleteMatch(position);
         }
-        else if (choice == 5) // Update a specific match
-        {
-            int position;
-            std::string p1, p2;
-            int s1, s2;
-
-            std::cout << "Enter match position to update: ";
-            std::cin >> position;
-
-            if (std::cin.fail())
-            {
-                std::cin.clear();
-                std::cin.ignore(1000, '\n');
-                std::cout << "\033[1;31m❌ Invalid position! Enter a valid number.\033[0m\n";
-                continue;
-            }
-
-            std::cin.ignore();
-            std::cout << "Enter new Player 1 Name: ";
-            std::getline(std::cin, p1);
-            std::cout << "Enter new Player 2 Name: ";
-            std::getline(std::cin, p2);
-            std::cout << "Enter new " << p1 << " Score: ";
-            std::cin >> s1;
-            std::cout << "Enter new " << p2 << " Score: ";
-            std::cin >> s2;
-
-            if (std::cin.fail())
-            {
-                std::cin.clear();
-                std::cin.ignore(1000, '\n');
-                std::cout << "\033[1;31m❌ Invalid scores! Enter valid integers.\033[0m\n";
-                continue;
-            }
-
-            historyTracker.updateMatch(position, p1, p2, s1, s2);
-        }
-        else if (choice == 6) // Handle Player Withdrawal
-        {
-            int position;
-            std::cout << "Enter match position to update: ";
-            std::cin >> position;
-
-            if (std::cin.fail())
-            {
-                std::cin.clear();
-                std::cin.ignore(1000, '\n');
-                std::cout << "\033[1;31m❌ Invalid position! Enter a valid number.\033[0m\n";
-                continue;
-            }
-
-            // Retrieve the match record based on the position
-            auto matchToUpdate = historyTracker.retrieveMatch(position); // Ensure this method exists and returns a MatchRecord pointer
-
-            if (!matchToUpdate)
-            {
-                std::cout << "\033[1;31m❌ Match not found!\033[0m\n";
-                continue;
-            }
-
-            // Display current match details
-            std::cout << "Current Match: " << matchToUpdate->getMatchDetails() << "\n";
-
-            // Prompt user to select which player to withdraw
-            std::cout << "Which player do you want to withdraw?\n";
-            std::cout << "1️⃣ " << matchToUpdate->getPlayer1() << "\n";
-            std::cout << "2️⃣ " << matchToUpdate->getPlayer2() << "\n";
-            std::cout << "👉 Enter 1 or 2: ";
-
-            int playerChoice;
-            std::cin >> playerChoice;
-
-            if (std::cin.fail() || (playerChoice != 1 && playerChoice != 2))
-            {
-                std::cin.clear();
-                std::cin.ignore(1000, '\n');
-                std::cout << "\033[1;31m❌ Invalid choice! Please enter 1 or 2.\033[0m\n";
-                continue;
-            }
-
-            std::cin.ignore(); // Clear the newline character from the input buffer
-            std::string newPlayer;
-            std::cout << "Enter new Player Name (replacement): ";
-            std::getline(std::cin, newPlayer);
-
-            // Call the handlePlayerWithdrawal method with the selected player
-            if (playerChoice == 1)
-            {
-                historyTracker.handlePlayerWithdrawal(position, newPlayer, true); // true for Player 1
-            }
-            else
-            {
-                historyTracker.handlePlayerWithdrawal(position, newPlayer, false); // false for Player 2
-            }
-        }
-        else if (choice == 7) // Undo last match
+        else if (choice == 6) // Undo last match
         {
             historyTracker.undoLastMatch();
         }
-        else if (choice == 8) // Exit the system
+        else if (choice == 7) // Exit the system
         {
             std::cout << "\033[1;32m✅ Exiting Match History Tracker...\033[0m\n";
         }
         else
         {
-            std::cout << "\033[1;31m❌ Invalid choice! Please enter a number (1-8).\033[0m\n";
+            std::cout << "\033[1;31m❌ Invalid choice! Please enter a number (1-7).\033[0m\n";
         }
 
-    } while (choice != 8);
+    } while (choice != 7);
 
     // TicketingSystem ticketingSystem;
 
