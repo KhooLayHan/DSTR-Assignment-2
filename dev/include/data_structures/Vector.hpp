@@ -201,11 +201,6 @@ namespace TCMS
                 m_Data = new T[m_Capacity];
             }
 
-            // Constructor with initial capacity
-            Vector(size_t capacity) : m_Length(0), m_Capacity(capacity) {
-                m_Data = new T[m_Capacity];
-            }
-
             Vector(std::initializer_list<T> init_list)
                 : m_Length(init_list.size()), m_Capacity(init_list.size()) {
                 m_Data = new T[m_Capacity];

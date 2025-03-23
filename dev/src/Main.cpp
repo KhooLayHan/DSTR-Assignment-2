@@ -60,11 +60,18 @@ int main() {
     //     std::cout << pair.first << ": " << pair.second->getName() << std::endl;
     // }
 
-    PlayerManager pp;
+    // PlayerManager pp;
 
-    pp.createPlayer("Roger Federez", 56, "Spain", 5, "Male", 1);
-    std::cout << pp.getPlayer("1")->getName();
-pp.listPlayers();
+    // pp.createPlayer("Roger Federez", 56, "Spain", 5, "Male", 1);
+    // pp.createPlayer("John Federez", 56, "Spain", 5, "Male", 1);
+    // pp.createPlayer("Gfgg", 56, "Spain", 5, "Male", 1);
+    // pp.createPlayer("Jamie", 56, "Spain", 5, "Male", 1);
+    
+    // pp.listPlayers();
+    // pp.deletePlayer("2");
+    // pp.updatePlayer("1", "ROGGHT", 32, "Germany", 5, "Fe", 1);
+    // std::cout << pp.getPlayer("1")->getName();
+// pp.listPlayers();
     // Vector<Players> players = {
     //     std::make_shared<Player>("Roger Federer",         95),
     //     std::make_shared<Player>("Rafael Nadal",          90),

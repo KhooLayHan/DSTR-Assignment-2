@@ -193,6 +193,11 @@ class Player {
         
         std::string getName() const { return m_Name; }
         int32_t getSkillLevel() const { return m_SkillLevel; }
+        std::string getNationality() const { return m_Nationality; }
+        int32_t getAge() const { return m_Age; }
+        std::string getGender() const { return m_Gender; }
+        int32_t getRanking() const { return m_Ranking; }
+
         int32_t getWins() const { return m_Wins; }
         int32_t getLosses() const { return m_Losses; }
         int32_t getMatchesPlayed() const { return m_MatchesPlayed; }

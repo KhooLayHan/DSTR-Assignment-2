@@ -18,6 +18,10 @@
                 "./controllers/TicketingSystem.cpp",
                 "./models/Spectator.cpp",
                 "./models/Ticket.cpp",
+                "./core/utils/SimpleFileLogger.cpp",
+                "./core/utils/SimpleLoggingService.cpp",
+                "./core/FileHandling.cpp",
+                "./controllers/ConfigManager.cpp",
 
                 // "./LinkedLists/SinglyLinkedListNode.cpp",
                 // "./LinkedLists/SinglyLinkedList.cpp",
@@ -55,6 +59,11 @@
                 "./controllers/TicketingSystem.cpp",
                 "./models/Spectator.cpp",
                 "./models/Ticket.cpp",
+
+                "./core/utils/SimpleFileLogger.cpp",
+                "./core/utils/SimpleLoggingService.cpp",
+                "./core/FileHandling.cpp",
+                "./controllers/ConfigManager.cpp",
                 // "./LinkedLists/SinglyLinkedListNode.cpp",
                 // "./LinkedLists/SinglyLinkedList.cpp",
                 // "./TCMS/DataStructures/${fileBasenameNoExtension}.cpp",
