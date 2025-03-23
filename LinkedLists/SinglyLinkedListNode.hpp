@@ -32,7 +32,7 @@ namespace TCMS
          * 
          * @return T The data stored in the node.
          */
-        T getData() const override {
+        T& getData() override {
             return m_Data;
         }
 

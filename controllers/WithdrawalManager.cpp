@@ -58,11 +58,11 @@ namespace TCMS
         
         std::cout << "Updating match schedule after withdrawals...\n";
         
-        // Create a temporary stack to process withdrawals without modifying the original
-        Stack<std::shared_ptr<Player>> tempStack = m_WithdrawalStack;
+        // Use a vector to access stack elements in LIFO order without modifying the stack
+        Vector<std::shared_ptr<Player>> withdrawnPlayers;
         
-        while (!tempStack.isEmpty()) {
-            auto withdrawnPlayer = tempStack.pop();
+        for (size_t i = withdrawnPlayers.getLength(); i > 0; --i) {
+            auto withdrawnPlayer = withdrawnPlayers[i - 1];
             
             // Find a replacement player
             auto replacement = findReplacement();
@@ -70,7 +70,7 @@ namespace TCMS
             if (replacement) {
                 std::cout << "Updating schedule: " << withdrawnPlayer->getName() 
                           << " replaced by " << replacement->getName() << "\n";
-                
+                scheduler->replacePlayer(withdrawnPlayer, replacement);
                 // Here we would update the match scheduler with the replacement
                 // In a real implementation, we would call scheduler->replacePlayer(withdrawnPlayer, replacement)
                 // but since MatchScheduler is still a stub, we'll just demonstrate the concept
@@ -84,7 +84,7 @@ namespace TCMS
         std::cout << "Match schedule updated successfully.\n";
     }
     
-    void WithdrawalManager::displayWithdrawals() const {
+    void WithdrawalManager::displayWithdrawals() {
         if (m_WithdrawalStack.isEmpty()) {
             std::cout << "No player withdrawals recorded.\n";
             return;
@@ -92,44 +92,76 @@ namespace TCMS
         
         std::cout << "\n--- Player Withdrawals ---\n";
         
-        // Create temporary copies of the stacks to preserve the original stacks
-        Stack<std::shared_ptr<Player>> tempPlayerStack = m_WithdrawalStack;
-        Stack<std::string> tempReasonStack = m_WithdrawalReasons;
-        
-        // Display the withdrawals
+        // First pass: Collect data without modifying the stack
+        std::vector<std::pair<std::shared_ptr<Player>, std::string>> withdrawals;
+        Stack<std::shared_ptr<Player>> tempPlayerStack;
+        Stack<std::string> tempReasonStack;
+
+        while (!m_WithdrawalStack.isEmpty()) {
+            auto player = m_WithdrawalStack.pop();
+            std::string reason = m_WithdrawalReasons.isEmpty() ? "Unknown" : m_WithdrawalReasons.pop();
+
+            withdrawals.emplace_back(player, reason);
+
+            // Store for restoring later
+            tempPlayerStack.push(player);
+            tempReasonStack.push(reason);
+        }
+
+        // Restore original stack order (Second pass)
         while (!tempPlayerStack.isEmpty()) {
-            auto player = tempPlayerStack.pop();
-            std::string reason = "Unknown";
-            
-            if (!tempReasonStack.isEmpty()) {
-                reason = tempReasonStack.pop();
-            }
-            
-            std::cout << "Player: " << player->getName() 
-                      << " (Skill Level: " << player->getSkillLevel() 
-                      << ") - Reason: " << reason << "\n";
+            m_WithdrawalStack.push(tempPlayerStack.pop());
+            m_WithdrawalReasons.push(tempReasonStack.pop());
+        }
+
+        // Display withdrawals in LIFO order
+        for (size_t i = withdrawals.size(); i > 0; --i) {
+            auto [player, reason] = withdrawals[i - 1];
+            std::cout << "Player: " << player->getName()
+                    << " (Skill Level: " << player->getSkillLevel()
+                    << ") - Reason: " << reason << "\n";
         }
     }
     
-    void WithdrawalManager::displayReservePlayers() const {
+    void WithdrawalManager::displayReservePlayers() {
         if (m_ReservePlayers.isEmpty()) {
             std::cout << "No reserve players available.\n";
             return;
         }
-        
+        // m_ReservePlayers.
         std::cout << "\n--- Reserve Players ---\n";
+
+        size_t position = 1;
+        size_t queueSize = m_ReservePlayers.getLength();
+
+        for (size_t i = 0; i < queueSize; ++i) {
+            // Dequeue the front player
+            auto player = m_ReservePlayers.peekFront();
+            m_ReservePlayers.dequeue();
+            
+            // Display the player
+            std::cout << position << ". " << player->getName() 
+                    << " (Skill Level: " << player->getSkillLevel() << ")\n";
+            position++;
+
+            // Re-enqueue the player to maintain order
+            m_ReservePlayers.enqueue(player);
+        }
         
         // Create a temporary copy of the queue to preserve the original queue
-        Queue<std::shared_ptr<Player>> tempQueue = m_ReservePlayers;
+        // Queue<std::shared_ptr<Player>> tempQueue = m_ReservePlayers;
         
-        // Display the reserve players
-        size_t position = 1;
-        while (!tempQueue.isEmpty()) {
-            auto player = tempQueue.dequeue();
-            std::cout << position << ". " << player->getName() 
-                      << " (Skill Level: " << player->getSkillLevel() << ")\n";
-            position++;
-        }
+        // SinglyLinkedList<std::shared_ptr<Player>> tempLinkedList;
+        // tempLinkedList.insertEnd(m_ReservePlayers.);
+
+        // // Display the reserve players
+        // size_t position = 1;
+        // while (!tempQueue.isEmpty()) {
+        //     auto player = tempQueue.dequeue();
+        //     std::cout << position << ". " << player->getName() 
+        //               << " (Skill Level: " << player->getSkillLevel() << ")\n";
+        //     position++;
+        // }
     }
     
     void WithdrawalManager::handleUserInput() {

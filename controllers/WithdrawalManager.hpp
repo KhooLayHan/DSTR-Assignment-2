@@ -11,6 +11,8 @@
 #include "../controllers/MatchScheduler.hpp"
 #include "../models/Match.hpp"
 
+#include "../DataStructures/Vector.hpp"
+
 namespace TCMS
 {
     /**
@@ -58,12 +60,12 @@ namespace TCMS
         /**
          * @brief Display all withdrawn players
          */
-        void displayWithdrawals() const;
+        void displayWithdrawals();
         
         /**
          * @brief Display all reserve players
          */
-        void displayReservePlayers() const;
+        void displayReservePlayers();
         
         /**
          * @brief Interactive user interface for managing withdrawals
