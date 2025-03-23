@@ -1,15 +1,19 @@
-#pragma once
+// #pragma once
+
+#ifndef MATCH_HISTORY_TRACKER_HPP
+#define MATCH_HISTORY_TRACKER_HPP
 
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <memory>
 
-#include "./data_structures/linked_lists/SinglyLinkedList.hpp"
-#include "./data_structures/Queue.hpp"
-#include "./data_structures/Stack.hpp"
-#include "./models/MatchRecord.hpp"
-#include "./models/Player.hpp" // From Task 1
+#include "../data_structures/Stack.hpp"
+#include "../data_structures/Queue.hpp"
+#include "../data_structures/linked_lists/SinglyLinkedList.hpp"
+
+#include "../models/Player.hpp" // From Task 1
+#include "../models/MatchRecord.hpp"
 
 namespace TCMS
 {
@@ -39,7 +43,7 @@ namespace TCMS
             m_HistoryStack.push(match);
             m_HistoryList.insertEnd(match);
 
-            std::ofstream file("match_history.txt", std::ios::app);
+            std::ofstream file("./logs/match_history.txt", std::ios::app);
             if (file.is_open())
             {
                 file << match->toFileString() << "\n";
@@ -142,7 +146,7 @@ namespace TCMS
             m_HistoryList.removeEnd();             // Remove from linked list
 
             // Remove last line from the file
-            std::ifstream file("match_history.txt");
+            std::ifstream file("./logs/match_history.txt");
             std::ofstream tempFile("temp.txt");
 
             std::string line;
@@ -161,8 +165,8 @@ namespace TCMS
 
             file.close();
             tempFile.close();
-            std::remove("match_history.txt");
-            std::rename("temp.txt", "match_history.txt");
+            std::remove("./logs/match_history.txt");
+            std::rename("temp.txt", "./logs/match_history.txt");
 
             std::cout << "\033[1;33m🔄 Match undone: " << lastMatch->getMatchDetails() << "\033[0m\n";
             std::cout << "\033[1;33m🔄 Last match undone successfully.\033[0m\n";
@@ -270,7 +274,7 @@ namespace TCMS
 
         void loadMatchHistory()
         {
-            std::ifstream file("match_history.txt");
+            std::ifstream file("./logs/match_history.txt");
             if (!file.is_open())
                 return;
 
@@ -287,7 +291,7 @@ namespace TCMS
 
         void saveMatchHistoryToFile()
         {
-            std::ofstream file("match_history.txt");
+            std::ofstream file("./logs/match_history.txt");
             if (!file.is_open())
                 return;
 
@@ -301,3 +305,5 @@ namespace TCMS
         }
     };
 } // namespace TCMS
+
+#endif 

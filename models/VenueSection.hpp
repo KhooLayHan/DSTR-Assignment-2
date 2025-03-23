@@ -4,9 +4,9 @@
 #include <iostream>
 #include <string>
 
-#include "./data_structures/Vector.hpp"
-#include "./models/Spectator.hpp"
-#include "./core/UUID.hpp"
+#include "../data_structures/Vector.hpp"
+#include "../core/UUID.hpp"
+#include "./Spectator.hpp"
 
 namespace TCMS {
     class VenueSection {

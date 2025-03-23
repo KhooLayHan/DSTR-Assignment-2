@@ -3,7 +3,7 @@
 #include <memory>
 #include "../models/Player.hpp"
 #include "../models/Match.hpp"
-#include "../DataStructures/Queue.hpp"
+#include "../data_structures/Queue.hpp"
 
 namespace TCMS
 {

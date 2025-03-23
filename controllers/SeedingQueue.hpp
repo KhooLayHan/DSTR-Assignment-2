@@ -31,7 +31,7 @@
 #include <iostream>
 #include <string>
 #include <memory>  // For smart pointers
-#include "../DataStructures/PriorityQueue.hpp"
+#include "../data_structures/PriorityQueue.hpp"
 #include "../models/Player.hpp"  // Include Player class
 
 namespace TCMS

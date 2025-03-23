@@ -4,7 +4,8 @@
 #include <memory>
 #include <iostream>
 
-#include "../DataStructures/CircularQueue.hpp"
+#include "../data_structures/CircularQueue.hpp"
+
 #include "../models/Match.hpp"
 #include "../models/Player.hpp"
 

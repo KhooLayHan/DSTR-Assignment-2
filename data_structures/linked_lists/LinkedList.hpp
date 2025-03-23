@@ -2,7 +2,8 @@
 #pragma once
 
 #include <iostream>
-#include "LinkedListNode.hpp"
+
+#include "./LinkedListNode.hpp"
 
 namespace TCMS
 {

@@ -17,6 +17,7 @@
                 "./Main.cpp",
                 "./controllers/TicketingSystem.cpp",
                 "./controllers/TicketingMenu.cpp",
+                "./controllers/WithdrawalManager.cpp",
                 "./models/Spectator.cpp",
                 "./models/Ticket.cpp",
 
@@ -55,8 +56,7 @@
                 "./Main.cpp",
                 "./controllers/TicketingMenu.cpp",
                 "./controllers/TicketingSystem.cpp",
-                "./controllers/MatchHistoryTracker.hpp",
-                "./models/MatchRecord.hpp",
+                "./controllers/WithdrawalManager.cpp",
                 "./models/Spectator.cpp",
                 "./models/Ticket.cpp",
                 // "./LinkedLists/SinglyLinkedListNode.cpp",

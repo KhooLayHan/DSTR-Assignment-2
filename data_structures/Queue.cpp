@@ -1,7 +1,6 @@
-// DataStructures/Queue.cpp
-#include "Queue.hpp"
+#include "./Queue.hpp"
 #include "../models/Spectator.hpp"
 
-namespace TCMS{
+namespace TCMS {
     template class Queue<Spectator*>;
 } // namespace TCMS

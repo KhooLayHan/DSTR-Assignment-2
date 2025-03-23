@@ -2,8 +2,7 @@
 
 #include <iostream>
 
-#include "LinkedList.hpp"
-#include "SinglyLinkedListNode.hpp"
+#include "./SinglyLinkedListNode.hpp"
 
 namespace TCMS
 {

@@ -1,4 +1,8 @@
-#pragma once
+// #pragma once
+
+#ifndef MATCH_RECORD_HPP
+#define MATCH_RECORD_HPP 
+
 #include <iostream>
 #include <fstream> // For file handling
 #include <sstream>
@@ -65,3 +69,5 @@ namespace TCMS
         int m_Score2;
     };
 } // namespace TCMS
+
+#endif 

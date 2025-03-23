@@ -1,11 +1,10 @@
-// models/Spectator.hpp
 #pragma once
 
 #include <string>
 #include <iostream>
 #include <ctime> 
 
-#include "./core/UUID.hpp"
+#include "../core/UUID.hpp"
 #include "./Ticket.hpp" 
 
 namespace TCMS {

@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-#include "./core/UUID.hpp"
+#include "../core/UUID.hpp"
 
 namespace TCMS {
     enum class TicketType { VIP, EARLY_BIRD, GENERAL };

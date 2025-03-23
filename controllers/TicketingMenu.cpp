@@ -1,8 +1,7 @@
-#include "TicketingMenu.hpp"
 #include <iostream>
 #include <limits>
-#include "../DataStructures/Vector.hpp"
-#include "../models/Ticket.hpp"
+
+#include "./TicketingMenu.hpp"
 namespace TCMS {
 
 // Constructor

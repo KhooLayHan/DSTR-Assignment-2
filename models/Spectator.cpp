@@ -1,4 +1,4 @@
-#include "Spectator.hpp"
+#include "./Spectator.hpp"
 
 namespace TCMS {
     Spectator::Spectator(const std::string& name, int age, int priority)

@@ -1,4 +1,4 @@
-#include "Ticket.hpp"
+#include "./Ticket.hpp"
 
 namespace TCMS {
     Ticket::Ticket(TicketType type, double price, const std::string& seatNumber, const std::string& matchId) :

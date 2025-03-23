@@ -4,9 +4,9 @@
 #include <memory>  // For smart pointers
 #include <unordered_map>
 
-#include "../DataStructures/Queue.hpp"
-#include "../DataStructures/PriorityQueue.hpp"
-#include "../DataStructures/Vector.hpp"
+#include "../data_structures/Queue.hpp"
+#include "../data_structures/PriorityQueue.hpp"
+#include "../data_structures/Vector.hpp"
 
 #include "../models/Player.hpp"
 #include "../models/Match.hpp"

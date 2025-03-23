@@ -1,7 +1,6 @@
-// LinkedLists/SinglyLinkedListNode.hpp
 #pragma once
 
-#include "LinkedListNode.hpp"
+#include "./LinkedListNode.hpp"
 
 namespace TCMS
 {

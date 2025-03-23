@@ -1,5 +1,5 @@
-// controllers/TicketingSystem.cpp
-#include "../controllers/TicketingSystem.hpp"
+#include "./TicketingSystem.hpp"
+
 #include <iostream>
 #include <algorithm> // For std::max
 

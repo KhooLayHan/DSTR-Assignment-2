@@ -57,8 +57,8 @@
 #include "../models/Match.hpp"
 #include "./MatchScheduler.hpp"
 #include "./SeedingQueue.hpp"
-#include "../DataStructures/Queue.hpp"
-#include "../DataStructures/Stack.hpp"
+#include "../data_structures/Queue.hpp"
+#include "../data_structures/Stack.hpp"
 
 namespace TCMS
 {

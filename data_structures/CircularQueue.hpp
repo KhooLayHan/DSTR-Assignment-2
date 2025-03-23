@@ -1,8 +1,8 @@
-// DataStructures/CircularQueue.hpp
 #pragma once
 
 #include <iostream>
-#include "../LinkedLists/SinglyCircularLinkedList.hpp"
+
+#include "./linked_lists/SinglyCircularLinkedList.hpp"
 
 namespace TCMS
 {

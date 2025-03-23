@@ -3,13 +3,13 @@
 #include <string>
 #include <memory> // For smart pointers
 
-#include "./data_structures/Vector.hpp"
+#include "../data_structures/Vector.hpp"
 
-#include "./controllers/Qualifiers.hpp"
-#include "./controllers/SeedingQueue.hpp"
-#include "./controllers/RoundRobin.hpp"
-#include "./controllers/BracketManager.hpp"
-#include "./controllers/KnockoutRound.hpp"
+#include "../controllers/Qualifiers.hpp"
+#include "../controllers/SeedingQueue.hpp"
+#include "../controllers/RoundRobin.hpp"
+#include "../controllers/BracketManager.hpp"
+#include "../controllers/KnockoutRound.hpp"
 
 #include "./Match.hpp"
 #include "./Player.hpp"

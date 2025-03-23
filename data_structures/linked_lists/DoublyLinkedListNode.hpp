@@ -1,7 +1,6 @@
-// LinkedLists/DoublyLinkedListNode.hpp
 #pragma once
 
-#include "LinkedListNode.hpp"
+#include "./LinkedListNode.hpp"
 
 // Tennis Championship Management System
 namespace TCMS

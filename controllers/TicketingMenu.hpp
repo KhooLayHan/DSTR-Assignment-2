@@ -1,11 +1,11 @@
-// controllers/TicketingMenu.hpp
-
 #pragma once
 
-#include "../controllers/TicketingSystem.hpp"
-#include "../models/Ticket.hpp"
-#include "../DataStructures/Vector.hpp"
 #include <string>
+
+#include "../models/Ticket.hpp"
+#include "../data_structures/Vector.hpp"
+
+#include "./TicketingSystem.hpp"
 
 namespace TCMS {
 

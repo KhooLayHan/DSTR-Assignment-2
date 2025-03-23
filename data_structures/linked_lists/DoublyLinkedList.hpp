@@ -1,9 +1,9 @@
-// LinkedLists/DoublyLinkedList.hpp
 #pragma once
 
 #include <iostream>
-#include "LinkedList.hpp"
-#include "DoublyLinkedListNode.hpp"
+
+#include "./LinkedList.hpp"
+#include "./DoublyLinkedListNode.hpp"
 
 namespace TCMS
 {

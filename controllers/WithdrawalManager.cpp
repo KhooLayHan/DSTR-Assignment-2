@@ -1,5 +1,4 @@
-// WithdrawalManager.cpp
-#include "WithdrawalManager.hpp"
+#include "./WithdrawalManager.hpp"
 
 namespace TCMS
 {
@@ -147,21 +146,6 @@ namespace TCMS
             // Re-enqueue the player to maintain order
             m_ReservePlayers.enqueue(player);
         }
-        
-        // Create a temporary copy of the queue to preserve the original queue
-        // Queue<std::shared_ptr<Player>> tempQueue = m_ReservePlayers;
-        
-        // SinglyLinkedList<std::shared_ptr<Player>> tempLinkedList;
-        // tempLinkedList.insertEnd(m_ReservePlayers.);
-
-        // // Display the reserve players
-        // size_t position = 1;
-        // while (!tempQueue.isEmpty()) {
-        //     auto player = tempQueue.dequeue();
-        //     std::cout << position << ". " << player->getName() 
-        //               << " (Skill Level: " << player->getSkillLevel() << ")\n";
-        //     position++;
-        // }
     }
     
     void WithdrawalManager::handleUserInput() {

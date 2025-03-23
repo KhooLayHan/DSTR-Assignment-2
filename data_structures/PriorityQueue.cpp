@@ -1,7 +1,6 @@
-// DataStructures/PriorityQueue.cpp
-#include "PriorityQueue.hpp"
+#include "./PriorityQueue.hpp"
 #include "../models/Spectator.hpp"
 
-namespace TCMS{
+namespace TCMS {
     template class PriorityQueue<Spectator*>;
 } // namespace TCMS

@@ -1,17 +1,17 @@
-// WithdrawalManager.hpp
 #pragma once
 
 #include <string>
 #include <memory>
 #include <iostream>
 
-#include "../DataStructures/Stack.hpp"
-#include "../DataStructures/Queue.hpp"
+#include "../data_structures/Stack.hpp"
+#include "../data_structures/Queue.hpp"
+#include "../data_structures/Vector.hpp"
+
 #include "../models/Player.hpp"
-#include "../controllers/MatchScheduler.hpp"
 #include "../models/Match.hpp"
 
-#include "../DataStructures/Vector.hpp"
+#include "./MatchScheduler.hpp"
 
 namespace TCMS
 {

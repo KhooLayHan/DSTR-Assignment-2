@@ -1,10 +1,11 @@
-// controllers/TicketingSystem.hpp
 #pragma once
 
 #include <string>
-#include "../DataStructures/PriorityQueue.hpp"
-#include "../DataStructures/Queue.hpp"
-#include "../DataStructures/CircularQueue.hpp"
+
+#include "../data_structures/Queue.hpp"
+#include "../data_structures/PriorityQueue.hpp"
+#include "../data_structures/CircularQueue.hpp"
+
 #include "../models/Ticket.hpp"
 #include "../models/Spectator.hpp"
 #include "../models/VenueSection.hpp"
