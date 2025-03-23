@@ -26,7 +26,7 @@ namespace TCMS
          * @brief Gets the data stored in the node.
          * @return The data of the node.
          */
-        T getData() const override {
+        T& getData() override {
             // if (this == nullptr) {
             //     std::cerr << "Error: Attempted to access getData() on nullptr!\n";
             //     throw std::runtime_error("Null object access in getData()");

@@ -17,7 +17,7 @@ namespace TCMS
          * @brief Gets the data stored in the node.
          * @return The stored data.
          */
-        virtual T getData() const = 0; 
+        virtual T& getData() = 0; 
 
         /**
          * @brief Sets the data for the node.

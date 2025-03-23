@@ -215,7 +215,6 @@ namespace TCMS {
         }
     private:
         std::shared_ptr<Stack<Players>> m_KnockoutPlayers;
-        
     };
 }             
            

@@ -44,12 +44,42 @@ namespace TCMS
         }
 
         /**
+         * @brief Gets the data from the first node.
+         * @return The first node's data.
+         * @throws std::runtime_error if the list is empty.
+         */
+        const T& getFirst() const {
+            // if (isEmpty()) {
+            //     throw std::runtime_error("List is empty");
+            // }
+            
+            // std::cout << "[DEBUG] getFirst() returning: " << getHeadBase()->getData() << "\n";
+            // return getHeadBase()->getData();
+
+            if (!m_Head) {
+                throw std::runtime_error("List is empty");
+            }
+        
+            SinglyLinkedListNode<T>* headNode = downcastFunc(m_Head);
+            if (!headNode) {
+                throw std::runtime_error("Corrupted list: Head is nullptr");
+            }
+        
+            // std::cout << "[DEBUG] getFirst() returning: " << headNode->getData() << "\n";
+            return headNode->getData();
+        }
+
+        /**
          * @brief Destructor to deallocate all nodes in the list.
          * 
          * The destructor ensures that all allocated nodes are deleted 
          * to prevent memory leaks.
          */
         ~SinglyLinkedList() override {
+            static int32_t i = 0;
+            std::cout << ++i << '\n';
+
+            std::cout << "TRTT\n";
             while (m_Head != nullptr) {
                 std::cout << "HHHHH\n";
                 removeBegin();

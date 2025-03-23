@@ -86,7 +86,7 @@ namespace TCMS
          * @return The first node's data.
          * @throws std::runtime_error if the list is empty.
          */
-        T getFirst() const {
+        const T& getFirst() const {
             // if (isEmpty()) {
             //     throw std::runtime_error("List is empty");
             // }

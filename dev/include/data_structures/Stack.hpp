@@ -28,9 +28,6 @@ namespace TCMS  // Defines a namespace to avoid name conflicts
         }
 
         ~Stack() {
-            std::cout << "DES\n";
-            // delete m_List;
-            m_List.removeBegin();
         }
 
         /**
@@ -129,6 +126,43 @@ namespace TCMS  // Defines a namespace to avoid name conflicts
          */
         size_t getLength() const {
             return m_List.getLength();
+        }
+
+          // Iterator-like functionality
+        class Iterator {
+        public:
+            Iterator(SinglyLinkedListNode<T>* node) : current(node) {}
+
+            // Dereference operator
+            T& operator*() const {
+                return current->getData();
+            }
+
+            // Pre-increment operator
+            Iterator& operator++() {
+                if (current) {
+                    current = static_cast<SinglyLinkedListNode<T>*>(current->getNext());
+                }
+                return *this;
+            }
+
+            // Inequality operator
+            bool operator!=(const Iterator& other) const {
+                return current != other.current;
+            }
+
+        private:
+            SinglyLinkedListNode<T>* current;
+        };
+
+        // Begin iterator
+        Iterator begin() const {
+            return Iterator(static_cast<SinglyLinkedListNode<T>*>(m_List.getHeadBase()));
+        }
+
+        // End iterator
+        Iterator end() const {
+            return Iterator(nullptr);
         }
     private:
         SinglyLinkedList<T> m_List;  // Internal linked list to store stack elements

@@ -216,25 +216,25 @@ namespace TCMS
             //     roundRobinQueue->enqueue(seededPlayers->dequeue());
             // }
 
-            // auto roundRobin = std::make_shared<RoundRobin>(seededPlayers);
+            auto roundRobin = std::make_shared<RoundRobin>(seededPlayers);
             // RoundRobin roundRobin(seededPlayers);
             // auto roundRobin = std::make_shared<RoundRobin>(std::move(roundRobinQueue));
             // auto roundRobin = std::make_shared<RoundRobin>(qualifiersAdvancingPlayers);
-            // roundRobin->playGroupMatches();
-            // roundRobin->determineWinners();
+            roundRobin->playGroupMatches();
+            roundRobin->determineWinners();
 
-            // std::shared_ptr<PriorityQueue<Players>> rrAdvancingPlayers = roundRobin->getAdvancingPlayers();
 
-            // // Step 4: Generate Brackets (Stack)
-            // BracketManager bracket(*rrAdvancingPlayers);
-            BracketManager bracket(*seededPlayers);
-            // bracket.displayBracket();
-            bracket.f();
+            // Retrieve advancing players from the Round Robin stage
+            auto rrAdvancingPlayers = roundRobin->getAdvancingPlayers(); // Shared ownership of PriorityQueue
 
-            // ✅ Step 5: Run Knockout Round (Stack; Bracket Manager)
-            // Stack<Players> bracketStack = bracket.getBracket();
-            // KnockoutRound knockout(bracketStack);
-            // knockout.playKnockoutMatches();
+            // Step 4: Generate Brackets (Stack)
+            auto bracket = std::make_shared<BracketManager>(rrAdvancingPlayers); // Shared ownership of BracketManager
+            bracket->displayBracket(); // Display the bracket
+
+            // Step 5: Run Knockout Round (Stack; Bracket Manager)
+            auto bracketStack = bracket->getBracket(); // Get the bracket as a stack
+            auto knockout = std::make_shared<KnockoutRound>(bracketStack); // Shared ownership of KnockoutRound
+            knockout->playKnockoutMatches(); // Play knockout matches
 
             std::cout << "\n\n🏆 Tournament Completed! 🏆\n\n\n";
 
@@ -242,6 +242,18 @@ namespace TCMS
 
             // delete[] bracket;
         }
+        // std::shared_ptr<PriorityQueue<Players>> rrAdvancingPlayers = roundRobin->getAdvancingPlayers();
+
+        // // Step 4: Generate Brackets (Stack)
+        // BracketManager bracket(*rrAdvancingPlayers);
+        // // BracketManager bracket(*seededPlayers);
+        // bracket.displayBracket();
+        // // bracket.f();
+
+        // // ✅ Step 5: Run Knockout Round (Stack; Bracket Manager)
+        // Stack<Players> bracketStack = bracket.getBracket();
+        // KnockoutRound knockout(bracketStack);
+        // // knockout.playKnockoutMatches();
     };    
 } // namespace TCMS
 
