@@ -183,8 +183,44 @@ namespace TCMS
                 std::cout << current->getData() << " -> ";
                 current = current->getNext();
             }
-
             std::cout << "nullptr\n";
+        }
+            // ! Sally Added this
+        /**
+         * @brief Returns the head node of the list.
+         * 
+         * This method provides direct access to the head of the list.
+         * 
+         * @return Pointer to the head node.
+         */
+        SinglyLinkedListNode<T>* getHead() const
+        {
+            return downcastFunc(m_Head);
+        }
+
+        /**
+         * @brief Returns the front element of the list without removing it.
+         * 
+         * @throws std::runtime_error if the list is empty.
+         * @return The data stored in the head node.
+         */
+        T peekFront() const
+        {
+            if (!m_Head)
+                throw std::runtime_error("List is empty!");
+            return m_Head->getData();
+        }
+
+        /**
+         * @brief Removes the first element from the list.
+         * 
+         * This function functions as a queue's dequeue operation.
+         */
+        void dequeue()
+        {
+            if (m_Head == nullptr)
+                return;
+            removeBegin();
         }
     };
 } // namespace TCMS

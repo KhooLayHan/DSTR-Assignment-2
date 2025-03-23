@@ -37,6 +37,29 @@ static int s_AllocationCount = 0;
 //     std::free(memory);
 // }
 
+
+void Task4_displayMenu()
+{
+    std::cout << "\033[1;34m" // 🔵 Bold Blue
+              << "\n==================================\n"
+              << "      🎾 MATCH HISTORY TRACKER 🎾\n"
+              << "==================================\n"
+              << "\033[0m"; // Reset color
+
+    std::cout << "\033[1;33m" // 🟡 Bold Yellow
+              << "1️⃣  Record Match Result\n"
+              << "2️⃣  View Match History\n"
+              << "3️⃣  Retrieve Specific Match\n"
+              << "4️⃣  Delete Specific Match\n"
+              << "5️⃣  Update Specific Match\n"
+              << "6️⃣  Undo Last Match\n"
+              << "7️⃣  Exit..\n"
+              << "\033[0m"; // Reset color
+
+    std::cout << "\033[1;34m==================================\033[0m\n"; // 🔵 Blue divider
+    std::cout << "👉 Enter your choice: ";
+}
+
 namespace TCMS {
     class System {      
         public:
@@ -127,7 +150,10 @@ namespace TCMS {
                     //     std::cin >> input;
                     }
                     else if (input == "4") {
-                        
+                        Task4_displayMenu();
+
+                        init_header();
+                        std::cin >> input;
                     }
                     else if (input == "5") {
                         has_input = false;  
