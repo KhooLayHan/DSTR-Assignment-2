@@ -95,6 +95,9 @@ class Player {
 
         Player() : m_UUID(UUID().toString()), m_UID(UID(TCMS_UID::Player).toPlayerString()), m_Name("Unknown"), m_SkillLevel(0), m_Age(0), m_Ranking(0), m_IsActive(true) {}
     
+        Player(std::string_view name, int32_t skillLevel) : 
+            m_UUID(UUID().toString()), m_UID(UID(TCMS_UID::Player).toPlayerString()), m_Name(name), m_SkillLevel(skillLevel), m_Age(0), m_Ranking(0), m_IsActive(true) {}
+
         Player(std::string_view name, int32_t skillLevel, std::string_view nationality, int32_t age, std::string_view gender, int32_t ranking)
             : m_UUID(UUID().toString()), m_UID(UID(TCMS_UID::Player).toPlayerString()), 
               m_Name(name), m_SkillLevel(skillLevel), m_Nationality(nationality), m_Age(age), m_Gender(gender), m_Ranking(ranking), m_IsActive(true) {}

@@ -185,80 +185,82 @@ namespace TCMS {
         //     }
         // }
 
-        void playGroupMatches() {
-            std::cout << "\n--- Round Robin Matches ---\n";
+        // void playGroupMatches() {
+        //     std::cout << "\n--- Round Robin Matches ---\n";
 
-            // size_t numPlayers = m_PlayerQueue.getLength();
-            // auto tempQueue = m_PlayerQueue;  // Copy to avoid modifying original queue
+        //     // size_t numPlayers = m_PlayerQueue.getLength();
+        //     // auto tempQueue = m_PlayerQueue;  // Copy to avoid modifying original queue
 
-            // // CircularQueue<Players> winnerQueue;
+        //     // // CircularQueue<Players> winnerQueue;
 
-            // for (size_t i = 0; i < numPlayers - 1; i++) {  // Each player gets to play
-            //     auto player1 = m_PlayerQueue.dequeue();
+        //     // for (size_t i = 0; i < numPlayers - 1; i++) {  // Each player gets to play
+        //     //     auto player1 = m_PlayerQueue.dequeue();
                 
-            //     // Match player1 with remaining players in queue
-            //     size_t matches = numPlayers - i - 1;  // Prevent duplicate matchups
-            //     for (size_t j = 0; j < matches; j++) {
-            //         auto player2 = m_PlayerQueue.dequeue();
-            //         // auto player2 = tempQueue.peekFront();
+        //     //     // Match player1 with remaining players in queue
+        //     //     size_t matches = numPlayers - i - 1;  // Prevent duplicate matchups
+        //     //     for (size_t j = 0; j < matches; j++) {
+        //     //         auto player2 = m_PlayerQueue.dequeue();
+        //     //         // auto player2 = tempQueue.peekFront();
                     
-            //         Match match(player1, player2);
-            //         auto winner = match.playMatch();
+        //     //         Match match(player1, player2);
+        //     //         auto winner = match.playMatch();
 
-            //         if (winner) {
-            //             m_MatchWins[winner->getUUID()]++;
-            //             m_TotalPoints[winner->getUUID()] += winner->getSkillLevel() + winner->getPoints();
+        //     //         if (winner) {
+        //     //             m_MatchWins[winner->getUUID()]++;
+        //     //             m_TotalPoints[winner->getUUID()] += winner->getSkillLevel() + winner->getPoints();
 
-            //             if (!m_AdvancingPlayersMap.count(winner->getUUID())) {
-            //                 m_AdvancingPlayers->enqueue(winner, winner->getSkillLevel());
-            //                 m_AdvancingPlayersMap[winner->getUUID()] = winner;
-            //             }
-            //         }
+        //     //             if (!m_AdvancingPlayersMap.count(winner->getUUID())) {
+        //     //                 m_AdvancingPlayers->enqueue(winner, winner->getSkillLevel());
+        //     //                 m_AdvancingPlayersMap[winner->getUUID()] = winner;
+        //     //             }
+        //     //         }
                     
-            //         tempQueue.enqueue(player2);  // Rotate players back in queue
-            //     }
+        //     //         tempQueue.enqueue(player2);  // Rotate players back in queue
+        //     //     }
 
-            //     tempQueue.enqueue(player1);  // Ensure round-robin rotation
-            // }
+        //     //     tempQueue.enqueue(player1);  // Ensure round-robin rotation
+        //     // }
 
-            std::cout << "\n--- Round Robin Matches ---\n";
+        //     std::cout << "\n--- Round Robin Matches ---\n";
 
-            size_t numPlayers = m_PlayerQueue.getLength();
-            if (numPlayers < 2) {
-                std::cerr << "Error: Not enough players to start a round-robin tournament.\n";
-                return;
-            }
+        //     size_t numPlayers = m_PlayerQueue.getLength();
+        //     if (numPlayers < 2) {
+        //         std::cerr << "Error: Not enough players to start a round-robin tournament.\n";
+        //         return;
+        //     }
         
-            // Use a vector to store players for rotation
-            Vector<std::shared_ptr<Player>> players;
-            while (!m_PlayerQueue.isEmpty()) {
-                players.pushBack(m_PlayerQueue.dequeue());
-            }
+        //     // Use a vector to store players for rotation
+        //     Vector<std::shared_ptr<Player>> players;
+        //     while (!m_PlayerQueue.isEmpty()) {
+        //         players.pushBack(m_PlayerQueue.dequeue());
+        //     }
         
-            for (size_t i = 0; i < numPlayers - 1; i++) {  // Each player gets to play
-                auto player1 = players[i];
+        //     for (size_t i = 0; i < numPlayers - 1; i++) {  // Each player gets to play
+        //         auto player1 = players[i];
         
-                // Match player1 with remaining players
-                for (size_t j = i + 1; j < numPlayers; j++) {
-                    auto player2 = players[j];
+        //         // Match player1 with remaining players
+        //         for (size_t j = i + 1; j < numPlayers; j++) {
+        //             auto player2 = players[j];
         
-                    // Simulate the match
-                    Match match(player1, player2);
-                    auto winner = match.playMatch();
+        //             // Simulate the match
+        //             Match match(player1, player2);
+        //             auto winner = match.playMatch();
         
-                    if (winner) {
-                        // Update match wins and total points for the winner
-                        m_MatchWins[winner->getUUID()]++;
-                        m_TotalPoints[winner->getUUID()] += winner->getSkillLevel() + winner->getPoints();
+        //             if (winner) {
+        //                 // Update match wins and total points for the winner
+        //                 m_MatchWins[winner->getUUID()]++;
+        //                 m_TotalPoints[winner->getUUID()] += winner->getSkillLevel() + winner->getPoints();
         
-                        // Add the winner to the advancing players queue and map
-                        if (!m_AdvancingPlayersMap.count(winner->getUUID())) {
-                            m_AdvancingPlayers->enqueue(winner, winner->getSkillLevel());
-                            m_AdvancingPlayersMap[winner->getUUID()] = winner;
-                        }
-                    }
-                }
-            }
+        //                 // Add the winner to the advancing players queue and map
+        //                 // if (!m_AdvancingPlayersMap.count(winner->getUUID())) {
+        //                 //     m_AdvancingPlayers->enqueue(winner, winner->getSkillLevel());
+        //                 //     m_AdvancingPlayersMap[winner->getUUID()] = winner;
+        //                 // }
+
+        //                 if (m_AdvancingPlayersMap.find(winner->getUUID()) == m_AdvancingPlayersMap.end()) 
+        //             }
+        //         }
+        //     }
         
             // // Restore the original queue
             // for (const auto& player : players) {
@@ -266,6 +268,59 @@ namespace TCMS {
             // }
         
             // std::cout << "Round-robin matches completed.\n";
+        // }
+
+        // Play round-robin matches between all players
+        void playGroupMatches() {
+            std::cout << "\n--- Round Robin Matches ---\n";
+
+            size_t numPlayers = m_PlayerQueue.getLength();
+            if (numPlayers < 2) {
+                std::cerr << "Error: Not enough players to start a round-robin tournament.\n";
+                return;
+            }
+
+            // Use a vector to store players for rotation
+            Vector<std::shared_ptr<Player>> players;
+            while (!m_PlayerQueue.isEmpty()) {
+                players.pushBack(m_PlayerQueue.dequeue());
+            }
+
+            // Play matches between all pairs of players
+            for (size_t i = 0; i < numPlayers - 1; i++) {
+                auto player1 = players[i];
+
+                for (size_t j = i + 1; j < numPlayers; j++) {
+                    auto player2 = players[j];
+
+                    // Simulate the match
+                    Match match(player1, player2);
+                    auto winner = match.playMatch();
+
+                    if (winner) {
+                        // Update match wins and total points for the winner
+                        if (m_MatchWins.find(winner->getUUID())) {
+                            m_MatchWins[winner->getUUID()]++;
+                        } else {
+                            m_MatchWins.insert(winner->getUUID(), 1);
+                        }
+
+                        if (m_TotalPoints.find(winner->getUUID())) {
+                            m_TotalPoints[winner->getUUID()] += winner->getSkillLevel() + winner->getPoints();
+                        } else {
+                            m_TotalPoints.insert(winner->getUUID(), winner->getSkillLevel() + winner->getPoints());
+                        }
+
+                        // Add the winner to the advancing players queue and map if not already present
+                        if (!m_AdvancingPlayersMap.find(winner->getUUID())) {
+                            m_AdvancingPlayers->enqueue(winner, winner->getSkillLevel());
+                            m_AdvancingPlayersMap.insert(winner->getUUID(), winner);
+                        }
+                    }
+                }
+            }
+
+            std::cout << "Round-robin matches completed.\n";
         }
 
         // void playGroupMatches() {
@@ -330,12 +385,12 @@ namespace TCMS {
         // std::shared_ptr<CircularQueue<Players>> m_PlayerQueue;
         std::shared_ptr<PriorityQueue<Players>> m_AdvancingPlayers;
 
-        // HashMap<std::string, int32_t> m_MatchWins;  // Player Id -> Total Win Count
-        // HashMap<std::string, int32_t> m_TotalPoints;  // Player Id -> Total Points
-        // HashMap<std::string, Players> m_AdvancingPlayersMap;  // ✅ To track unique advancing players
-        std::unordered_map<std::string, int32_t> m_MatchWins;  // Player Id -> Total Win Count
-        std::unordered_map<std::string, int32_t> m_TotalPoints;  // Player Id -> Total Points
-        std::unordered_map<std::string, Players> m_AdvancingPlayersMap;  // ✅ To track unique advancing players
+        HashMap<std::string, int32_t> m_MatchWins;  // Player Id -> Total Win Count
+        HashMap<std::string, int32_t> m_TotalPoints;  // Player Id -> Total Points
+        HashMap<std::string, Players> m_AdvancingPlayersMap;  // ✅ To track unique advancing players
+        // std::unordered_map<std::string, int32_t> m_MatchWins;  // Player Id -> Total Win Count
+        // std::unordered_map<std::string, int32_t> m_TotalPoints;  // Player Id -> Total Points
+        // std::unordered_map<std::string, Players> m_AdvancingPlayersMap;  // ✅ To track unique advancing players
         // Using std::weak_ptr to avoid circular dependencies
         // std::weak_ptr<PriorityQueue<Players>> m_SeededPlayers;
     };

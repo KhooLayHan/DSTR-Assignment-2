@@ -11,7 +11,7 @@ Ticket::Ticket(TicketType type, double price, const std::string& seatNumber, con
 
 Ticket::~Ticket() {
     // Destructor.  No need to do anything here; TicketingSystem handles deletion.
-    std::cout << "Ticket " << m_TicketId << " destroyed.\n";
+    // std::cout << "Ticket " << m_TicketId << " destroyed.\n";
 }
 
 std::string Ticket::getTicketId() const {

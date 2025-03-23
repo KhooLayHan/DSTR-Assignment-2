@@ -10,7 +10,7 @@ Spectator::Spectator(const std::string& name, int age)
 
 Spectator::~Spectator() {
      // Destructor.  No need to delete m_Ticket here; TicketingSystem handles it.
-     std::cout << "Spectator " << m_Name << " destroyed.\n";
+     // std::cout << "Spectator " << m_Name << " destroyed.\n";
 }
 
 std::string Spectator::getSpectatorId() const {
