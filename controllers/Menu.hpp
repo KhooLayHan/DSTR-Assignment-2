@@ -35,7 +35,6 @@
 namespace TCMS
 {
     void task1() {
-        
         Vector<Players> players;
         FileHandling::readPlayerFile("./logs/player.txt", players);
 
