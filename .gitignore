@@ -1,6 +1,7 @@
 # Ignore log files
-Logs/
+logs/
 *.log
+log.txt
 error_log.txt
 
 # Ignore Git LFS-tracked files if you don’t want them in Git
