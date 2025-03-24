@@ -13,16 +13,22 @@
                 "--std=c++20",
                 "-O0",
                 "-g",
-                // "TCMS/Main.cpp",
+
                 "./Main.cpp",
-                "./controllers/TicketingSystem.cpp",
+
                 "./models/Spectator.cpp",
                 "./models/Ticket.cpp",
-                "./core/utils/SimpleFileLogger.cpp",
-                "./core/utils/SimpleLoggingService.cpp",
-                "./core/FileHandling.cpp",
-                "./controllers/ConfigManager.cpp",
 
+                "./controllers/TicketingMenu.cpp",
+                "./controllers/TicketingSystem.cpp",
+                "./controllers/WithdrawalManager.cpp",
+                
+                "./utils/SimpleFileLogger.cpp",
+                "./utils/SimpleLoggingService.cpp",
+                
+                "./core/ConfigManager.cpp",
+                "./core/FileHandling.cpp",
+                
                 // "./LinkedLists/SinglyLinkedListNode.cpp",
                 // "./LinkedLists/SinglyLinkedList.cpp",
                 // "./TCMS/DataStructures/${fileBasenameNoExtension}.cpp",
@@ -54,16 +60,22 @@
                 "--std=c++20",
                 "-O0",
                 "-g",
-                // "TCMS/Main.cpp",
+                
                 "./Main.cpp",
-                "./controllers/TicketingSystem.cpp",
+
                 "./models/Spectator.cpp",
                 "./models/Ticket.cpp",
 
-                "./core/utils/SimpleFileLogger.cpp",
-                "./core/utils/SimpleLoggingService.cpp",
+                "./controllers/TicketingMenu.cpp",
+                "./controllers/TicketingSystem.cpp",
+                "./controllers/WithdrawalManager.cpp",
+                
+                "./utils/SimpleFileLogger.cpp",
+                "./utils/SimpleLoggingService.cpp",
+                
+                "./core/ConfigManager.cpp",
                 "./core/FileHandling.cpp",
-                "./controllers/ConfigManager.cpp",
+
                 // "./LinkedLists/SinglyLinkedListNode.cpp",
                 // "./LinkedLists/SinglyLinkedList.cpp",
                 // "./TCMS/DataStructures/${fileBasenameNoExtension}.cpp",
@@ -94,33 +106,21 @@
                 "-DNDEBUG",
                 "--std=c++20",
                 "-g",
+
                 "./Main.cpp",
 
-                // "./Algorithm.cpp",
-                // "./Benchmark.cpp",
-                // "./ConfigManager.cpp",
-                // "./ConversionUtility.cpp",
-                // "./DateUtility.cpp",
-                // "./FileHandling.cpp",
-                // "./LinkedList.cpp",
+                "./models/Spectator.cpp",
+                "./models/Ticket.cpp",
+
+                "./controllers/TicketingMenu.cpp",
+                "./controllers/TicketingSystem.cpp",
+                "./controllers/WithdrawalManager.cpp",
                 
-                // "./SearchBinaryLinkedList.cpp",
-                // "./SearchLinearDynamicArray.cpp",
-                // "./SearchLinearLinkedList.cpp",
-
-                // "./SimpleConsoleLogger.cpp",
-                // "./SimpleFileLogger.cpp",
-                // "./SimpleLoggingService.cpp",
-
-                // "./SortHeapArray.cpp",   
-                // "./SortHeapLinkedList.cpp",
-                // "./SortMergeArray.cpp",   
-                // "./SortMergeLinkedList.cpp",
-                // "./SortQuickArray.cpp",   
-                // "./SortQuickLinkedList.cpp",
-                                
-                // "./WordList.cpp",
-                // "./WordListSorted.cpp",
+                "./utils/SimpleFileLogger.cpp",
+                "./utils/SimpleLoggingService.cpp",
+                
+                "./core/ConfigManager.cpp",
+                "./core/FileHandling.cpp",
                 
                 "-o",
                 "${fileDirname}/Main"

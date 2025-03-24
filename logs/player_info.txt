@@ -1,0 +1,30 @@
+UID,Name,SkillLevel,Nationality,Age,Gender,Ranking
+2,Rafael Nadal,94,Spain,37,M,2
+3,Novak Djokovic,96,Serbia,36,M,3
+4,Andy Murray,88,United Kingdom,36,M,4
+5,Alexander Zverev,90,Germany,26,M,5
+6,Daniil Medvedev,91,Russia,27,M,6
+7,Stefanos Tsitsipas,89,Greece,25,M,7
+8,Carlos Alcaraz,92,Spain,20,M,8
+9,Matteo Berrettini,87,Italy,27,M,9
+10,Casper Ruud,86,Norway,24,M,10
+11,Andrey Rublev,88,Russia,25,M,11
+12,Felix Auger-Aliassime,85,Canada,23,M,12
+13,Jannik Sinner,84,Italy,22,M,13
+14,Denis Shapovalov,83,Canada,24,M,14
+15,Test,70,Unknown,0,Unknown,0
+16,Diego Schwartzman,81,Argentina,31,M,16
+17,Aslan Karatsev,80,Russia,29,M,17
+18,Pablo Carreno Busta,79,Spain,32,M,18
+19,Roberto Bautista Agut,78,Spain,35,M,19
+20,Reilly Opelka,77,United States,26,M,20
+21,Serena Williams,93,United States,41,F,1
+22,Naomi Osaka,92,Japan,25,F,2
+23,Ashleigh Barty,91,Australia,27,F,3
+24,Simona Halep,90,Romania,31,F,4
+25,Bianca Andreescu,89,Canada,23,F,5
+26,Sofia Kenin,88,United States,24,F,6
+27,Iga Swiatek,87,Poland,22,F,7
+28,Karolina Pliskova,86,Czech Republic,31,F,8
+29,Elina Svitolina,85,Ukraine,28,F,9
+30,Aryna Sabalenka,84,Belarus,25,F,10

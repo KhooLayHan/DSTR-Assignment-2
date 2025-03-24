@@ -1,8 +1,0 @@
-{
-    "name": "tcms",
-    "version": "1.0.0",
-    "dependencies": [
-        "gtest"
-    ],
-    "builtin-baseline": "aac8812f26c3d13ea42bc1baaffae273385911aa"
-}
