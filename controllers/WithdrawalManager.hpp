@@ -5,13 +5,13 @@
 #include <memory>
 #include <iostream>
 
-#include "../DataStructures/Stack.hpp"
-#include "../DataStructures/Queue.hpp"
+#include "../data_structures/Stack.hpp"
+#include "../data_structures/Queue.hpp"
 #include "../models/Player.hpp"
-#include "../controllers/MatchScheduler.hpp"
+#include "./MatchScheduler.hpp"
 #include "../models/Match.hpp"
 
-#include "../DataStructures/Vector.hpp"
+#include "../data_structures/Vector.hpp"
 
 namespace TCMS
 {

@@ -1,7 +1,7 @@
 // DataStructures/Stack.hpp
 #pragma once  // Ensures the header file is included only once in a compilation unit
 
-#include "../LinkedLists/SinglyLinkedList.hpp"  // Includes the SinglyLinkedList class
+#include "./linked_lists/SinglyLinkedList.hpp"  // Includes the SinglyLinkedList class
 
 namespace TCMS  // Defines a namespace to avoid name conflicts
 {
