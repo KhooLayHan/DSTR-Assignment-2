@@ -120,7 +120,7 @@ void TicketingSystem::sellTickets() {
         
         // Determine ticket type based on priority
         int buyerPriority = buyer->getPriority();
-        if (buyerPriority == 3) {
+        if (buyerPriority == 1) {
             desiredType = TicketType::VIP;
         } else if (buyerPriority == 2) {
             desiredType = TicketType::EARLY_BIRD;
