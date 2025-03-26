@@ -310,6 +310,43 @@ namespace TCMS
     
                 historyTracker.deleteMatch(position);
             }
+            else if (choice == 5) // Update a specific match
+            {
+                int position;
+                std::string p1, p2;
+                int s1, s2;
+    
+                std::cout << "Enter match position to update: ";
+                std::cin >> position;
+    
+                if (std::cin.fail())
+                {
+                    std::cin.clear();
+                    std::cin.ignore(1000, '\n');
+                    std::cout << "\033[1;31m❌ Invalid position! Enter a valid number.\033[0m\n";
+                    continue;
+                }
+    
+                std::cin.ignore();
+                std::cout << "Enter new Player 1 Name: ";
+                std::getline(std::cin, p1);
+                std::cout << "Enter new Player 2 Name: ";
+                std::getline(std::cin, p2);
+                std::cout << "Enter new " << p1 << " Score: ";
+                std::cin >> s1;
+                std::cout << "Enter new " << p2 << " Score: ";
+                std::cin >> s2;
+    
+                if (std::cin.fail())
+                {
+                    std::cin.clear();
+                    std::cin.ignore(1000, '\n');
+                    std::cout << "\033[1;31m❌ Invalid scores! Enter valid integers.\033[0m\n";
+                    continue;
+                }
+    
+                historyTracker.updateMatch(position, p1, p2, s1, s2);
+            }
             else if (choice == 6) // Undo last match
             {
                 historyTracker.undoLastMatch();
