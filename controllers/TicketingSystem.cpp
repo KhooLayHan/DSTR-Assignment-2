@@ -114,9 +114,22 @@ Ticket* TicketingSystem::findAvailableTicket(TicketType type) {
 void TicketingSystem::sellTickets() {
     std::cout << "\n=== Processing Ticket Sales ===\n";
     
+    // Debug output to verify queue status
+    std::cout << "Debug: Ticket priority queue size: " << ticket_priority_queue.getLength() << std::endl;
+    
+    if (ticket_priority_queue.isEmpty()) {
+        std::cout << "No spectators in the queue waiting to purchase tickets." << std::endl;
+        std::cout << "=== Ticket Sales Processing Complete ===\n";
+        return;
+    }
+    
     while (!ticket_priority_queue.isEmpty()) {
         Spectator* buyer = ticket_priority_queue.dequeue();
         TicketType desiredType;
+        
+        // Debug output to verify spectator details
+        std::cout << "Debug: Processing spectator " << buyer->getName() 
+                  << " with priority " << buyer->getPriority() << std::endl;
         
         // Determine ticket type based on priority
         int buyerPriority = buyer->getPriority();
@@ -136,6 +149,10 @@ void TicketingSystem::sellTickets() {
             ticket->markAsSold();
             ticket->setBuyerId(buyer->getSpectatorId());
             buyer->setTicket(ticket);
+            
+            // Debug output to verify ticket assignment
+            std::cout << "Debug: Assigned ticket " << ticket->getTicketId() 
+                      << " to " << buyer->getName() << std::endl;
             
             // Move ticket from available to sold list
             available_tickets.remove(ticket);
@@ -174,6 +191,10 @@ void TicketingSystem::sellTickets() {
                 ticket->setBuyerId(buyer->getSpectatorId());
                 buyer->setTicket(ticket);
                 
+                // Debug output to verify ticket assignment
+                std::cout << "Debug: Assigned alternative ticket " << ticket->getTicketId() 
+                          << " to " << buyer->getName() << std::endl;
+                
                 // Move ticket from available to sold list
                 available_tickets.remove(ticket);
                 sold_tickets.insertEnd(ticket);
@@ -193,12 +214,16 @@ void TicketingSystem::sellTickets() {
         }
     }
     
+    // Debug output after processing
+    std::cout << "Debug: Remaining queue size: " << ticket_priority_queue.getLength() << std::endl;
+    std::cout << "Debug: Entry queue size: " << entry_queue.getLength() << std::endl;
+    
     std::cout << "=== Ticket Sales Processing Complete ===\n";
 }
 
 // Cancel a ticket by ID
 void TicketingSystem::cancelTicket(const std::string& ticket_id) {
-    // Search for the ticket in sold tickets
+    // First search in sold tickets
     DoublyLinkedListNode<Ticket*>* current = static_cast<DoublyLinkedListNode<Ticket*>*>(sold_tickets.getHeadBase());
     
     while (current != nullptr) {
@@ -248,6 +273,20 @@ void TicketingSystem::cancelTicket(const std::string& ticket_id) {
         current = current->getNext();
     }
     
+    // If not found in sold tickets, search in available tickets
+    current = static_cast<DoublyLinkedListNode<Ticket*>*>(available_tickets.getHeadBase());
+    while (current != nullptr) {
+        if (current->getData()->getTicketId() == ticket_id) {
+            Ticket* ticket = current->getData();
+            available_tickets.remove(ticket);
+            delete ticket;
+            std::cout << "Available ticket " << ticket_id << " has been removed from the system." << std::endl;
+            return;
+        }
+        current = current->getNext();
+    }
+    
+    // If not found in either list
     std::cout << "Ticket " << ticket_id << " not found or cannot be cancelled." << std::endl;
 }
 
