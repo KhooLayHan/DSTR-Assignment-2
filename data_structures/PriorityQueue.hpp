@@ -84,7 +84,13 @@ namespace TCMS
                 static_cast<DoublyLinkedListNode<PriorityItem>*>(m_List.getHeadBase());
 
             // Traverse the list to find the correct insertion position.
-            while (current && current->getData().m_Priority <= priority) {
+            while (current && current->getData().m_Priority > priority) {
+                position++;
+                current = current->getNext();
+            }
+
+            // When equal priority found, continue to the end of that priority level
+            while (current && current->getData().m_Priority == priority) {
                 position++;
                 current = current->getNext();
             }
